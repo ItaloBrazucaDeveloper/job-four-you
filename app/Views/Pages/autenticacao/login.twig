@@ -1,0 +1,73 @@
+{% extends "Layouts/main.layout.twig" %}
+
+{% import "Macros/link.twig" as Link %}
+{% import "Macros/alert.twig" as Alert %}
+{% import "Macros/label.twig" as Label %}
+{% import "Macros/input.twig" as Input %}
+{% import "Macros/button.twig" as Button %}
+{% import "Macros/checkbox.twig" as Checkbox %}
+
+{% block title %}Login | Job4You{% endblock %}
+
+{% block main %}
+	<main class="flex-grow flex items-center justify-center py-12 px-4 md:px-6 lg:px-8">
+		<div class="w-full max-w-md space-y-8">
+			<header class="text-center">
+				<h2 class="mt-6 text-3xl font-bold text-gray-900">Login</h2>
+
+				{% if flash_message is not empty or getInputError('email') or getInputError('senha') %}
+					{{ Alert.render(
+						type: flash_message.type|lower|default('error'),
+						message: flash_message.message|default('Credenciais inválidas, tente novamente...'),
+						class: 'mt-4'
+					) }}
+				{% endif %}
+			</header>
+
+			<form class="mt-8 space-y-6" action="/autenticacao" method="POST">
+				<div class="space-y-4">
+					<div>
+						{{ Label.render(for: 'email', text: 'E-mail') }}
+						{{ Input.render(
+							name: 'email',
+							type: 'email',
+							placeholder: 'Seu e-mail',
+							icon: 'bi bi-envelope',
+							autocomplete: 'email'
+						) }}
+					</div>
+					<div>
+						{{ Label.render(for: 'senha', text: 'Senha') }}
+						{{ Input.render(
+							name: 'senha',
+							type: 'password',
+							placeholder: 'Sua senha',
+							icon: 'bi bi-lock',
+							autocomplete: 'current-password'
+						) }}
+					</div>
+				</div>
+				
+				<div class="flex items-center justify-between">
+					{{ Checkbox.render(name: 'remember-me', label: 'Lembrar-me') }}
+					{{ Link.render(href: '/recuperar-senha', text: 'Esqueceu sua senha?', class: 'text-sm') }}
+				</div>
+
+				{{ Button.render(type: 'submit', text: 'Entrar') }}
+			</form>
+
+			<span class="block w-full text-center text-sm text-gray-600">
+				Não tem uma conta?
+				{{ Link.render(
+					href: '/usuarios/cadastro',
+					text: 'Cadastre-se',
+					class: 'text-gray-600 hover:text-gray-700'
+				) }}
+			</span>
+		</div>
+	</main>
+{% endblock %}
+
+{% block scripts %}
+	<script type="module" src="/assets/js/login/index.js"></script>
+{% endblock %}

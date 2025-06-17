@@ -1,0 +1,76 @@
+<section class="py-12 relative">
+  
+  <div class="max-w-7xl min-h-96 mx-auto px-6 relative">
+    <div class="glider-container">
+      <div class="glider">
+        {% if prestadores is not empty and prestadores is defined %}
+          {% for prestador in prestadores %}
+            <div class="px-2"> {# Carrossel de prestadores #}
+              <div class="bg-white rounded-lg shadow-md overflow-hidden transition-transform hover:scale-[1.02]">
+                <div class="p-6 text-center">
+                  <div class="h-32 w-32 mx-auto mb-4 rounded-full overflow-hidden bg-gray-200">
+                    <img
+                      src="{{ prestador.foto ? '/uploads/' ~ prestador.foto : '/img/fotoperfil.jpg' }}"
+                      alt="{{ 'Foto do prestador: ' ~ prestador.nome }}"
+                      class="h-full w-full object-cover"
+                    >
+                  </div>
+                  
+                  <h3 class="text-xl font-bold text-gray-800 mb-2">
+                    {{ prestador.nome }}
+                  </h3>
+                  <p class="text-gray-600 mb-1">
+                    {{ prestador.categoria }}
+                  </p>
+                  <p class="text-gray-500 text-sm mb-3">
+                    <i class="bi bi-cash-stack mr-1"></i>
+                    R$ {{ prestador.valor|number_format(2, ',', '.') }}
+                  </p>
+
+                  <div class="flex justify-center text-yellow-400 mb-4">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-half"></i>
+                    <span class="text-gray-500 text-xs ml-1">({{ prestador.quantidadeFavorito }})</span>
+                  </div>
+
+                  <button
+                    onclick=""
+                    class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-100 font-medium py-2 px-4 rounded-md transition-colors">
+                    Ver Perfil
+                  </button>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+        {% else %}
+          <div class="flex flex-col items-center justify-center px-2 min-h-96 bg-white rounded-lg shadow-md p-6 text-center">
+            <span class="block text-gray-600 text-lg mb-6">
+              Nenhum prestador disponível nesta categoria no momento.
+            </span>
+            <a href="/servicos" class="w-fit bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-2 px-6 rounded-full transition-colors">
+              Escolher outra categoria
+            </a>
+          </div>
+        {% endif %}
+      </div>
+
+      {# Botões de Navegação #}
+      <button
+        aria-label="Previous"
+        class="glider-prev absolute left-0 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors"
+      >
+        <i class="bi bi-chevron-left text-gray-700 text-xl"></i>
+      </button>
+      <button
+        aria-label="Next"
+        class="glider-next absolute right-0 top-1/2 transform -translate-y-1/2 bg-white p-3 rounded-full shadow-md hover:bg-gray-100 transition-colors"
+      >
+        <i class="bi bi-chevron-right text-gray-700 text-xl"></i>
+      </button>
+    </div>
+  </div>
+  
+</section>

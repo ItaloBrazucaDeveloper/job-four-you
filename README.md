@@ -4,6 +4,10 @@
 
 <div align="center">
 
+  <h1> - Job4You - </h1>
+
+  ![Foto da página inicial](preview.png)
+
   [![PHP Version](https://img.shields.io/badge/PHP-%38.4-blue.svg?style=for-the-badge&color=007BFF)](https://www.php.net/)
   [![Bootstrap Version](https://img.shields.io/badge/Bootstrap-%35.0-blueviolet.svg?style=for-the-badge&color=6F42C1)](https://getbootstrap.com/)
   [![MySQL Version](https://img.shields.io/badge/MySQL-%38.4-blue.svg?style=for-the-badge)](https://www.mysql.com/)
@@ -31,7 +35,47 @@ Siga o passo a passo de como instalar o projeto na sua máquina.
   ```
 
 ## 🚀 Como iniciar o projeto
+Escolha uma das formas abaixo para executar o projeto na sua máquina.
+
+### ⛔🐳 Sem Docker
 Siga o passo a passo para executar o projeto localmente.
+
+> **Atenção:** Certifique-se de ter o [Mysql](https://www.mysql.com/) e o [PHP](https://www.php.net/) instalados em sua máquina antes de usar este método.
+
+1. **Copie e renomeie o arquivo `.example.env`**
+
+  ```bash
+    $ cp .example.env .env
+  ```
+
+2. **Defina as variáveis de ambiente no arquivo `.env`**
+
+  ```textplain
+    DB_HOST=SEU_HOST
+    DB_USER=SEU_USUARIO
+    DB_PASSWD=SUA_SENHA
+    DB_NAME=NOME_DO_SEU_BANCO
+    DB_PORT=PORTA_DO_SEU_BANCO
+  ```
+
+3. **Execute o script '.sh' para automatizar a criação do banco de dados**
+
+  ```bash
+    $ /banco/init-db.sh
+  ```
+
+4. **Inicie o servidor**
+
+  ```bash
+    $ php -S localhost:5173
+  ```
+
+5. **Acesse o projeto pelo navegador em: http://localhost:5173/**
+
+### ✅🐳 Com Docker
+Siga o passo a passo para executar o projeto usando Docker.
+
+---
 
 > **Atenção:** Certifique-se de ter o [Docker](https://www.docker.com/) e o [Docker Compose](https://docs.docker.com/compose/) instalados em sua máquina antes de usar este método.
 

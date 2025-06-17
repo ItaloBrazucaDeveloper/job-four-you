@@ -1,0 +1,14 @@
+{% macro render(name, label, checked = false, class = '') %}
+  <div class="flex items-center">
+    <input 
+      id="{{ name }}" 
+      name="{{ name }}" 
+      type="checkbox" 
+      {% if checked %}checked{% endif %}
+      class="h-4 w-4 text-gray-500 focus:ring-gray-500 border-gray-300 rounded {{ class }}"
+  >
+    <label for="{{ name }}" class="ml-2 block text-sm text-gray-700">
+      {{ label }}
+    </label>
+  </div>
+{% endmacro %}  

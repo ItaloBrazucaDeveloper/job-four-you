@@ -1,0 +1,17 @@
+{% macro render(name, text, rows = 4, placeholder = '', required = false, icon = '') %}
+  <div class="relative">
+    {% if icon %}
+      <div class="absolute top-3 left-3">
+        <i class="{{ icon }} text-gray-400"></i>
+      </div>
+    {% endif %}
+    <textarea 
+      id="{{ name }}"
+      name="{{ name }}"
+      rows="{{ rows }}"
+      {% if required %}required{% endif %}
+      class="py-2 {% if icon %}pl-10{% endif %} block w-full border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500"
+      placeholder="{{ placeholder }}"
+    >{{ text }}</textarea>
+  </div>
+{% endmacro %} 

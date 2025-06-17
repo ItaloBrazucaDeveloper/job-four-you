@@ -1,0 +1,8 @@
+.env
+!.example.env
+.vscode
+.idea
+
+vendor/
+node_modules/
+var/

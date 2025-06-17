@@ -1,0 +1,104 @@
+<!-- SEÇÃO DE SERVIÇO -->
+<div id="servico" class="p-6 md:p-8 hidden">
+  {% if servico %}
+    <div class="space-y-6">
+      <!-- Resumo do Serviço -->
+      <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
+        <div class="flex justify-between items-start">
+          <div>
+            <h2 class="text-xl font-bold">{{ servico.titulo }}</h2>
+            <p class="text-gray-600 mt-2">{{ servico.descricao }}</p>
+          </div>
+          <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">Ativo</span>
+        </div>
+        
+        <!-- Estatísticas -->
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <!-- Avaliação Média -->
+          <div class="bg-blue-50 p-4 rounded-lg">
+            <div class="flex items-center justify-center">
+              <div class="star-rating">
+                ★★★★★
+                <div class="filled" style="width: {{ (media_avaliacoes / 5) * 100 }}%">★★★★★</div>
+              </div>
+              <span class="ml-2 font-bold">{{ media_avaliacoes }}</span>
+            </div>
+            <p class="text-center text-sm text-gray-600 mt-2">Avaliação Média</p>
+          </div>
+
+          <!-- Total de Avaliações -->
+          <div class="bg-green-50 p-4 rounded-lg">
+            <div class="flex items-center justify-center">
+              <i class="fas fa-star text-2xl text-green-500"></i>
+              <span class="ml-2 font-bold">{{ avaliacoes|length }}</span>
+            </div>
+            <p class="text-center text-sm text-gray-600 mt-2">Total de Avaliações</p>
+          </div>
+
+          <!-- Status do Serviço -->
+          <div class="bg-purple-50 p-4 rounded-lg">
+            <div class="flex items-center justify-center">
+              <i class="fas fa-check-circle text-2xl text-purple-500"></i>
+              <span class="ml-2 font-bold">Ativo</span>
+            </div>
+            <p class="text-center text-sm text-gray-600 mt-2">Status do Serviço</p>
+          </div>
+        </div>
+
+        <!-- Ações do Serviço -->
+        <div class="mt-8 flex justify-end gap-4">
+          <a href="/servicos/editar/{{ servico.id }}" 
+             class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+            <i class="fas fa-edit mr-2"></i> Editar Serviço
+          </a>
+          <button type="button" 
+                  class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
+                  onclick="confirmarDesativacao({{ servico.id }})">
+            <i class="fas fa-times mr-2"></i> Desativar Serviço
+          </button>
+        </div>
+      </div>
+
+      <!-- Lista de Avaliações -->
+      <div class="mt-8">
+        <h3 class="text-lg font-bold text-gray-800 mb-4">Avaliações Recebidas</h3>
+        
+        {% if avaliacoes|length > 0 %}
+          <div class="space-y-4">
+            {% for avaliacao in avaliacoes %}
+              <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="flex items-center">
+                      <div class="star-rating">
+                        ★★★★★
+                        <div class="filled" style="width: {{ (avaliacao.nota / 5) * 100 }}%">★★★★★</div>
+                      </div>
+                      <span class="ml-2 font-bold">{{ avaliacao.nota }}</span>
+                    </div>
+                    <p class="text-gray-600 mt-2">{{ avaliacao.comentario }}</p>
+                  </div>
+                  <span class="text-sm text-gray-500">{{ avaliacao.data_avaliacao|date('d/m/Y') }}</span>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        {% else %}
+          <div class="text-center py-8">
+            <i class="fas fa-star text-4xl text-gray-300 mb-4"></i>
+            <p class="text-gray-500">Nenhuma avaliação recebida ainda.</p>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  {% else %}
+    <div class="text-center py-8">
+      <i class="fas fa-briefcase text-4xl text-gray-300 mb-4"></i>
+      <p class="text-gray-500 mb-4">Você ainda não cadastrou nenhum serviço.</p>
+      <a href="/servicos/cadastrar" 
+         class="inline-block px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-md">
+        <i class="fas fa-plus mr-2"></i> Cadastrar Serviço
+      </a>
+    </div>
+  {% endif %}
+</div> 

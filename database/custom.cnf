@@ -1,0 +1,10 @@
+[mysqld]
+# (UTC); Tirar o fuso horário, recomendado para evitar problemas de horário de verão e inconsistências
+default-time-zone = '+00:00'
+
+# Configurações de Charset e Collation
+character_set_server = utf8mb4
+
+# Para clientes (opcional, mas recomendado para garantir que as conexões usem UTF-8)
+[client]
+default-character-set = utf8mb4

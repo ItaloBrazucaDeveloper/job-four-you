@@ -1,0 +1,9 @@
+{% extends "root.layout.twig" %}
+
+{% block content %}
+  <main class="h-dvh grid place-items-center">
+    <h1 class="text-2xl font-medium">{% block title_error %} {% endblock %}</h1>
+  </main>
+
+  {% if true %} {% include "@Infra/DED/debug-container.twig" %} {% endif %}
+{% endblock %}

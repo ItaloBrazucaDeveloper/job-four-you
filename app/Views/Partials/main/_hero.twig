@@ -1,0 +1,36 @@
+{% import "Macros/link.twig" as Link %}
+
+<div class="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-12">
+  <div class="overflow-hidden rounded-lg shadow-sm w-11/12 md:w-1/2">
+    <img
+      src="/images/img_index.jpg"
+      alt="mulher apontando para lupa de pesquisa"
+      class="object-contain size-full"
+    >
+  </div>
+
+  <div class="md:w-1/2 text-center md:text-left flex flex-col justify-center h-full py-8">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+      Encontre ou divulgue serviços informais facilmente
+    </h1>
+    <p class="text-lg text-gray-600 mb-8 max-w-lg mx-auto md:mx-0">
+      Na Job4You você encontra prestadores de serviços confiáveis ou pode anunciar seu trabalho para milhares de
+      clientes!
+    </p>
+
+    <div class="flex flex-col sm:flex-row justify-center md:justify-start gap-4">
+      {{ Link.render(
+        href: '/servicos',
+        text: 'Ver Serviços',
+        variant: 'button',
+        class: 'rounded-full'
+      ) }}
+      {{ Link.render(
+        href: '/servicos/cadastro',
+        text: 'Divulgue seus serviços',
+        variant: 'outlined',
+        class: 'rounded-full'
+      ) }}
+    </div>
+  </div>
+</div>

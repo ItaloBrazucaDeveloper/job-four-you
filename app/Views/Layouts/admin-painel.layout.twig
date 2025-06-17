@@ -1,0 +1,13 @@
+{% extends "root.layout.twig" %}
+
+{% block content %}
+  {% block siderbar %}{% include "Partials/admin/_sidebar.twig" %}{% endblock %}
+
+  <div class="flex">
+    {% block painel %} {% endblock %}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script type="module" src="/assets/js/servicos/index.js"></script>
+{% endblock %}

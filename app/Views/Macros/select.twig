@@ -1,0 +1,28 @@
+{% macro render(
+  name,
+  options = {},
+  placeholder = 'Selecione',
+  required = true,
+  icon = null,
+  class = ''
+) %}
+  <div class="mt-1 relative">
+    {% if icon %}
+      <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+        <i class="{{ icon }} text-gray-400"></i>
+      </div>
+    {% endif %}
+
+    <select
+      id="{{ name }}"
+      name="{{ name }}"
+      {% if required %}required{% endif %}
+      class="shadow-sm py-2 {% if icon %}pl-10{% endif %} block w-full border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 {{ class }}"
+    >
+      <option value="" selected disabled>{{ placeholder }}</option>
+      {% for value, text in options %}
+        <option value="{{ value }}">{{ text }}</option>
+      {% endfor %}
+    </select>
+  </div>
+{% endmacro %} 

@@ -1,0 +1,40 @@
+{% extends "Layouts/main.layout.twig" %}
+
+{% import "Macros/input.twig" as Input %}
+{% import "Macros/label.twig" as Label %}
+{% import "Macros/button.twig" as Button %}
+
+{% block main %}
+<main class="flex-grow flex items-center justify-center py-12 px-4 md:px-6">
+  <div class="w-full max-w-md space-y-8">
+    <header class="text-center">
+      <i class="bi bi-shield-lock text-yellow-500 text-5xl mb-4"></i>
+      <h2 class="mt-2 text-3xl font-bold text-gray-900">
+        Recuperar Senha
+      </h2>
+      <span class="mt-2 text-sm text-gray-600">
+        Digite seu e-mail para receber um link de recuperação
+      </span>
+    </header>
+
+    {% if flash_message %}
+      {{ Alert.render(flash_message.type, flash_message.type) }}
+    {% endif %}
+
+    <form class="mt-8 space-y-6" action="/recuperar-senha" method="POST">
+      <div>
+        {{ Label.render(for: 'email', text: 'E-mail') }}
+        {{ Input.render(
+          name: 'email',
+          type: 'email',
+          placeholder: 'Seu e-mail cadastrado',
+          icon: 'bi bi-envelope',
+          autocomplete: 'email'
+        ) }}
+      </div>
+
+      {{ Button.render(type: 'submit', text: 'Enviar código de Recuperação') }}
+    </form>
+  </div>
+</main>
+{% endblock %}

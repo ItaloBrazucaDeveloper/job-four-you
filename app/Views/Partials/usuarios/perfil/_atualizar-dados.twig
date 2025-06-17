@@ -1,0 +1,129 @@
+{% import "Macros/input.twig" as input %}
+{% import "Macros/label.twig" as label %}
+{% import "Macros/select.twig" as select %}
+
+<div class="{% if usuario.grupo != 'PRESTADOR' %}col-span-2{% endif %}">
+  {{ label.render(for: 'nome', text: 'Nome Completo') }}
+  {{ input.render(
+    name: 'nome',
+    type: 'text',
+    required: true,
+    icon: 'bi bi-person',
+    defaultValue: usuario.nome
+  ) }}
+</div>
+
+<div>
+  {{ label.render(for: 'cpf', text: usuario.grupo == 'PRESTADOR' ? 'CPF/CNPJ' : 'CPF') }}
+  {{ input.render(
+    name: 'cpf',
+    type: 'text',
+    required: true,
+    icon: 'bi bi-card-text',
+    defaultValue: usuario.cpf,
+    disable: true
+  ) }}
+</div>
+
+{% if usuario.grupo != 'PRESTADOR' %}
+  <div>
+    {{ label.render(for: 'data_nascimento', text: 'Data de Nascimento') }}
+    {{ input.render(
+      name: 'data_nascimento',
+      type: 'date',
+      required: true,
+      icon: 'bi bi-calendar',
+      defaultValue: usuario.dataNascimento
+    ) }}
+  </div>
+{% endif %}
+
+<div>
+  {{ label.render(for: 'email', text: 'Email') }}
+  {{ input.render(
+    name: 'email',
+    type: 'email',
+    required: true,
+    icon: 'bi bi-envelope',
+    defaultValue: usuario.email
+  ) }}
+</div>
+
+<div>
+  {{ label.render(for: 'telefone', text: 'Telefone') }}
+  {{ input.render(
+    name: 'telefone',
+    type: 'tel',
+    required: true,
+    icon: 'bi bi-telephone',
+    defaultValue: usuario.celular
+  ) }}
+</div>
+
+{% if usuario.grupo != 'prestador' %}
+  <div>
+    {{ label.render(for: 'cep', text: 'CEP') }}
+    {{ input.render(
+      name: 'cep',
+      type: 'text',
+      required: true,
+      icon: 'bi bi-mailbox',
+      defaultValue: usuario.endereco.cep
+    ) }}
+  </div>
+
+  <div>
+    {{ label.render(for: 'estado', text: 'Estado') }}
+    {{ select.render(
+      name: 'estado',
+      options: {
+        'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas',
+        'BA': 'Bahia', 'CE': 'Ceará', 'DF': 'Distrito Federal',
+        'ES': 'Espírito Santo', 'GO': 'Goiás', 'MA': 'Maranhão',
+        'MT': 'Mato Grosso', 'MS': 'Mato Grosso do Sul', 'MG': 'Minas Gerais',
+        'PA': 'Pará', 'PB': 'Paraíba', 'PR': 'Paraná', 'PE': 'Pernambuco',
+        'PI': 'Piauí', 'RJ': 'Rio de Janeiro', 'RN': 'Rio Grande do Norte',
+        'RS': 'Rio Grande do Sul', 'RO': 'Rondônia', 'RR': 'Roraima',
+        'SC': 'Santa Catarina', 'SP': 'São Paulo', 'SE': 'Sergipe',
+        'TO': 'Tocantins'
+      },
+      placeholder: 'Selecione',
+      required: true,
+      icon: 'bi bi-map',
+      defaultValue: usuario.endereco.estado
+    ) }}
+  </div>
+
+  <div>
+    {{ label.render(for: 'cidade', text: 'Cidade') }}
+    {{ input.render(
+      name: 'cidade',
+      type: 'text',
+      required: true,
+      icon: 'bi bi-building',
+      defaultValue: usuario.endereco.cidade
+    ) }}
+  </div>
+
+  <div>
+    {{ label.render(for: 'bairro', text: 'Bairro') }}
+    {{ input.render(
+      name: 'bairro',
+      type: 'text',
+      required: true,
+      icon: 'bi bi-pin-map',
+      defaultValue: usuario.endereco.bairro
+    ) }}
+  </div>
+
+  <div>
+    {{ label.render(for: 'rua', text: 'Rua') }}
+    {{ input.render(
+      name: 'rua',
+      type: 'text',
+      required: true,
+      icon: 'bi bi-signpost',
+      defaultValue: usuario.endereco.rua
+    ) }}
+  </div>
+{% endif %} 

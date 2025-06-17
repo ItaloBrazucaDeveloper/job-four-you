@@ -1,0 +1,42 @@
+{% extends "Layouts/main.layout.twig" %}
+
+{% block title %}Meu Perfil | Job4You{% endblock %}
+
+{% block main %}
+	<main class="flex-grow">
+		<div class="max-w-4xl mx-auto px-6 py-8">
+			<div class="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
+				{% include "Partials/usuarios/perfil/_header.twig" %}
+				{% include "Partials/usuarios/perfil/_nav.twig" %}
+
+				<!-- SEÇÃO DE PERFIL -->
+				<section id="perfil" class="p-6 md:p-8">
+					<h2 class="text-xl font-bold text-gray-800 mb-6">
+						Informações Pessoais
+					</h2>
+
+					{% set form_action = usuario.tipo == 'PRESTADOR' ? '/prestadores/atualizar' : '/usuarios/atualizar' %}
+
+					<form action="{{ form_action }}" method="POST" class="space-y-6">
+						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+							{% include "Partials/usuarios/perfil/_form-fields.twig" %}
+						</div>
+
+						<div class="pt-4">
+							{% import "Macros/button.twig" as button %}
+							{{ button.render(type: 'submit', text: 'Salvar Alterações') }}
+						</div>
+					</form>
+				</section>
+
+				{% if usuario.grupo == 'PRESTADOR' %}
+					{% include "Partials/usuarios/perfil/_servico.twig" %}
+				{% endif %}
+			</div>
+		</div>
+	</main>
+{% endblock %}
+
+{% block scripts %}
+	<script type="module" src="/assets/js/meu-perfil/index.js"></script>
+{% endblock scripts %}

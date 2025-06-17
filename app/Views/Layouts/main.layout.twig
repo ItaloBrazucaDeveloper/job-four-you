@@ -1,0 +1,17 @@
+{% extends "root.layout.twig" %}
+
+{% block content %}
+  <div class="flex flex-col min-h-screen bg-gray-50">
+    {% block header %} {% include "Partials/_header.twig" %} {% endblock %}
+
+    <main class="flex-grow">
+      {% block main %} {% endblock %}
+    </main>
+
+    {% block footer %} {% include "Partials/_footer.twig" %} {% endblock %}
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="/assets/js/navegacao/index.js"></script>
+{% endblock %}

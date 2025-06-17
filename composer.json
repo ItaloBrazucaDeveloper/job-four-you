@@ -1,0 +1,33 @@
+{
+  "name": "tcc/job4you",
+  "type": "project",
+  "license": "MIT",
+  "scripts": {
+    "dev": "php -S localhost:5173 -t ./public"
+  },
+  "autoload": {
+    "psr-4": {
+      "App\\": "app/"
+    },
+    "files": [
+      "app/Utils/bp.php"
+    ]
+  },
+  "authors": [
+    { "name": "Yan" },
+    { "name": "Allana" },
+    { "name": "Aline" },
+    { "name": "Giovanna" },
+    { "name": "Italo" }
+  ],
+  "repositories": {
+    "kiss-php": {
+      "type": "vcs",
+      "url": "https://github.com/ItaloBrazucaDeveloper/kiss-php"
+    }
+  },
+  "minimum-stability": "dev",
+  "require": {
+    "kiss-php/framework": "dev-main"
+  }
+}

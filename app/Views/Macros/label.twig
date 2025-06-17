@@ -1,0 +1,5 @@
+{% macro render(for, text, class = '') %}
+	<label for="{{ for }}" class="block text-sm font-medium text-gray-700 {{ class }}">
+		{{ text }}
+	</label>
+{% endmacro %}

@@ -1,0 +1,31 @@
+{% macro render(atual, total) %}
+  <div class="flex items-center justify-center gap-2 mt-8">
+    {# Botão Anterior #}
+    <a 
+      href="?pagina={{ atual - 1 }}"
+      class="p-2 rounded-lg {{ atual <= 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
+      {{ atual <= 1 ? 'disabled' : '' }}
+    >
+      <i class="bi bi-chevron-left"></i>
+    </a>
+
+    {# Números das Páginas #}
+    {% for i in range(max(1, atual - 2), min(total, atual + 2)) %}
+      <a 
+        href="?pagina={{ i }}"
+        class="w-10 h-10 flex items-center justify-center rounded-lg {{ i == atual ? 'bg-yellow-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
+      >
+        {{ i }}
+      </a>
+    {% endfor %}
+
+    {# Botão Próximo #}
+    <a 
+      href="?pagina={{ atual + 1 }}" 
+      class="p-2 rounded-lg {{ atual >= total ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
+      {{ atual >= total ? 'disabled' : '' }}
+    >
+      <i class="bi bi-chevron-right"></i>
+    </a>
+  </div>
+{% endmacro %}

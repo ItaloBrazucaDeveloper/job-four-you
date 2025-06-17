@@ -1,0 +1,35 @@
+{% macro render(
+  name,
+  type = 'text',
+  placeholder = null,
+  required = true,
+  icon = null,
+  autocomplete = null,
+  class = '',
+  errorMessage = null,
+  defaultValue = '',
+  disable = false
+) %}
+	<div class="mt-1 relative rounded-md shadow-sm">
+		{% if icon %}
+    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+				<i class="{{ icon }} text-gray-400"></i>
+			</div>
+		{% endif %}
+
+		<input
+      {% if required %}required{% endif %}
+      {% if disable %}disabled{% endif %}
+      placeholder="{{ placeholder }}"
+      id="{{ name }}"
+      name="{{ name }}"
+      type="{{ type }}"
+      {% if autocomplete %} autocomplete="{{ autocomplete }}" {% endif %}
+      class="py-2 {% if icon %}pl-10{% endif %} block w-full border {% if errorMessage %}border-red-300{% else %}border-gray-300{% endif %} rounded-md focus:ring-gray-500 focus:border-gray-500 {% if disable %}bg-gray-50 cursor-not-allowed{% endif %} {{ class }}"
+      value="{{ defaultValue }}"
+    >
+		{% if errorMessage %}
+		<span class="mt-1 text-sm text-red-600">{{ errorMessage }}</span>
+		{% endif %}
+	</div>
+{% endmacro %}
