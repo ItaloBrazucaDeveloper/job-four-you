@@ -1,8 +1,0 @@
-# Arquivos e pastas a serem ignorados pelo Git
-.env
-!.example.env
-.vscode
-.idea
-
-node_modules/
-vendor/

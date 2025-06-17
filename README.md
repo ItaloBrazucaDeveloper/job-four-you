@@ -1,6 +1,6 @@
 <h1 align="center"> - Job4You - </h1>
 
-![Foto da página inicial](/src/docs/preview.png)
+![Foto da página inicial](preview.png)
 
 <div align="center">
 
@@ -31,47 +31,7 @@ Siga o passo a passo de como instalar o projeto na sua máquina.
   ```
 
 ## 🚀 Como iniciar o projeto
-Escolha uma das formas abaixo para executar o projeto na sua máquina.
-
-### ⛔🐳 Sem Docker
 Siga o passo a passo para executar o projeto localmente.
-
-> **Atenção:** Certifique-se de ter o [Mysql](https://www.mysql.com/) e o [PHP](https://www.php.net/) instalados em sua máquina antes de usar este método.
-
-1. **Copie e renomeie o arquivo `.example.env`**
-
-  ```bash
-    $ cp .example.env .env
-  ```
-
-2. **Defina as variáveis de ambiente no arquivo `.env`**
-
-  ```textplain
-    DB_HOST=SEU_HOST
-    DB_USER=SEU_USUARIO
-    DB_PASSWD=SUA_SENHA
-    DB_NAME=NOME_DO_SEU_BANCO
-    DB_PORT=PORTA_DO_SEU_BANCO
-  ```
-
-3. **Execute o script '.sh' para automatizar a criação do banco de dados**
-
-  ```bash
-    $ /banco/init-db.sh
-  ```
-
-4. **Inicie o servidor**
-
-  ```bash
-    $ php -S localhost:5173
-  ```
-
-5. **Acesse o projeto pelo navegador em: http://localhost:5173/**
-
-### ✅🐳 Com Docker
-Siga o passo a passo para executar o projeto usando Docker.
-
----
 
 > **Atenção:** Certifique-se de ter o [Docker](https://www.docker.com/) e o [Docker Compose](https://docs.docker.com/compose/) instalados em sua máquina antes de usar este método.
 
@@ -85,7 +45,7 @@ Siga o passo a passo para executar o projeto usando Docker.
   ```bash
     DB_HOST=SEU_HOST
     DB_USER=SEU_USUARIO
-    DB_PASSWD=SUA_SENHA
+    DB_PASSWORD=SUA_SENHA
     DB_NAME=NOME_DO_SEU_BANCO
     DB_PORT=PORTA_DO_SEU_BANCO
   ```
@@ -101,8 +61,6 @@ Siga o passo a passo para executar o projeto usando Docker.
 > **Observação:** Use a flag `--build`, apenas quando for a primeira vez executando o projeto. A flag `--build` faz a contrução das imagens dos arquivos _Dockerfile_. Uma vez já construídos, omita a flag `--build` e use:`docker compose up`.
 
 ## 🧠 Mentes por trás do projeto
-- [☕ Yan](https://github.com/YanGabrielton)
-- [🎨 Allana](https://github.com/leitielly)
 - [✍️ Aline](https://github.com/alineop120)
 - [🏅 Giovanna](https://github.com/giihzinha0L70)
 - [🎲 Ítalo](https://github.com/ItaloBrazucaDeveloper)
