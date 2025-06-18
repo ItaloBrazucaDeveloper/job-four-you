@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS Endereco(
     CONSTRAINT          CheckEstado CHECK (Estado REGEXP '[A-Z]{2}'),
     CONSTRAINT          CheckCidade CHECK (Cidade REGEXP '^[a-zA-ZÀ-ÖØ-öø-ÿ .]+$'),
     CONSTRAINT          CheckBairro CHECK (Bairro REGEXP '^[a-zA-ZÀ-ÖØ-öø-ÿ .]+$'),
-    CONSTRAINT          CheckRua CHECK (Rua REGEXP '^[a-zA-ZÀ-ÖØ-öø-ÿ .]+$')
+    CONSTRAINT          CheckRua CHECK (Rua REGEXP '^[0-9a-zA-ZÀ-ÖØ-öø-ÿ .]+$')
 );
 
 CREATE TABLE IF NOT EXISTS NivelAcesso(

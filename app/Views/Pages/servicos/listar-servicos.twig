@@ -12,7 +12,9 @@
 			{% include "Partials/servicos/_busca.twig" %}
 			
 			<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-10">
-				{% include "Partials/servicos/_prestadores.twig" %}
+				{% include "Partials/servicos/_publicacao-servico.twig" with {
+					publicacoes: publicacoes
+				} %}
 			</div>
 
 			{{ Paginacao.render(atual: 5, total: 10) }}

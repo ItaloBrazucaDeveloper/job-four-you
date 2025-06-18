@@ -1,0 +1,79 @@
+{% import "Macros/link.twig" as Link %}
+{% import "Macros/estrelas.twig" as Estrelas %}
+
+{% if publicacoes is defined and publicacaoes is not empty %}
+
+  {% for publicacao in publicacoes %}
+    <div class="flex flex-col gap-4 p-4 w-full md:max-w-100 h-85 rounded-lg shadow-sm bg-white">
+      <header class="relative flex gap-2.5">
+        <img
+          loading="lazy"
+          src="{{ publicacao.fotoUsuario|default('/images/avatar-fallback.png') }}"
+          onerror="this.onerror=null;this.src='/images/avatar-fallback.png';"
+          alt="Prestadora de serviços informais - Babá - Rafaela Medeiros"
+          class="rounded-md size-20 object-cover shadow-sm bg-zinc-300"
+        >
+
+        <div class="flex flex-col justify-center">
+          <h4 class="bg-indigo-300 text-indigo-800 text-sm rounded-lg font-medium w-fit py-1 px-3">
+            {{ publicacao.categoria|default('Categoria') }}
+          </h4>
+          <span class="mt-2 block">
+            {{ publicacao.nomeUsuario|default('Usuário') }}
+            <i class="bi bi-patch-check-fill text-emerald-700"></i>
+          </span>
+          <span class="opacity-70 text-sm">
+            Publicado em: {{ publicacao.publicadoEm|default('2024-10')|date("m/Y") }}
+          </span>
+        </div>
+
+        <span class="absolute -top-2 -right-1 text-nowrap select-none">
+          {# {{ Estrelas.render(quantidade: publicacao.mediaAvaliacao ?? 0) }} #}
+        </span>
+      </header>
+
+      <main class="flex-1">
+        <p class="mb-2 line-clamp-2">
+          <strong class="opacity-85 font-medium">
+            {{ publicacao.titulo|default('Este é minha publicação na Job4You!')}}
+          </strong>
+          {% if publicacao.sobre is defined and publicacao.sobre is not empty %}
+            <span class="opacity-80">:{{ publicacao.sobre }}</span>
+          {% endif %}
+        </p>
+        <div class="flex justify-around bg-zinc-100/90 m-auto py-2 pb-4 rounded-b-sm border-t border-t-zinc-400">
+          <div class="*:block space-y-3">
+            <span class="text-nowrap">
+              <i class="bi bi-wallet2"></i> R$ ~ {{ publicacao.valor|default('00,00') }}
+            </span>
+
+            <span class="text-nowrap">
+              <i class="bi bi-heart"></i>
+              {{ publicacao.quantidadeFavorito|default(0) }} favoritaram
+            </span>
+          </div>
+
+          <div class="*:block space-y-3">
+            <span class="text-nowrap">
+              <i class="bi bi-geo-alt"></i> {{ publicacao.cidadeUsuario|default('Além do arco-íris') }}
+            </span>
+          </div>
+        </div>
+      </main>
+
+      <footer class="flex gap-3">
+        <a href="/servicos?id={{ publicacao.idPublicacao|default(0) }}" class="shadow-sm text-center rounded-md py-2 px-6 bg-gray-800 hover:opacity-85 text-gray-200 transition-opacity w-full">
+          Ver mais detalhes
+        </a>
+        <a title="Marcar como favorito" class="cursor-pointer rounded-md py-2 px-3 outline outline-zinc-700">
+          <i class="bi bi-heart"></i>
+        </a>
+      </footer>
+    </div>
+  {% endfor %}
+  
+{% else %}
+  <div>
+    Parece que algo deu errado :/
+  </div>
+{% endif %}

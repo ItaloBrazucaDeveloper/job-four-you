@@ -1,0 +1,25 @@
+{% macro render(quantidade) %}
+
+  {% set quantiadadeArredondadaParaBaixo = quantidade|round(0, 'floor') %}
+  {% set quantidadeEstrelasPreenchidas = quantiadadeArredondadaParaBaixo %}
+
+  {% for index in 1..quantidadeEstrelasPreenchidas %}
+    <i class="bi bi-star-fill text-yellow-400"></i>
+  {% endfor %}
+
+  {% set temEstrelaPelaMetade = (quantidade - quantiadadeArredondadaParaBaixo > 0) %}
+
+  {% if temEstrelaPelaMetade %}
+    <i class="bi bi-star-half"></i>
+  {% endif %}
+
+  {%
+    set quantidadeEstrelasVazias = temEstrelaPelaMetade
+    ? 5 - quantidadeEstrelasPreenchidas - 1
+    : 5 - quantidadeEstrelasPreenchidas 
+  %}
+
+  {% for index in 1..quantidadeEstrelasVazias %}
+    <i class="bi bi-star"></i>
+  {% endfor %}
+{% endmacro %}

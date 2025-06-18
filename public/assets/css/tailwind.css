@@ -1679,9 +1679,24 @@
       width: calc(var(--spacing) * 100);
     }
   }
+  .md\:max-w-96 {
+    @media (width >= 48rem) {
+      max-width: calc(var(--spacing) * 96);
+    }
+  }
+  .md\:max-w-100 {
+    @media (width >= 48rem) {
+      max-width: calc(var(--spacing) * 100);
+    }
+  }
   .md\:max-w-sm {
     @media (width >= 48rem) {
       max-width: var(--container-sm);
+    }
+  }
+  .md\:min-w-96 {
+    @media (width >= 48rem) {
+      min-width: calc(var(--spacing) * 96);
     }
   }
   .md\:grid-cols-2 {

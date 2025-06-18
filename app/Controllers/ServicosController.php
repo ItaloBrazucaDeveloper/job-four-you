@@ -22,7 +22,7 @@ class ServicosController extends WebController {
 
     $this->render('Pages/servicos/listar-servicos.twig', [
       'categorias' => $categorias,
-      'servicos' => [],
+      'publicacoes' => [],
       'categoriaSelecionada' => $categoriaSelecionada
     ]);
   }
