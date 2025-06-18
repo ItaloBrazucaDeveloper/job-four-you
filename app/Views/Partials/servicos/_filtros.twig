@@ -1,27 +1,30 @@
-<div class="flex flex-col gap-6 m-3 min-w-44 rounded-lg">
-  <h2 class="font-medium text-2xl m-1">Filtros</h2>
+{# Container dos filtros: sidebar no desktop, popup no mobile #}
+<div
+  id="filtrosContainer"
+  class="fixed inset-0 z-50 bg-black/50 items-center justify-center mt-4 hidden lg:static lg:bg-transparent lg:p-0 lg:z-auto lg:flex lg:flex-col lg:items-stretch lg:justify-start *:lg:w-56 lg:min-h-[250px] lg:rounded-lg lg:shadow-none"
+>
+  <div class="bg-white rounded-lg shadow-xl w-full md:max-w-sm h-full overflow-y-auto lg:rounded-lg lg:shadow-none lg:max-w-full lg:max-h-full lg:bg-transparent">
+    {# Header/modal close só aparece no mobile #}
+    <header class="flex items-center justify-between p-4 lg:hidden">
+      <h2 class="font-medium text-xl">Filtros</h2>
+      <button id="btnFecharFiltros" class="text-gray-500 hover:text-gray-700 transition-colors">
+        <i class="bi bi-x-lg text-xl"></i>
+      </button>
+    </header>
 
-  <main class="ml-1 space-y-6 divide">
-    <div class="flex flex-col">
-      <h5 class="mb-3 font-semibold border-b">Categorias</h5>
-      
-      {% for categoria in categorias %}
-        <div class="ml-2">
-          <a href="" class="opacity-70 hover:opacity-100">
-            {{ categoria.nome }}
-          </a>
-        </div>
-      {% endfor %}
+    <div class="ml-3 my-3 space-y-6">
+      {% include 'Partials/servicos/_filtros-conteudo.twig' %}
     </div>
-  
-    <div class="flex flex-col">
-      <h5 class="mb-3 font-semibold border-b">Preço</h5>
-      
-      {% for categoria in categorias %} 
-        <div class="ml-2">
-          <a href="" class="opacity-70 hover:opacity-100">{{ categoria.nome }}</a>
-        </div>
-      {% endfor %}
-    </div>
-  </main>
+
+    <footer class="flex gap-3 p-4 border-t lg:hidden">
+      <button id="btnLimparFiltros"
+        class="flex-1 py-2 px-4 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+        Limpar
+      </button>
+      <button id="btnAplicarFiltros"
+        class="flex-1 py-2 px-4 bg-yellow-400 rounded-lg text-white hover:bg-yellow-500 transition-colors">
+        Aplicar
+      </button>
+    </footer>
+  </div>
 </div>

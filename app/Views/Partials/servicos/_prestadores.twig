@@ -1,14 +1,15 @@
 {% import "Macros/link.twig" as Link %}
 
 {% for row in range(1, 12, 1) %}
-  <div class="flex flex-col gap-4 p-4 w-100 h-87 rounded-lg shadow-sm bg-white">
-    <header class="flex gap-2.5">
+  <div class="flex flex-col gap-4 p-4 w-full md:w-96 h-85 rounded-lg shadow-sm bg-white">
+    <header class="relative flex gap-2.5">
       <img
         loading="lazy"
         src="/uploads/photos/usuarios/rafah.jpg"
         alt="Prestadora de serviços informais - Babá - Rafaela Medeiros"
-        class="rounded-md size-24 object-cover shadow-sm bg-zinc-300"
+        class="rounded-md size-20 object-cover shadow-sm bg-zinc-300"
       >
+
       <div class="flex flex-col justify-center">
         <h4 class="bg-indigo-300 text-indigo-800 text-sm rounded-lg font-medium w-fit py-1 px-3">
           Babá
@@ -16,15 +17,18 @@
         <span class="mt-2 block">
           Rafaela Medeiros <i class="bi bi-patch-check-fill text-emerald-700"></i>
         </span>
-        <span class="block text-sm opacity-70">
-          Avaliação: 
-          <i class="bi bi-star-fill text-yellow-500"></i>
-          <i class="bi bi-star-fill text-yellow-500"></i>
-          <i class="bi bi-star-fill text-yellow-500"></i>
-          <i class="bi bi-star-fill text-yellow-500"></i>
-          <i class="bi bi-star-fill text-yellow-500"></i>
+        <span class="opacity-70 text-sm">
+          Publicado em: 04/2025
         </span>
       </div>
+
+      <span class="absolute -top-2 -right-1 text-nowrap select-none">
+        <i class="bi bi-star-fill text-yellow-400"></i>
+        <i class="bi bi-star-fill text-yellow-400"></i>
+        <i class="bi bi-star-fill text-yellow-400"></i>
+        <i class="bi bi-star-fill text-yellow-400"></i>
+        <i class="bi bi-star-fill text-yellow-400"></i>
+      </span>
     </header>
 
     <main class="flex-1">
@@ -50,10 +54,6 @@
           <span class="text-nowrap col-span-1">
             <i class="bi bi-geo-alt"></i>
             Brazlândia, DF
-          </span>
-          <span class="text-nowrap">
-            <i class="bi bi-stopwatch"></i>
-            Publicado em: 04/2025
           </span>
         </div>
       </div>

@@ -1,17 +1,29 @@
-<form method="get" class="mb-8">
+<form id="buscar_de_prestadores" method="get" class="mb-8">
   <div class="relative">
     <input
       type="search"
       name="prestador"
-      class="outline-0 border-0 text-xl py-3 pl-16 pr-36 bg-white shadow-sm rounded-full w-full"
+      class="outline-0 border-0 text:lg md:text-xl py-3 pl-16 pr-16 md:pr-36 bg-white shadow-sm rounded-full w-full"
       placeholder="Insira nomes de prestadores"
     >
+
     <i class="bi bi-search text-lg absolute -translate-y-1/2 top-1/2 left-0 pl-6"></i>
-    <button
-      type="submit"
-      class="absolute -translate-y-1/2 top-1/2 right-2 bg-yellow-400 py-2 px-10 rounded-full cursor-pointer"
-    >
+
+    <button type="submit"
+      class="hidden md:block absolute -translate-y-1/2 top-1/2 right-2 bg-yellow-400 py-2 px-10 rounded-full cursor-pointer">
       Buscar
     </button>
+
+    {# Botão de filtros mobile #}
+    <div class="block lg:hidden absolute -translate-y-1/2 top-1/2 right-2">
+      <button
+        type="button"
+        id="btnFiltros"
+        class="flex items-center gap-2 bg-yellow-400 shadow-sm rounded-full px-4 py-2 text-sm"
+      >
+        <i class="bi bi-funnel"></i>
+        Filtros
+      </button>
+    </div>
   </div>
 </form>

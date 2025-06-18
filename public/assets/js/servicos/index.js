@@ -1,62 +1,56 @@
-import { prestadorModal } from './modal.js';
-import { initCarousel } from './carousel.js';
+function initFiltrosModal() {
+  const btnFiltros = document.getElementById('btnFiltros');
+  const filtrosContainer = document.getElementById('filtrosContainer');
+  const btnFecharFiltros = document.getElementById('btnFecharFiltros');
 
-// Objeto para controlar o modal
-const prestadorModal = {
-  open: function (nome, profissao, valor, avaliacao, numAvaliacoes, foto, sobre, whatsapp) {
-    document.getElementById('modalNome').textContent = nome;
-    document.getElementById('modalProfissao').textContent = profissao;
-    document.getElementById('modalValor').textContent = valor;
-    document.getElementById('modalValor2').textContent = valor;
-    document.getElementById('modalFoto').src = foto;
-    document.getElementById('modalAvaliacoes').textContent = numAvaliacoes;
-    document.getElementById('modalSobre').textContent = sobre || 'Profissional altamente qualificado com experiência comprovada na área.';
+  // Abrir modal (mobile)
+  if (btnFiltros) {
+    btnFiltros.addEventListener('click', function() {
+      filtrosContainer.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+  }
 
-    // Configurar link do WhatsApp
-    if (whatsapp) {
-      const whatsappBtn = document.getElementById('modalWhatsapp');
-      whatsappBtn.href = `https://wa.me/55${whatsapp}`;
-      whatsappBtn.target = '_blank';
-    }
+  // Fechar modal (mobile)
+  if (btnFecharFiltros) {
+    btnFecharFiltros.addEventListener('click', function() {
+      filtrosContainer.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+  }
 
-    // Criar estrelas de avaliação
-    const estrelasContainer = document.getElementById('modalEstrelas');
-    estrelasContainer.innerHTML = '';
-    const rating = parseFloat(avaliacao);
-
-    for (let i = 1; i <= 5; i++) {
-      const star = document.createElement('i');
-      if (i <= Math.floor(rating)) {
-        star.className = 'bi bi-star-fill';
-      } else if (i === Math.ceil(rating) && rating % 1 > 0) {
-        star.className = 'bi bi-star-half';
-      } else {
-        star.className = 'bi bi-star';
+  // Fechar ao clicar fora do conteúdo (mobile)
+  if (filtrosContainer) {
+    filtrosContainer.addEventListener('click', function(e) {
+      if (window.innerWidth < 1024 && e.target === filtrosContainer) {
+        filtrosContainer.classList.add('hidden');
+        document.body.style.overflow = '';
       }
-      estrelasContainer.appendChild(star);
+    });
+  }
+
+  // Fechar com ESC (mobile)
+  document.addEventListener('keydown', function(e) {
+    if (window.innerWidth < 1024 && e.key === 'Escape' && !filtrosContainer.classList.contains('hidden')) {
+      filtrosContainer.classList.add('hidden');
+      document.body.style.overflow = '';
     }
+  });
 
-    document.getElementById('prestadorModal').classList.remove('hidden');
-    document.body.style.overflow = 'hidden';
-  },
-
-  close: function () {
-    document.getElementById('prestadorModal').classList.add('hidden');
-    document.body.style.overflow = 'auto';
+  // Garantir que em telas grandes o filtro sempre aparece
+  function handleResize() {
+    if (window.innerWidth >= 1024) {
+      filtrosContainer.classList.remove('hidden');
+      document.body.style.overflow = '';
+    } else {
+      filtrosContainer.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
   }
-};
+  window.addEventListener('resize', handleResize);
+  handleResize();
+}
 
-// Inicializa o carrossel
 document.addEventListener('DOMContentLoaded', function () {
-  initCarousel();
+  initFiltrosModal();
 });
-
-// Fechar modal ao clicar fora
-document.getElementById('prestadorModal').addEventListener('click', function (e) {
-  if (e.target === this) {
-    prestadorModal.close();
-  }
-});
-
-// Exporta o modal para uso em outros arquivos
-export { prestadorModal };

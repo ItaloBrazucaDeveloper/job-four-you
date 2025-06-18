@@ -1,0 +1,24 @@
+<div class="ml-1 space-y-6 divide">
+  <h2 class="hidden lg:block font-medium text-xl">Filtros</h2>
+  <div class="flex flex-col">
+    <h5 class="mb-3 font-semibold border-b">Categorias</h5>
+    
+    {% for categoria in categorias %}
+      <div class="ml-2">
+        <a href="?categoria={{ categoria.nome }}" class="opacity-70 hover:opacity-100">
+          {{ categoria.nome }}
+        </a>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="flex flex-col">
+    <h5 class="mb-3 font-semibold border-b">Preço</h5>
+    
+    {% for categoria in categorias %} 
+      <div class="ml-2">
+        <a href="" class="opacity-70 hover:opacity-100">{{ categoria.nome }}</a>
+      </div>
+    {% endfor %}
+  </div>
+</div>
