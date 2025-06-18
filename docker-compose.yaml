@@ -1,6 +1,3 @@
-x-bake:
-  COMPOSE_BAKE: true
-
 services: # Serviços (containers) necessários para o Job4You funcionar corretamente
   mysql:
     container_name: job4you_database
@@ -9,7 +6,7 @@ services: # Serviços (containers) necessários para o Job4You funcionar correta
       dockerfile: Dockerfile # Especifica o Dockerfile a ser usado para construir o container MySQL
     restart: always # Reinicia o container automaticamente se ele falhar
     ports: # Faz o mapeamento de portas do container para a máquina local
-      - "3306:${DB_PORT:-3306}"
+      - "${DB_PORT:-3306}:3306"
     environment: # Captura as variáveis de ambiente do arquivo '.env' para configuração do MySQL
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
@@ -33,7 +30,7 @@ services: # Serviços (containers) necessários para o Job4You funcionar correta
       dockerfile: Dockerfile # Especifica o Dockerfile a ser usado para construir o container do app
     restart: always # Reinicia o container automaticamente se ele falhar
     ports: # Faz o mapeamento de portas do container para a máquina local
-      - "5173:${APP_PORT}"
+      - "${APP_PORT:-3000}:5173"
     volumes: # Define volumes para persistência de dados do app
       # Mapeia o diretório '.' para o diretório do container onde o código está localizado
       # (as alterações no código são refletidas imediatamente no container)
