@@ -1,24 +1,22 @@
-services: # Serviços (containers) necessários para o Job4You funcionar corretamente
+services:
   mysql:
     container_name: job4you_database
     build:
-      context: ./database # Define o contexto de construção do container, onde o Dockerfile está localizado
-      dockerfile: Dockerfile # Especifica o Dockerfile a ser usado para construir o container MySQL
-    restart: always # Reinicia o container automaticamente se ele falhar
-    ports: # Faz o mapeamento de portas do container para a máquina local
+      context: ./database
+      dockerfile: Dockerfile
+    restart: always
+    ports:
       - "${DB_PORT:-3306}:3306"
-    environment: # Captura as variáveis de ambiente do arquivo '.env' para configuração do MySQL
+    environment:
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-    volumes: # Define volumes para persistência de dados do MySQL
-      # Mapeia o volume nomeado 'db_data' para persistência de dados do MySQL
-      # (dados registrados no banco são salvos mesmo parando de executar o container)
+    volumes:
       - db_data:/var/lib/mysql
     networks:
       job4you_network:
-          aliases: # Permite que outros containers acessem este serviço pelo alias da variável de ambiente
+          aliases:
             - ${DB_HOST}
 
   app:
@@ -26,14 +24,12 @@ services: # Serviços (containers) necessários para o Job4You funcionar correta
     depends_on:
       - mysql
     build:
-      context: ./ # Define o contexto de construção do container, onde o Dockerfile está localizado
-      dockerfile: Dockerfile # Especifica o Dockerfile a ser usado para construir o container do app
-    restart: always # Reinicia o container automaticamente se ele falhar
-    ports: # Faz o mapeamento de portas do container para a máquina local
-      - "${APP_PORT:-3000}:5173"
-    volumes: # Define volumes para persistência de dados do app
-      # Mapeia o diretório '.' para o diretório do container onde o código está localizado
-      # (as alterações no código são refletidas imediatamente no container)
+      context: ./
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "${APP_PORT:-3000}:3000"
+    volumes:
       - ./app:/job4you/app
       - ./public:/job4you/public
       - ./var/cache/doctrine/Proxies:/job4you/var/cache/doctrine/Proxies
@@ -46,10 +42,10 @@ services: # Serviços (containers) necessários para o Job4You funcionar correta
     networks:
       - job4you_network
 
-volumes: # Define volumes nomeados para persistência de dados
-  db_data: # Volume nomeado para persistência de dados do MySQL
-    driver: local # O driver padrão para volumes persistentes
+volumes:
+  db_data:
+    driver: local
 
-networks: # Define redes para comunicação entre os containers
+networks:
   job4you_network:
     driver: bridge

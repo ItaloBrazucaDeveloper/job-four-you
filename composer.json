@@ -3,7 +3,7 @@
   "type": "project",
   "license": "MIT",
   "scripts": {
-    "dev": "php -S localhost:5173 -t ./public"
+    "dev": "php -S localhost:3000 -t ./public"
   },
   "autoload": {
     "psr-4": {

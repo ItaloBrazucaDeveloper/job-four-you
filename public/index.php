@@ -7,7 +7,7 @@ use KissPhp\Core\DED\BoundinaryError;
 use KissPhp\Core\Routing\DispatchRouter;
 use KissPhp\Support\{ Env, SessionInitializer };
 
-include dirname(__DIR__, 3) . '/app/settings.php';
+include '../app/settings.php';
 
 SessionInitializer::init();
 BoundinaryError::register();  

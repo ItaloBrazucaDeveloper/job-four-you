@@ -1,4 +1,4 @@
-# Imagem docker para desenvolvimento
+# --------> Instala o mysql 8.4.0
 FROM mysql:8.4.0
 # Copia os scripts SQL para o diretório de inicialização do MySQL
 # Isso permite que o MySQL execute esses scripts quando o container for iniciado
