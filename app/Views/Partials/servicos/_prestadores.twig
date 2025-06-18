@@ -1,3 +1,71 @@
-{% import "Macros/paginacao.twig" as Paginacao %}
+{% import "Macros/link.twig" as Link %}
 
-{{ Paginacao.render(atual: 5, total: 10) }}
+{% for row in range(1, 12, 1) %}
+  <div class="flex flex-col gap-4 p-4 w-100 h-87 rounded-lg shadow-sm bg-white">
+    <header class="flex gap-2.5">
+      <img
+        loading="lazy"
+        src="/uploads/photos/usuarios/rafah.jpg"
+        alt="Prestadora de serviços informais - Babá - Rafaela Medeiros"
+        class="rounded-md size-24 object-cover shadow-sm bg-zinc-300"
+      >
+      <div class="flex flex-col justify-center">
+        <h4 class="bg-indigo-300 text-indigo-800 text-sm rounded-lg font-medium w-fit py-1 px-3">
+          Babá
+        </h4>
+        <span class="mt-2 block">
+          Rafaela Medeiros <i class="bi bi-patch-check-fill text-emerald-700"></i>
+        </span>
+        <span class="block text-sm opacity-70">
+          Avaliação: 
+          <i class="bi bi-star-fill text-yellow-500"></i>
+          <i class="bi bi-star-fill text-yellow-500"></i>
+          <i class="bi bi-star-fill text-yellow-500"></i>
+          <i class="bi bi-star-fill text-yellow-500"></i>
+          <i class="bi bi-star-fill text-yellow-500"></i>
+        </span>
+      </div>
+    </header>
+
+    <main class="flex-1">
+      <p class="mb-2 line-clamp-2">
+        <strong class="opacity-85 font-medium">Babá de crianças com +8 anos: </strong>
+        <span class="opacity-80">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Libero facilis culpa unde eaque soluta quas ipsam
+          perspiciatis ex consectetur numquam rerum corrupti, totam minus odit, inventore quidem voluptatum. Architecto,
+          itaque.
+        </span>
+      </p>
+      <div class="flex justify-around bg-zinc-100/90 m-auto py-2 pb-4 rounded-b-sm border-t border-t-zinc-400">
+        <div class="*:block space-y-3">
+          <span class="text-nowrap">
+            <i class="bi bi-wallet2"></i>
+            R$ ~ 99,99
+          </span>
+          <span class="text-nowrap">
+            <i class="bi bi-heart"></i> 25 favoritaram
+          </span>
+        </div>
+        <div class="*:block space-y-3">
+          <span class="text-nowrap col-span-1">
+            <i class="bi bi-geo-alt"></i>
+            Brazlândia, DF
+          </span>
+          <span class="text-nowrap">
+            <i class="bi bi-stopwatch"></i>
+            Publicado em: 04/2025
+          </span>
+        </div>
+      </div>
+    </main>
+
+    <footer class="flex gap-3">
+      <a href="/servicos?id=1" class="shadow-sm text-center rounded-md py-2 px-6 bg-zinc-800 hover:opacity-85 text-zinc-200 transition-opacity w-full">
+        Ver mais detalhes
+      </a>
+      <a title="Marcar como favorito" class="cursor-pointer rounded-md py-2 px-3 outline outline-zinc-700">
+        <i class="bi bi-heart"></i>
+      </a>
+    </footer>
+  </div>
+{% endfor %}

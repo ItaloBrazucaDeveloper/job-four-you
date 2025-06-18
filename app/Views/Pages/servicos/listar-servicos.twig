@@ -1,45 +1,23 @@
 {% extends "Layouts/main.layout.twig" %}
 
-{% import "Macros/icones-categoria-servico.twig" as obterIconeDaCategoriaServico %}
+{% import "Macros/paginacao.twig" as Paginacao %}
 
 {% block title %}Serviços | Job4You{% endblock %}
 
 {% block main %}
-	<section class="py-12">
-		<div class="max-w-7xl mx-auto px-6 text-center">
-			<h1 class="text-4xl font-bold text-gray-900 mb-4">
-				{% if categoriaSelecionada %}
-					{% for categoria in categorias %}
-						{% if categoria.id == categoriaSelecionada %}
-							<i class="bi {{ obterIconeDaCategoriaServico.render(categoria.nome) }} me-2"></i>
-							Prestadores de {{ categoria.nome }}
-						{% endif %}
-					{% endfor %}
-				{% else %}
-					Encontre Serviços Informais em Diversas Categorias
-				{% endif %}
-			</h1>
+	<section class="flex">
+		{% include "Partials/servicos/_filtros.twig" %}
+	
+		<div class="my-3">
+			{% include "Partials/servicos/_busca.twig" %}
 
-			<span class="text-xl text-gray-600">
-				{% if categoriaSelecionada %}
-					Profissionais qualificados nesta categoria
-				{% else %}
-					Todas as categorias disponíveis estão listadas abaixo
-				{% endif %}
-			</span>
+			<div class="flex flex-wrap gap-x-6 gap-y-10">
+				{% include "Partials/servicos/_prestadores.twig" %}
+			</div>
+
+			{{ Paginacao.render(atual: 5, total: 10) }}
 		</div>
 	</section>
-
-	{% if categoriaSelecionada %}
-		{% include "Partials/servicos/_carrossel-prestador.twig" with {'servicos': servicos} %}
-		{% include "Partials/servicos/_modal-prestador.twig" %}
-	{% endif %}
-
-	{% if categorias is not empty and categoriaSelecionada is empty %}
-		{% include "Partials/servicos/_categorias.twig" %} 
-	{% endif %}
-
-	{% include "Partials/servicos/_prestadores.twig" %}
 {% endblock %}
 
 {% block scripts %}

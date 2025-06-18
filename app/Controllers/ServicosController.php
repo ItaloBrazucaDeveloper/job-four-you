@@ -18,16 +18,11 @@ class ServicosController extends WebController {
   #[Get]
   public function exibirPaginaDeServicos(Request $request) {
     $categoriaSelecionada = $request->getQueryString('categoria');
-
     $categorias = $this->service->buscarCategorias();
-
-    $servicos = $categoriaSelecionada
-      ? $this->service->buscarServicos((int) $categoriaSelecionada)
-      : [];
 
     $this->render('Pages/servicos/listar-servicos.twig', [
       'categorias' => $categorias,
-      'servicos' => $servicos,
+      'servicos' => [],
       'categoriaSelecionada' => $categoriaSelecionada
     ]);
   }
