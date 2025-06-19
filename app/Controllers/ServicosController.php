@@ -11,6 +11,8 @@ use App\Utils\SessionKeys;
 use App\DTOs\Servicos\ServicoCadastroDTO;
 use App\Services\Servicos\ServicosService;
 
+use function App\Utils\bp;
+
 #[Controller('/servicos')]
 class ServicosController extends WebController {
   public function __construct(private ServicosService $service) { }
@@ -22,44 +24,44 @@ class ServicosController extends WebController {
 
     $categorias = $this->service->buscarCategorias();
     $dadosPaginacao = $this->service->buscarServicosComPaginacao($pagina);
-    $publicacoes = $dadosPaginacao['servicos'];
-    $totalPaginas = $dadosPaginacao['totalPaginas'];
 
     $this->render('Pages/servicos/listar-servicos.twig', [
       'categorias' => $categorias,
-      'publicacoes' => $publicacoes,
+      'publicacoes' => $dadosPaginacao['servicos'],
       'categoriaSelecionada' => $categoria,
       'paginaAtual' => $pagina,
-      'totalPaginas' => $totalPaginas
+      'totalPaginas' => $dadosPaginacao['totalPaginas']
     ]);
+  }
+
+  #[Get('/mais-detalhes/:id:{numeric}')]
+  public function exibirMaisDetalhesDeServico(Request $request) {
+    $this->render('Pages/servicos/mais-detalhes.twig', []);
   }
 
   #[Get('/cadastro')]
   public function exibirPaginaCadastrarServico() {    
     $categorias = $this->service->buscarCategorias();
-
     $this->render('Pages/servicos/cadastro.twig', [
       'Categorias' => $categorias,
     ]);
   }
 
-  // #[Post('/cadastro')]
-  // public function cadastrarServico(
-  //   Request $request,
-  //   #[Body] ServicoCadastroDTO $servico
-  // ) {
-  //   $foiCadastrado = $this->service->cadastrarServico($servico, []);
+  #[Post('/cadastro')]
+  public function cadastrarServico(
+    Request $request,
+    #[Body] ServicoCadastroDTO $servico
+  ) {
+    $foiCadastrado = $this->service->cadastrarServico($servico, []);
+    if ($foiCadastrado) return $this->redirectTo('/servicos');
 
-  //   if ($foiCadastrado) return $this->redirectTo('/servicos');
-
-  //   $request->session->set('UltimoServicoInserido', $servico);
-  //   return $this->redirectTo('/servicos/postar-servico');
-  // }
+    $request->session->set('UltimoServicoInserido', $servico);
+    return $this->redirectTo('/servicos/postar-servico');
+  }
 
   #[Post('/desativar/:id:{numeric}')]
   public function desativarServico(#[RouteParam] int $id, Request $request) {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
-
     if (!$usuario->id) return $this->redirectTo('/login');
 
     $this->service->desativarServico($id, $usuario->id);

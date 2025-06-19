@@ -1,0 +1,36 @@
+{% import "Macros/estrelas.twig" as Estrelas %}
+
+<ul class="flex flex-col gap-6 mt-8">
+  {# {% for avaliacao in avaliacoes %} #}
+    <li class="flex gap-4 bg-gray-50 rounded-xl shadow p-4">
+      <div class="flex flex-col items-center min-w-24">
+        <img 
+          src="{{ avaliacao.foto_perfil ?? '/images/avatar-fallback.png' }}" 
+          alt="Foto de {{ avaliacao.nome|default('João Gustoso') }}" 
+          class="w-16 h-16 rounded-full object-cover border-2 border-gray-300 shadow-sm"
+        >
+        <h5 class="mt-2 font-semibold text-gray-900 text-base text-center">
+          {{ avaliacao.nome|default('João Gustoso') }}
+        </h5>
+        <span class="text-xs text-gray-500 px-2 py-0.5 rounded bg-gray-200 mt-1">
+          {{ avaliacao.cargo|default('Usuario') }}
+        </span>
+      </div>
+      <div class="flex-1 flex flex-col">
+        <div class="flex items-center gap-2 mb-1">
+          {{ Estrelas.render(
+            quantidade: avaliacao.nota|default(0)
+          ) }}
+          <span class="text-sm text-gray-500">
+            ({{ avaliacao.nota|number_format(1, ',', '.') }})
+          </span>
+        </div>
+        <p class="text-gray-800 text-sm">
+          {{ avaliacao.comentario ?? 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis soluta ducimus, suscipit unde beatae quibusdam quam officia enim inventore sunt eius molestias saepe, necessitatibus ipsam obcaecati recusandae. Quae, accusamus veniam.' }}
+        </p>
+      </div>
+    </li>
+  {# {% else %}
+    <li class="text-center text-gray-500 py-8">Nenhuma avaliação encontrada.</li>
+  {% endfor %} #}
+</ul>
