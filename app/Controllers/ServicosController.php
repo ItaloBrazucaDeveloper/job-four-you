@@ -65,4 +65,9 @@ class ServicosController extends WebController {
     $this->service->desativarServico($id, $usuario->id);
     return $this->redirectTo('/prestadores?sucesso=1');
   }
+
+  #[Get('/favoritar/:id:{numeric}')]
+  public function favoritarServico() {
+    # code...
+  }
 }

@@ -7,7 +7,7 @@ use KissPhp\Attributes\Http\Methods\Get;
 
 #[Controller('index')]
 class MainController extends WebController {
-  #[Get()]
+  #[Get]
   public function exbirPaginaHome() {
     $this->render('Pages/main.twig');
   }

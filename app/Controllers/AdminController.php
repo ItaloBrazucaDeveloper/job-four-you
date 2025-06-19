@@ -11,4 +11,14 @@ class AdminController extends WebController {
   public function exbibirPaginaPainel() {
     $this->render('Pages/admin/painel.twig', []);
   }
+
+  #[Get('/usuarios')]
+  public function exbibirPaginaPainelUsuarios() {
+    $this->render('Pages/admin/painel.twig', []);
+  }
+
+  #[Get('/solicitacoes')]
+  public function exbibirPaginaPainelSolicitacoes() {
+    $this->render('Pages/admin/painel.twig', []);
+  }
 }

@@ -37,8 +37,13 @@ class UsuariosController extends WebController {
     return $this->redirectTo('/autenticacao');
   }
 
-  #[Post('/atualizar')]
-  public function atualizarUsuario(#[Body] UsuarioAtualizarDTO $usuario) {
-    
+  #[Get('/avaliar/:token:{alphanumeric}?')]
+  public function exibirPaginaDeAvaliacao() {
+
+  }
+
+  #[Post('/avaliar/:token:{alphanumeric}?')]
+  public function avaliarUsuario() {
+
   }
 }
