@@ -10,8 +10,8 @@ class ServicoDTO {
   public readonly string $sobre;
   public readonly float $valor;
   public readonly int $quantidadeFavorito;
-  public readonly string $publicadoEm;
-  public readonly ?string $editadoEm;
+  public readonly \DateTime $publicadoEm;
+  public readonly ?\DateTime $editadoEm;
   public readonly string $categoria;
   public readonly ?string $email;
   public readonly ?string $facebook;

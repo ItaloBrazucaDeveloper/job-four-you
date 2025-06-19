@@ -1,19 +1,44 @@
 <div class="ml-1 space-y-6 divide">
   <h2 class="hidden lg:block font-medium text-xl">Filtros</h2>
   <div class="flex flex-col">
-    <h5 class="mb-3 font-semibold border-b">Categorias</h5>
+    <h5 class="opacity-80 mb-3 font-semibold border-b border-gray-400">Categorias</h5>
     
     {% for categoria in categorias %}
-      <div class="ml-2">
-        <a href="?categoria={{ categoria.nome }}" class="opacity-70 hover:opacity-100">
-          {{ categoria.nome }}
-        </a>
+      <div class="group relative">
+        <label
+          for="categoria_servico_{{ categoria.id }}"
+          class="block rounded-md w-full py-2 px-4 opacity-70 hover:opacity-100 group-has-[input:checked]:opacity-100 group-has-[input:checked]:font-semibold group-has-[input:checked]:text-gray-600 group-hover:bg-gray-200 group-has-[input:checked]:bg-gray-200 transition-all duration-200"
+          >
+            {{ categoria.nome }}
+        </label>
+        <input
+          type="radio"
+          name="categoria"
+          id="categoria_servico_{{ categoria.id }}"
+          value="{{ categoria.id }}"
+          class="absolute inset-0 opacity-0 size-full"
+        >
       </div>
     {% endfor %}
+    <div class="group relative">
+      <label
+        for="categoria_servico_0"
+        class="block rounded-md w-full py-2 px-4 opacity-70 hover:opacity-100 group-has-[input:checked]:opacity-100 group-has-[input:checked]:font-semibold group-has-[input:checked]:text-gray-600 group-hover:bg-gray-200 group-has-[input:checked]:bg-gray-200 transition-all duration-200"
+        >
+          Nenhum
+      </label>
+      <input
+        type="radio"
+        name="categoria"
+        id="categoria_servico_0"
+        class="absolute inset-0 opacity-0 size-full"
+        checked
+      >
+    </div>
   </div>
 
   <div class="flex flex-col">
-    <h5 class="mb-3 font-semibold border-b">Preço</h5>
+    <h5 class="opacity-80 mb-3 font-semibold border-b border-gray-400">Preço</h5>
     
     {% for categoria in categorias %} 
       <div class="ml-2">

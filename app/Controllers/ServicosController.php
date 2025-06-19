@@ -17,13 +17,20 @@ class ServicosController extends WebController {
   
   #[Get]
   public function exibirPaginaDeServicos(Request $request) {
-    $categoriaSelecionada = $request->getQueryString('categoria');
+    $categoria = $request->getQueryString('categoria');
+    $pagina = $request->getQueryString('pagina') ?? 1;
+
     $categorias = $this->service->buscarCategorias();
+    $dadosPaginacao = $this->service->buscarServicosComPaginacao($pagina);
+    $publicacoes = $dadosPaginacao['servicos'];
+    $totalPaginas = $dadosPaginacao['totalPaginas'];
 
     $this->render('Pages/servicos/listar-servicos.twig', [
       'categorias' => $categorias,
-      'publicacoes' => [],
-      'categoriaSelecionada' => $categoriaSelecionada
+      'publicacoes' => $publicacoes,
+      'categoriaSelecionada' => $categoria,
+      'paginaAtual' => $pagina,
+      'totalPaginas' => $totalPaginas
     ]);
   }
 
@@ -36,18 +43,18 @@ class ServicosController extends WebController {
     ]);
   }
 
-  #[Post('/cadastro')]
-  public function cadastrarServico(
-    Request $request,
-    #[Body] ServicoCadastroDTO $servico
-  ) {
-    $foiCadastrado = $this->service->cadastrarServico($servico, []);
+  // #[Post('/cadastro')]
+  // public function cadastrarServico(
+  //   Request $request,
+  //   #[Body] ServicoCadastroDTO $servico
+  // ) {
+  //   $foiCadastrado = $this->service->cadastrarServico($servico, []);
 
-    if ($foiCadastrado) return $this->redirectTo('/servicos');
+  //   if ($foiCadastrado) return $this->redirectTo('/servicos');
 
-    $request->session->set('UltimoServicoInserido', $servico);
-    return $this->redirectTo('/servicos/postar-servico');
-  }
+  //   $request->session->set('UltimoServicoInserido', $servico);
+  //   return $this->redirectTo('/servicos/postar-servico');
+  // }
 
   #[Post('/desativar/:id:{numeric}')]
   public function desativarServico(#[RouteParam] int $id, Request $request) {

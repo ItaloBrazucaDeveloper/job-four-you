@@ -28,26 +28,38 @@ class ServicosRepository extends Repository {
   }
 
   /** @return ServicoDTO[] */
-  public function buscarServicos(?int $categoriaId = null): array {
+  public function buscar(int $offset, int $itemsPorPagina): ?array {
     try {
-      $query = $this->database()
-        ->getConnection()
+    $query = $this->database()
         ->createQueryBuilder()
-        ->select('*')
-        ->from('ViewPublicacao', 'vp');
+        ->select('v')
+        ->from(ViewPublicacao::class, 'v')
+        ->setFirstResult($offset)
+        ->setMaxResults($itemsPorPagina);
+        
+    $publicacoes = $query->getQuery()->getResult();
 
-      if ($categoriaId) {
-        $query->where('vp.Categoria = :categoriaId')->setParameter('categoriaId', $categoriaId);
-      }
-      $resultados = $query->executeQuery()->fetchAllAssociative();
-
-      return array_map(
-        fn($row) => (new ViewPublicacao())->fromObject((object) $row)->toObject(ServicoDTO::class),
-        $resultados
-      );
+    return array_map(function($publicacao) {
+      return $publicacao->toObject(ServicoDTO::class);
+    }, $publicacoes);
+    
     } catch (\Throwable $th) {
       error_log("[Error] ServicosRepository::buscarServicos: {$th->getMessage()}");
       throw new \Exception("Erro ao buscar serviços");
+    }
+  }
+
+  public function contarTotal(): int {
+    try {
+      $query = $this->database()
+        ->createQueryBuilder()
+        ->select('COUNT(v.idPublicacao)')
+        ->from(ViewPublicacao::class, 'v');
+
+      return (int) $query->getQuery()->getSingleScalarResult();
+    } catch (\Throwable $th) {
+      error_log("[Error] ServicosRepository::contarTotal: {$th->getMessage()}");
+      throw new \Exception("Erro ao contar total de serviços");
     }
   }
 
@@ -69,15 +81,12 @@ class ServicosRepository extends Repository {
           'titulo' => $dto->titulo,
           'descricao' => $dto->descricao,
           'preco' => $dto->preco,
-          'categoriaServico' => $dto->categoriaServico,
-          'idUsuario' => $dto->idUsuario,
+          'categoriaServico' => $dto->categoria,
+          'idUsuario' => $dto->usuario,
           'status' => 'EM_ANALISE',
-          'fotoNome' => $dto->fotoNome
+          'fotoNome' => $dto->foto
         ])
         ->executeStatement();
-      
-      // Verifica se precisa atualizar o nível de acesso
-      $this->atualizarNivelAcesso($dto->idUsuario);
       
       return true;
     } catch (\Throwable $th) {
@@ -100,9 +109,6 @@ class ServicosRepository extends Repository {
           'idUsuario' => $idUsuario
         ])
         ->executeStatement();
-      
-      // Verifica se precisa voltar para CLIENTE
-      $this->verificarNivelAcesso($idUsuario);
       
       return true;
     } catch (\Throwable $th) {
