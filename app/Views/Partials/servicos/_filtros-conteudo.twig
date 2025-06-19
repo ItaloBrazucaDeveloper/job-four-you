@@ -1,4 +1,5 @@
 {% import "Macros/range.twig" as Range %}
+{% import "Macros/select.twig" as Select %}
 
 <div class="ml-1 space-y-6 divide">
   <h2 class="hidden lg:block font-medium text-xl">Filtros</h2>
@@ -43,11 +44,70 @@
 
   <div class="flex flex-col">
     <h5 class="opacity-80 mb-3 font-semibold border-b border-gray-400">
+      Estado
+    </h5>
+    <div class="grid grid-cols-2 gap-2">
+      {% set estados = {
+        'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas',
+        'BA': 'Bahia', 'CE': 'Ceará', 'DF': 'Distrito Federal',
+        'ES': 'Espírito Santo', 'GO': 'Goiás', 'MA': 'Maranhão',
+        'MT': 'Mato Grosso', 'MS': 'Mato Grosso do Sul', 'MG': 'Minas Gerais',
+        'PA': 'Pará', 'PB': 'Paraíba', 'PR': 'Paraná', 'PE': 'Pernambuco',
+        'PI': 'Piauí', 'RJ': 'Rio de Janeiro', 'RN': 'Rio Grande do Norte',
+        'RS': 'Rio Grande do Sul', 'RO': 'Rondônia', 'RR': 'Roraima',
+        'SC': 'Santa Catarina', 'SP': 'São Paulo', 'SE': 'Sergipe',
+        'TO': 'Tocantins'
+      } %}
+      {% for sigla, nome in estados %}
+        <div class="group relative">
+          <label
+            for="estado_{{ sigla }}"
+            class="block rounded-md w-full py-2 px-4 opacity-70 hover:opacity-100 group-has-[input:checked]:opacity-100 group-has-[input:checked]:font-semibold group-has-[input:checked]:text-gray-600 group-hover:bg-gray-200 group-has-[input:checked]:bg-gray-200 transition-all duration-200"
+          >
+            {{ nome }}
+          </label>
+          <input
+            type="checkbox"
+            name="estado[]"
+            id="estado_{{ sigla }}"
+            value="{{ sigla }}"
+            class="absolute inset-0 opacity-0 size-full"
+          >
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="flex flex-col">
+    <h5 class="opacity-80 mb-3 font-semibold border-b border-gray-400">
       Preço
     </h5>
-
-    <div class="ml-2">
-      {{ Range.render(name: 'valor', min: 'R$ 1', max: 'R$ 10000', text: 'Valor') }}
+    <div class="flex flex-col gap-2">
+      {% set faixas_preco = {
+        '0-50': 'Até R$ 50,00',
+        '50-100': 'R$ 50,00 - R$ 100,00',
+        '100-200': 'R$ 100,00 - R$ 200,00',
+        '200-500': 'R$ 200,00 - R$ 500,00',
+        '500-1000': 'R$ 500,00 - R$ 1.000,00',
+        '1000-plus': 'Acima de R$ 1.000,00'
+      } %}
+      {% for valor, texto in faixas_preco %}
+        <div class="group relative">
+          <label
+            for="valor_{{ valor }}"
+            class="block rounded-md w-full py-2 px-4 opacity-70 hover:opacity-100 group-has-[input:checked]:opacity-100 group-has-[input:checked]:font-semibold group-has-[input:checked]:text-gray-600 group-hover:bg-gray-200 group-has-[input:checked]:bg-gray-200 transition-all duration-200"
+          >
+            {{ texto }}
+          </label>
+          <input
+            type="checkbox"
+            name="valor[]"
+            id="valor_{{ valor }}"
+            value="{{ valor }}"
+            class="absolute inset-0 opacity-0 size-full"
+          >
+        </div>
+      {% endfor %}
     </div>
   </div>
 </div>

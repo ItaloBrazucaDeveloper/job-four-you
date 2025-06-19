@@ -2,9 +2,11 @@
 {% import "Macros/estrelas.twig" as Estrelas %}
 
 {% for publicacao in publicacoes %}
-  <div class="flex flex-col gap-4 p-4 w-full md:max-w-100 h-85 rounded-lg shadow-sm bg-white">
+  <div class="flex flex-col gap-4 p-4 w-full md:max-w-100 h-85 rounded-lg shadow-sm bg-white/80">
     <header class="relative flex gap-2.5">
-      <img loading="lazy" src="{{ publicacao.fotoUsuario|default('/images/avatar-fallback.png') }}"
+      <img
+        loading="lazy"
+        src="{{ publicacao.fotoUsuario|default('/images/avatar-fallback.png') }}"
         onerror="this.onerror=null;this.src='/images/avatar-fallback.png';"
         alt="Prestadora de serviços informais - Babá - Rafaela Medeiros"
         class="rounded-md size-20 object-cover shadow-sm bg-zinc-300">
@@ -23,7 +25,7 @@
       </div>
 
       <span class="absolute -top-2 -right-1 text-nowrap select-none">
-        {# {{ Estrelas.render(quantidade: publicacao.mediaAvaliacao ?? 0) }} #}
+        {{ Estrelas.render(quantidade: publicacao.mediaAvaliacao ?? 0) }}
       </span>
     </header>
 

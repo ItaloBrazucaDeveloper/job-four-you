@@ -661,6 +661,9 @@
   .grid-cols-1 {
     grid-template-columns: repeat(1, minmax(0, 1fr));
   }
+  .grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
   .flex-col {
     flex-direction: column;
   }
@@ -883,6 +886,10 @@
     border-top-style: var(--tw-border-style);
     border-top-width: 4px;
   }
+  .border-r {
+    border-right-style: var(--tw-border-style);
+    border-right-width: 1px;
+  }
   .border-b {
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
@@ -910,8 +917,14 @@
   .border-gray-400 {
     border-color: var(--color-gray-400);
   }
+  .border-gray-500 {
+    border-color: var(--color-gray-500);
+  }
   .border-gray-600 {
     border-color: var(--color-gray-600);
+  }
+  .border-gray-700 {
+    border-color: var(--color-gray-700);
   }
   .border-gray-800 {
     border-color: var(--color-gray-800);
@@ -936,6 +949,9 @@
   }
   .border-t-zinc-400 {
     border-top-color: var(--color-zinc-400);
+  }
+  .border-r-gray-300 {
+    border-right-color: var(--color-gray-300);
   }
   .border-b-gray-400 {
     border-bottom-color: var(--color-gray-400);
@@ -987,6 +1003,9 @@
   }
   .bg-gray-400 {
     background-color: var(--color-gray-400);
+  }
+  .bg-gray-500 {
+    background-color: var(--color-gray-500);
   }
   .bg-gray-700 {
     background-color: var(--color-gray-700);
@@ -1049,6 +1068,18 @@
     background-color: color-mix(in srgb, #fff 80%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-white) 80%, transparent);
+    }
+  }
+  .bg-white\/85 {
+    background-color: color-mix(in srgb, #fff 85%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 85%, transparent);
+    }
+  }
+  .bg-white\/90 {
+    background-color: color-mix(in srgb, #fff 90%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 90%, transparent);
     }
   }
   .bg-yellow-50 {
@@ -1188,6 +1219,9 @@
   .pr-3 {
     padding-right: calc(var(--spacing) * 3);
   }
+  .pr-4 {
+    padding-right: calc(var(--spacing) * 4);
+  }
   .pr-16 {
     padding-right: calc(var(--spacing) * 16);
   }
@@ -1317,6 +1351,9 @@
   }
   .text-emerald-900 {
     color: var(--color-emerald-900);
+  }
+  .text-gray-50 {
+    color: var(--color-gray-50);
   }
   .text-gray-100 {
     color: var(--color-gray-100);
@@ -1465,6 +1502,9 @@
   .ring-gray-500 {
     --tw-ring-color: var(--color-gray-500);
   }
+  .ring-gray-600 {
+    --tw-ring-color: var(--color-gray-600);
+  }
   .ring-gray-800 {
     --tw-ring-color: var(--color-gray-800);
   }
@@ -1520,6 +1560,9 @@
   .select-none {
     -webkit-user-select: none;
     user-select: none;
+  }
+  .text-shadow-sm {
+    text-shadow: 0px 1px 0px var(--tw-text-shadow-color, rgb(0 0 0 / 0.075)), 0px 1px 1px var(--tw-text-shadow-color, rgb(0 0 0 / 0.075)), 0px 2px 2px var(--tw-text-shadow-color, rgb(0 0 0 / 0.075));
   }
   .\*\:block {
     :is(& > *) {
@@ -1622,10 +1665,30 @@
       }
     }
   }
+  .hover\:bg-gray-500\/10 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: color-mix(in srgb, oklch(55.1% 0.027 264.364) 10%, transparent);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-gray-500) 10%, transparent);
+        }
+      }
+    }
+  }
   .hover\:bg-gray-700 {
     &:hover {
       @media (hover: hover) {
         background-color: var(--color-gray-700);
+      }
+    }
+  }
+  .hover\:bg-gray-700\/10 {
+    &:hover {
+      @media (hover: hover) {
+        background-color: color-mix(in srgb, oklch(37.3% 0.034 259.733) 10%, transparent);
+        @supports (color: color-mix(in lab, red, red)) {
+          background-color: color-mix(in oklab, var(--color-gray-700) 10%, transparent);
+        }
       }
     }
   }
@@ -2370,6 +2433,15 @@ input[type="date"] {
   syntax: "*";
   inherits: false;
 }
+@property --tw-text-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-text-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
 @property --tw-scale-x {
   syntax: "*";
   inherits: false;
@@ -2458,6 +2530,8 @@ input[type="date"] {
       --tw-backdrop-saturate: initial;
       --tw-backdrop-sepia: initial;
       --tw-duration: initial;
+      --tw-text-shadow-color: initial;
+      --tw-text-shadow-alpha: 100%;
       --tw-scale-x: 1;
       --tw-scale-y: 1;
       --tw-scale-z: 1;
