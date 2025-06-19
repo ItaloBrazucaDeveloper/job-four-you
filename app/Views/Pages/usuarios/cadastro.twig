@@ -9,185 +9,120 @@
 
 {% block main %}
 	<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="bg-white shadow rounded-lg">
-			<div class="p-8 sm:p-10">
-				<header class="text-center mb-8">
-					<h2 class="text-3xl font-bold text-gray-900">Cadastro de Usuário</h2>
-					<p class="mt-2 text-gray-600">Preencha o formulário para criar sua conta</p>
-				</header>
+		<div class="p-8 sm:p-10">
+			<header class="text-center mb-8">
+				<h2 class="text-3xl font-bold text-gray-900">Cadastro de Usuário</h2>
+				<p class="mt-2 text-gray-600">Preencha o formulário para criar sua conta</p>
+			</header>
 
-				<form action="/usuarios/cadastro" method="POST" class="space-y-6">
-					<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-						<div class="col-span-2">
-							{{ Label.render(for: 'nome', text: 'Nome completo') }}
+			<form action="/usuarios/cadastro" method="POST" class="space-y-6">
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+					<fieldset class="flex flex-wrap gap-6 col-span-2">
+						<div class="w-full">
+							{{ Label.render(for: 'nome', text: 'Nome') }}
 							{{ Input.render(
-								name: 'nome',
-								type: 'text',
-								placeholder: 'Digite seu nome completo',
-								required: true,
-								icon: 'bi bi-person',
-								value: null,
-								class: '',
-								error: getInputError('nome')
+							name: 'nome',
+							type: 'text',
+							placeholder: 'Digite seu nome',
+							required: true,
+							icon: 'bi bi-person',
+							value: null,
+							class: '',
+							error: getInputError('nome')
 							) }}
 						</div>
-
-						<div>
-							{{ Label.render(for: 'cpf', text: 'CPF') }}
+						<div class="w-full">
+							{{ Label.render(for: 'sobrenome', text: 'Sobrenome') }}
 							{{ Input.render(
-								name: 'cpf',
-								type: 'text',
-								placeholder: '000.000.000-00',
-								required: true,
-								icon: 'bi bi-card-text',
-								value: null,
-								class: '',
-								error: getInputError('cpf')
+							name: 'sobrenome',
+							type: 'text',
+							placeholder: 'Digite seu sobrenome',
+							required: true,
+							icon: 'bi bi-person',
+							value: null,
+							class: '',
+							error: getInputError('nome')
 							) }}
 						</div>
+					</fieldset>
 
-						<div>
-							{{ Label.render(for: 'dataNascimento', text: 'Data de Nascimento') }}
+					<div class="col-span-2 md:col-span-1">
+						{{ Label.render(for: 'cpf', text: 'CPF') }}
+						{{ Input.render(
+						name: 'cpf',
+						type: 'text',
+						placeholder: '000.000.000-00',
+						required: true,
+						icon: 'bi bi-card-text',
+						value: null,
+						class: '',
+						error: getInputError('cpf')
+						) }}
+					</div>
+
+					<div class="col-span-2 md:col-span-1">
+						{{ Label.render(for: 'dataNascimento', text: 'Data de Nascimento') }}
+						{{ Input.render(
+						name: 'dataNascimento',
+						type: 'date',
+						placeholder: null,
+						required: true,
+						icon: 'bi bi-calendar',
+						value: null,
+						class: '',
+						error: getInputError('data_nascimento')
+						) }}
+					</div>
+
+					<div class="col-span-2">
+						{{ Label.render(for: 'email', text: 'Email') }}
+						{{ Input.render(
+						name: 'email',
+						type: 'email',
+						placeholder: 'seu@email.com',
+						required: true,
+						icon: 'bi bi-envelope',
+						value: null,
+						class: '',
+						error: getInputError('email')
+						) }}
+					</div>
+
+					<div class="col-span-2 md:col-span-1">
+						{{ Label.render(for: 'senha', text: 'Senha') }}
+						<div class="relative">
 							{{ Input.render(
-								name: 'dataNascimento',
-								type: 'date',
-								placeholder: null,
-								required: true,
-								icon: 'bi bi-calendar',
-								value: null,
-								class: '',
-								error: getInputError('data_nascimento')
+							name: 'senha',
+							type: 'password',
+							placeholder: 'Crie uma senha',
+							required: true,
+							icon: 'bi bi-lock',
+							value: null,
+							class: '',
+							error: getInputError('senha')
 							) }}
-						</div>
-
-						<div>
-							{{ Label.render(for: 'email', text: 'Email') }}
-							{{ Input.render(
-								name: 'email',
-								type: 'email',
-								placeholder: 'seu@email.com',
-								required: true,
-								icon: 'bi bi-envelope',
-								value: null,
-								class: '',
-								error: getInputError('email')
-							) }}
-						</div>
-
-						<div>
-							{{ Label.render(for: 'celular', text: 'Número de celular') }}
-							{{ Input.render(
-								name: 'celular',
-								type: 'text',
-								placeholder: '(00) 00000-0000',
-								required: true,
-								icon: 'bi bi-telephone',
-								value: null,
-								class: '',
-								error: getInputError('telefone')
-							) }}
-						</div>
-
-						<div>
-							{{ Label.render(for: 'senha', text: 'Senha') }}
-							<div class="relative">
-								{{ Input.render(
-									name: 'senha',
-									type: 'password',
-									placeholder: 'Crie uma senha',
-									required: true,
-									icon: 'bi bi-lock',
-									value: null,
-									class: '',
-									error: getInputError('senha')
-								) }}
-								<button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-									<i class="bi bi-eye text-gray-400 hover:text-gray-500"></i>
-								</button>
-							</div>
-						</div>
-
-						<div>
-							{{ Label.render(for: 'cep', text: 'CEP') }}
-							{{ Input.render(
-								name: 'cep',
-								type: 'text',
-								placeholder: '00000-000',
-								required: true,
-								icon: 'bi bi-mailbox',
-								value: null,
-								class: '',
-								error: getInputError('cep')
-							) }}
-						</div>
-
-						<div>
-							{{ Label.render(for: 'estado', text: 'Estado') }}
-							{{ Select.render(
-								name: 'estado',
-								options: {
-									'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas',
-									'BA': 'Bahia', 'CE': 'Ceará', 'DF': 'Distrito Federal',
-									'ES': 'Espírito Santo', 'GO': 'Goiás', 'MA': 'Maranhão',
-									'MT': 'Mato Grosso', 'MS': 'Mato Grosso do Sul', 'MG': 'Minas Gerais',
-									'PA': 'Pará', 'PB': 'Paraíba', 'PR': 'Paraná', 'PE': 'Pernambuco',
-									'PI': 'Piauí', 'RJ': 'Rio de Janeiro', 'RN': 'Rio Grande do Norte',
-									'RS': 'Rio Grande do Sul', 'RO': 'Rondônia', 'RR': 'Roraima',
-									'SC': 'Santa Catarina', 'SP': 'São Paulo', 'SE': 'Sergipe',
-									'TO': 'Tocantins'
-								},
-								placeholder: 'Selecione',
-								required: true,
-								icon: 'bi bi-map'
-							) }}
-						</div>
-
-						<div>
-							{{ Label.render(for: 'cidade', text: 'Cidade') }}
-							{{ Input.render(
-								name: 'cidade',
-								type: 'text',
-								placeholder: 'Sua cidade',
-								required: true,
-								icon: 'bi bi-building',
-								value: null,
-								class: '',
-								error: getInputError('cidade')
-							) }}
-						</div>
-
-						<div>
-							{{ Label.render(for: 'bairro', text: 'Bairro') }}
-							{{ Input.render(
-								name: 'bairro',
-								type: 'text',
-								placeholder: 'Seu bairro',
-								required: true,
-								icon: 'bi bi-pin-map',
-								value: null,
-								class: '',
-								error: getInputError('bairro')
-							) }}
-						</div>
-
-						<div>
-							{{ Label.render(for: 'rua', text: 'Rua') }}
-							{{ Input.render(
-								name: 'rua',
-								type: 'text',
-								placeholder: 'Sua rua',
-								required: true,
-								icon: 'bi bi-signpost',
-								value: null,
-								class: '',
-								error: getInputError('rua')
-							) }}
+							<button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+								<i class="bi bi-eye text-gray-400 hover:text-gray-500"></i>
+							</button>
 						</div>
 					</div>
 
-					{{ Button.render(type: 'submit', text: 'Cadastrar') }}
-				</form>
-			</div>
+					<div class="col-span-2 md:col-span-1">
+						{{ Label.render(for: 'celular', text: 'Número de celular') }}
+						{{ Input.render(
+						name: 'celular',
+						type: 'text',
+						placeholder: '(00) 00000-0000',
+						required: true,
+						icon: 'bi bi-telephone',
+						value: null,
+						class: '',
+						error: getInputError('telefone')
+						) }}
+					</div>
+
+					{{ Button.render(type: 'submit', text: 'Cadastrar', class: 'col-span-2') }}
+			</form>
 		</div>
 	</div>
 {% endblock %}

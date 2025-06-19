@@ -9,15 +9,40 @@
 		</a>
 
 		{# LINKS DO MENU (versão desktop) #}
-		<div class="hidden md:flex items-center space-x-8">
-			<a class="{{ url == '/' ? 'text-yellow-500 font-medium' : 'text-gray-300 hover:text-gray-100' }} transition-colors" href="/">Sobre Nós</a>
-			<a class="{{ url starts with '/servicos' ? 'text-yellow-500 font-medium' : 'text-gray-300 hover:text-gray-100' }} transition-colors" href="/servicos">Buscar Serviços</a>
+		<div class="flex flex-col md:flex-row items-center space-x-8">
+			<a
+				class="{{ url == '/' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
+				href="/"
+				>
+				Sobre Nós
+			</a>
+			<a
+				class="{{ url starts with '/servicos' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
+				href="/servicos"
+			>
+				Buscar Serviços
+			</a>
 			{% if not session('usuario_autenticado') %}
-				<a class="{{ url starts with '/usuarios/cadastro' ? 'text-yellow-500 font-medium' : 'text-gray-300 hover:text-gray-100' }} transition-colors" href="/usuarios/cadastro">Cadastre-se</a>
-				<a class="bg-yellow-500/90 hover:bg-yellow-600 text-gray-100 px-6 py-2 rounded-full font-medium transition-colors" href="/autenticacao">Login</a>
+				<a class="{{ url starts with '/usuarios/cadastro' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors" href="/usuarios/cadastro">Cadastre-se</a>
+				<a
+					class="bg-yellow-500 hover:opacity-90 text-gray-900 px-6 py-2 rounded-full font-medium transition-colors"
+					href="/autenticacao"
+				>
+					Login
+				</a>
 			{% else %}
-				<a class="{{ url starts with '/meu-perfil' ? 'text-yellow-500 font-medium' : 'text-gray-300 hover:text-gray-100' }} transition-colors" href="/meu-perfil">Meu Perfil</a>
-				<a class="bg-yellow-500/90 hover:bg-yellow-600 text-gray-100 px-6 py-2 rounded-full font-medium transition-colors" href="/autenticacao/sair">Sair</a>
+				<a
+					class="{{ url starts with '/meu-perfil' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
+					href="/meu-perfil"
+				>
+					Meu Perfil
+				</a>
+				<a
+					class="bg-yellow-500 hover:opacity-90 text-gray-900 px-6 py-2 rounded-full font-medium transition-colors"
+					href="/autenticacao/sair"
+				>
+					Sair
+				</a>
 			{% endif %}
 		</div>
 
@@ -25,30 +50,5 @@
 		<button class="md:hidden text-gray-100 focus:outline-none" id="menuButton">
 			<i class="fas fa-bars text-2xl"></i>
 		</button>
-	</div>
-
-	{# MENU MOBILE (invisível até clicar) #}
-	<div class="md:hidden hidden mt-4 space-y-3 bg-slate-950/90 rounded-lg p-4" id="mobileMenu">
-		<a class="block {{ url == '/' ? 'text-yellow-500 font-medium' : 'text-gray-300 hover:text-gray-100' }} px-3 py-2" href="/">
-			Sobre
-		</a>
-		<a class="block {{ url starts with '/servicos' ? 'text-yellow-500 font-medium' : 'text-gray-300 hover:text-gray-100' }} px-3 py-2" href="/servicos">
-			Buscar Serviços
-		</a>
-		{% if not session('usuario_autenticado') %}
-			<a class="block {{ url starts with '/usuarios/cadastro' ? 'text-yellow-500 font-medium' : 'text-gray-300 hover:text-gray-100' }} px-3 py-2" href="/usuarios/cadastro">
-				Cadastre-se
-			</a>
-			<a class="block bg-yellow-500/90 hover:bg-yellow-600 text-gray-100 px-3 py-2 rounded text-center mt-2" href="/autenticacao">
-				Login
-			</a>
-		{% else %}
-			<a class="block {{ url starts with '/meu-perfil' ? 'text-yellow-500 font-medium' : 'text-gray-300 hover:text-gray-100' }} px-3 py-2" href="/meu-perfil">
-				Meu Perfil
-			</a>
-			<a class="block bg-yellow-500/90 hover:bg-yellow-600 text-gray-100 px-3 py-2 rounded text-center mt-2" href="/autenticacao/sair">
-				Sair
-			</a>
-		{% endif %}
 	</div>
 </nav>

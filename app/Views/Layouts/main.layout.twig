@@ -1,14 +1,14 @@
 {% extends "root.layout.twig" %}
 
 {% block content %}
-  <div class="flex flex-col min-h-screen bg-zinc-50">
+  <div class="flex flex-col min-h-screen bg-zinc-100">
     {% block header %} {% include "Partials/_header.twig" %} {% endblock %}
 
     <main class="flex-grow">
       {% block main %} {% endblock %}
     </main>
 
-    {# {% block footer %} {% include "Partials/_footer.twig" %} {% endblock %} #}
+    {% block footer %} {% include "Partials/_footer.twig" %} {% endblock %}
   </div>
 {% endblock %}
 

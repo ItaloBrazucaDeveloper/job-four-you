@@ -1,0 +1,19 @@
+{% macro render(
+  name,
+  min = 0,
+  max = 10,
+  text = ''
+) %}
+  <div class="flex flex-col">
+    <label for="{{ name }}">{{ text }}</label>
+    <input
+      type="range"
+      id="{{ name }}"
+      name="{{ name }}"
+    >
+    <div class="flex justify-between">
+      <span class="text-sm opacity-80">{{ min }}</span>
+      <span class="text-sm opacity-80">{{ max }}</span>
+    </div>
+  </div>
+{% endmacro %}
