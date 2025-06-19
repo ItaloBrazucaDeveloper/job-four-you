@@ -23,17 +23,14 @@ SELECT
     p.DataCriacao AS PublicadoEm,
     p.UltimaAtualizacao AS EditadoEm,
     cs.Nome AS Categoria,
-    MAX(CASE WHEN cc.Nome = 'Email' THEN ic.Contato END) AS Email,
-    MAX(CASE WHEN cc.Nome = 'Facebook' THEN ic.Contato END) AS Facebook,
-    MAX(CASE WHEN cc.Nome = 'Celular' THEN ic.Contato END) AS Celular,
-    MAX(CASE WHEN cc.Nome = 'WhatsApp' THEN ic.Contato END) AS Whatsapp,
-    MAX(CASE WHEN cc.Nome = 'Instagram' THEN ic.Contato END) AS Instagram,
-    MAX(CASE WHEN cc.Nome = 'Outro' THEN ic.Contato END) AS OutroContato
+    e.Cidade,
+    e.Estado,
+    COALESCE(AVG(av.Nota), 0) AS MediaAvaliacoes
 FROM PublicacaoServico p
     INNER JOIN Usuario u ON u.ID = p.FKUsuario 
     INNER JOIN CategoriaServico cs ON cs.ID = p.FKCategoria
-    LEFT JOIN InformacaoContato ic ON ic.FKUsuario = u.ID
-    LEFT JOIN CategoriaContato cc ON cc.ID = ic.FKCategoriaContato
+    LEFT JOIN Endereco e ON e.ID = u.FKEndereco
+    LEFT JOIN AvaliacaoServico av ON av.FkPublicacao = p.ID
 WHERE p.StatusPublicacao = 'ATIVO' AND u.StatusUsuario = 'ATIVO'
 GROUP BY 
     p.ID,
@@ -45,7 +42,9 @@ GROUP BY
     p.QuantidadeFavorito,
     p.DataCriacao,
     p.UltimaAtualizacao,
-    cs.Nome;
+    cs.Nome,
+    e.Cidade,
+    e.Estado;
 
 CREATE OR REPLACE VIEW ViewAvaliacaoServico AS
 SELECT
