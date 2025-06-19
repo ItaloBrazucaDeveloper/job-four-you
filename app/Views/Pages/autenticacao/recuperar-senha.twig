@@ -5,36 +5,86 @@
 {% import "Macros/button.twig" as Button %}
 
 {% block main %}
-<main class="flex-grow flex items-center justify-center py-12 px-4 md:px-6">
-  <div class="w-full max-w-md space-y-8">
-    <header class="text-center">
-      <i class="bi bi-shield-lock text-yellow-500 text-5xl mb-4"></i>
-      <h2 class="mt-2 text-3xl font-bold text-gray-900">
-        Recuperar Senha
-      </h2>
-      <span class="mt-2 text-sm text-gray-600">
-        Digite seu e-mail para receber um link de recuperação
-      </span>
-    </header>
+  {% set step = 2 %}
 
-    {% if flash_message %}
-      {{ Alert.render(flash_message.type, flash_message.type) }}
-    {% endif %}
+  <main class="flex-grow grid place-items-center">
+    <div class="w-full md:max-w-md space-y-8 bg-white/80 p-4 md:p-8 shadow rounded-lg">
+      <header class="text-center space-y-1">
+        <i class="bi bi-shield-lock text-yellow-500 text-5xl mb-4"></i>
+        <h2 class="mt-2 text-3xl font-bold text-gray-900">
+          Recuperar Senha
+        </h2>
+        <span class="font-medium opacity-70">
+          {% if step == 1 %}
+            Insira seu e-mail cadastrado para recuperar a senha
+          {% elseif step == 2 %}
+            Insira o código de 4 dígitos enviado para seu e-mail
+          {% elseif step == 3 %}
+            Redefina sua senha :)
+          {% endif %}
+        </span>
+      </header>
 
-    <form class="mt-8 space-y-6" action="/recuperar-senha" method="POST">
-      <div>
-        {{ Label.render(for: 'email', text: 'E-mail') }}
-        {{ Input.render(
-          name: 'email',
-          type: 'email',
-          placeholder: 'Seu e-mail cadastrado',
-          icon: 'bi bi-envelope',
-          autocomplete: 'email'
-        ) }}
-      </div>
+      {% if flash_message %}
+        {{ Alert.render(flash_message.type, flash_message.type) }}
+      {% endif %}
 
-      {{ Button.render(type: 'submit', text: 'Enviar código de Recuperação') }}
-    </form>
-  </div>
-</main>
+      {% if step == 1 %}
+        <form class="mt-8 space-y-6" action="/recuperar-senha" method="POST">
+          <div>
+            {{ Label.render(for: 'email', text: 'E-mail') }}
+            {{ Input.render(
+              name: 'email',
+              type: 'email',
+              placeholder: 'Seu e-mail cadastrado',
+              icon: 'bi bi-envelope',
+              autocomplete: 'email'
+            ) }}
+          </div>
+
+          {{ Button.render(type: 'submit', text: 'Enviar código de Recuperação') }}
+        </form>
+      {% elseif step == 2 %}
+        <form class="mt-8 space-y-6" action="/recuperar-senha" method="POST">
+          <div class="text-center grid gap-3">
+            <div id="verification-code-inputs" class="flex gap-2 justify-center">
+              <input type="text" inputmode="numeric" pattern="[0-9]{1}" maxlength="1" class="size-12 text-center shadow-sm bg-white ring ring-gray-400 rounded text-2xl" name="code1" id="code1" autocomplete="one-time-code" required />
+              <input type="text" inputmode="numeric" pattern="[0-9]{1}" maxlength="1" class="size-12 text-center shadow-sm bg-white ring ring-gray-400 rounded text-2xl" name="code2" id="code2" autocomplete="one-time-code" required />
+              <input type="text" inputmode="numeric" pattern="[0-9]{1}" maxlength="1" class="size-12 text-center shadow-sm bg-white ring ring-gray-400 rounded text-2xl" name="code3" id="code3" autocomplete="one-time-code" required />
+              <input type="text" inputmode="numeric" pattern="[0-9]{1}" maxlength="1" class="size-12 text-center shadow-sm bg-white ring ring-gray-400 rounded text-2xl" name="code4" id="code4" autocomplete="one-time-code" required />
+            </div>
+          </div>
+
+          {{ Button.render(type: 'submit', text: 'Continuar') }}
+        </form>
+      {% elseif step == 3 %}
+        <form class="mt-8 space-y-6" action="/recuperar-senha" method="POST">
+          <div>
+            {{ Label.render(for: 'senha', text: 'Nova senha') }}
+            {{ Input.render(
+              name: 'senha',
+              type: 'password',
+              icon: 'bi bi-lock',
+              placeholder: 'Insira sua nova senha'
+            ) }}
+          </div>
+          <div>
+            {{ Label.render(for: 'senha', text: 'Repita sua nova senha') }}
+            {{ Input.render(
+              name: 'senha',
+              type: 'password',
+              icon: 'bi bi-lock',
+              placeholder: 'Insira sua nova senha novamente'
+            ) }}
+          </div>
+          {{ Button.render(type: 'submit', text: 'Mudar senha') }}
+        </form>
+      {% endif %}
+    </div>
+  </main>
+{% endblock %}
+
+{% block scripts %}
+  {{ parent() }}
+  <script src="/assets/js/autenticacao/verification-code.js"></script>
 {% endblock %}

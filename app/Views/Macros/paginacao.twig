@@ -3,7 +3,7 @@
     {# Botão Anterior #}
     <a 
       href="?pagina={{ atual - 1 }}"
-      class="shadow p-2 rounded-lg {{ atual <= 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
+      class="ring ring-gray-300 p-2 rounded-lg {{ atual <= 1 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
       {{ atual <= 1 ? 'disabled' : '' }}
     >
       <i class="bi bi-chevron-left"></i> Anterior
@@ -13,7 +13,7 @@
     {% for i in range(max(1, atual - 2), min(total, atual + 2)) %}
       <a 
         href="?pagina={{ i }}"
-        class="shadow size-10 flex items-center justify-center rounded-lg {{ i == atual ? 'bg-yellow-500 text-white' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
+        class="ring ring-gray-300 size-10 flex items-center justify-center rounded-lg {{ i == atual ? 'bg-yellow-500 text-white ring-yellow-600' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
       >
         {{ i }}
       </a>
@@ -22,7 +22,7 @@
     {# Botão Próximo #}
     <a 
       href="?pagina={{ atual + 1 }}" 
-      class="shadow p-2 rounded-lg {{ atual >= total ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
+      class="ring ring-gray-300 p-2 rounded-lg {{ atual >= total ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-white text-gray-700 hover:bg-gray-50' }} transition-colors"
       {{ atual >= total ? 'disabled' : '' }}
     >
       Próximo <i class="bi bi-chevron-right"></i>

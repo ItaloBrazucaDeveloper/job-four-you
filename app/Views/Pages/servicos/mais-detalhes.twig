@@ -1,37 +1,41 @@
 {% extends "Layouts/main.layout.twig" %}
 
 {% import "Macros/estrelas.twig" as Estrelas %}
+{% import "Macros/paginacao.twig" as Paginacao %}
 
 {% block main %}
   <main class="flex-grow">
-    <div class="m-4 p-4 md:p-8 bg-white/80 rounded-lg shadow-sm">
-      <header class="flex justify-center flex-wrap gap-3">
+    <div class="mx-auto max-w-3xl m-4 p-4 md:p-8 md:bg-white/80 md:rounded-lg md:shadow-sm">
+      <header class="flex items-center justify-center flex-wrap md:flex-nowrap gap-4">
         <img
           alt="Prestador tal"
           src="https://images.pexels.com/photos/8159657/pexels-photo-8159657.jpeg"
-          class="size-64 md:size-72 object-cover rounded-xl shadow-sm border-3 border-transparent outline outline-gray-800"
+          class="size-64 object-cover rounded-xl shadow-sm border-3 border-transparent outline outline-gray-800"
         >
-        <div class="flex items-center flex-col gap-2">
+        <div class="flex items-center md:items-start flex-col gap-2">
           <div>
-            <h1 class="font-medium text-3xl md:text-6xl text-center">Júlio Matorn</h1>
-            <span class="md:text-lg opacity-80">Manutenção de eletro-domésticos</span>
+            <h1 class="font-medium text-3xl md:text-4xl text-center md:text-start">Júlio Martorn</h1>
+            <p class="md:text-lg opacity-60">
+              <strong>Manutenção de eletro-domésticos</strong>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolorem eum voluptatibus delectus perspiciatis unde numquam aperiam quasi? Perferendis voluptates sed cum vel quos culpa blanditiis omnis modi neque similique.
+            </p>
           </div>
-  
+          {# Contatos #}
           <ul class="flex gap-4 *:px-2 *:py-1 *:rounded-md *:shadow *:cursor-pointer *:hover:scale-105 *:transition-transform duration-200">
             <li class="bg-emerald-500 text-gray-200">
-              <i title="whatsapp" class="bi bi-whatsapp"></i>
+              <i title="whatsapp" class="text-lg bi bi-whatsapp"></i>
             </li>
             <li class="bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600 text-gray-200">
-              <i title="instagram" class="bi bi-instagram"></i>
+              <i title="instagram" class="text-lg bi bi-instagram"></i>
             </li>
             <li class="bg-indigo-600 text-gray-200">
-              <i title="facebook" class="bi bi-facebook"></i>
+              <i title="facebook" class="text-lg bi bi-facebook"></i>
             </li>
             <li class="bg-rose-500 text-gray-200">
-              <i title="telephone" class="bi bi-telephone"></i>
+              <i title="telephone" class="text-lg bi bi-telephone"></i>
             </li>
             <li class="bg-yellow-400 text-gray-900">
-              <i title="email" class="bi bi-envelope-at"></i>
+              <i title="email" class="text-lg bi bi-envelope-at"></i>
             </li>
             <li class="outline text-gray-900">
               Outro
@@ -39,23 +43,23 @@
           </ul>
         </div>
       </header>
-  
-      <div class="mt-10">
-        <h3 class="flex justify-center gap-2 items-center font-medium text-lg text-center">
-          <span class="w-full h-px bg-gray-950"></span>
-          <span>Avaliações</span>
-          <span class="w-full h-px bg-gray-950"></span>
-        </h3>
 
+      <div class="mt-10">
+        <h3 class="opacity-80 font-medium text-2xl flex items-center gap-3">
+          <span class="w-full h-px bg-gray-400"></span>
+          <span>Avaliações</span>
+          <span class="w-full h-px bg-gray-400"></span>
+        </h3>
         <div class="flex flex-col items-center">
           <h2 class="text-8xl font-semibold">4.3</h2>
           <div>
-            {{ Estrelas.render(4.3) }}
+            {{ Estrelas.render(quantidade: 4.3, tamanho: '2xl') }}
           </div>
         </div>
       </div>
   
       {% include "Partials/servicos/mais-detalhes/_avaliacoes.twig" %}
+      {{ Paginacao.render(1, 15) }}
     </div>
   </main>
 {% endblock %}
