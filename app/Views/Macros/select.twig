@@ -20,8 +20,8 @@
       class="bg-white/80 shadow-sm py-2 {% if icon %}pl-10{% endif %} block w-full border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 {{ class }}"
     >
       <option value="" selected disabled>{{ placeholder }}</option>
-      {% for value, text in options %}
-        <option value="{{ value }}">{{ text }}</option>
+      {% for option in options %}
+        <option value="{{ option.id }}">{{ option.nome }}</option>
       {% endfor %}
     </select>
   </div>

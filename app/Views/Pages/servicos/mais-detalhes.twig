@@ -14,14 +14,16 @@
         >
         <div class="flex items-center md:items-start flex-col gap-2">
           <div>
-            <h1 class="font-medium text-3xl md:text-4xl text-center md:text-start">Júlio Martorn</h1>
-            <p class="md:text-lg opacity-60">
-              <strong>Manutenção de eletro-domésticos</strong>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Commodi dolorem eum voluptatibus delectus perspiciatis unde numquam aperiam quasi? Perferendis voluptates sed cum vel quos culpa blanditiis omnis modi neque similique.
+            <h1 class="font-medium text-3xl md:text-4xl text-center md:text-start">Júlio Martornes</h1>
+            <p class="mt-2 md:text-lg opacity-60 text-center md:text-start">
+              <strong>Manutenção de eletro-domésticos: </strong>
+              Especialista em conserto e manutenção de refrigeradores, máquinas de lavar,
+              micro-ondas e outros eletrodomésticos. Atendo em domicílio com agilidade e
+              garantia de qualidade. Diagnóstico preciso e orçamento sem compromisso.
             </p>
           </div>
           {# Contatos #}
-          <ul class="flex gap-4 *:px-2 *:py-1 *:rounded-md *:shadow *:cursor-pointer *:hover:scale-105 *:transition-transform duration-200">
+          <ul class="mt-4 flex gap-4 *:px-2 *:py-1 *:rounded-md *:shadow *:cursor-pointer *:hover:scale-105 *:transition-transform duration-200">
             <li class="bg-emerald-500 text-gray-200">
               <i title="whatsapp" class="text-lg bi bi-whatsapp"></i>
             </li>
@@ -59,7 +61,7 @@
       </div>
   
       {% include "Partials/servicos/mais-detalhes/_avaliacoes.twig" %}
-      {{ Paginacao.render(1, 15) }}
+      {# {{ Paginacao.render(1, 1) }} #}
     </div>
   </main>
 {% endblock %}

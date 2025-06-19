@@ -4,76 +4,79 @@
 {% import "Macros/label.twig" as Label %}
 {% import "Macros/button.twig" as Button %}
 {% import "Macros/textarea.twig" as Textarea %}
+{% import "Macros/select.twig" as Select %}
 
 {% block main %}
-  <div class="my-8 max-w-2xl px-4 lg:px-8">
-    <div class="bg-white shadow rounded-lg overflow-hidden">
+  <div class="mx-auto my-8 max-w-2xl px-4 md:px-8">
+    <div class="bg-white/80 shadow rounded-lg overflow-hidden">
       <div class="p-8 sm:p-10">
         <header class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-gray-900">Cadastro de Serviço</h2>
-          <p class="mt-2 text-gray-600">Preencha os dados do serviço que deseja oferecer</p>
+          <h2 class="text-3xl font-bold text-gray-900">
+            Cadastro de Serviço
+          </h2>
+          <p class="mt-2 text-gray-600">
+            Preencha os dados do serviço que deseja oferecer
+          </p>
         </header>
 
-        <form action="/servicos/cadastro" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form method="POST" enctype="multipart/form-data" class="space-y-6">
           <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-            <i class="bi bi-tools mr-2"></i> Dados do Serviço
+            Dados do Serviço
           </h4>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="col-span-2 md:col-span-1">
-              <div>
-                {{ Label.render(name: 'categoria', text: 'Categoria') }}
-                {{ Select.render(
-                  name: 'categoria',
-                  options: categorias|map(c => c.ID, c => c.Nome),
-                  placeholder: 'Selecione',
-                  required: true,
-                  icon: 'bi bi-grid'
-                ) }}
-              </div>
+              {{ Label.render(name: 'categoria', text: 'Categoria') }}
+              {{ Select.render(
+                name: 'categoria',
+                options: categorias,
+                placeholder: 'Selecione',
+                required: true,
+                icon: 'bi bi-grid'
+              ) }}
+            </div>
 
-              <div class="col-span-2 md:col-span-1">
-                {{ Label.render(for: 'preco', text: 'Preço (R$)') }}
-                {{ Input.render(
-                  name: 'preco',
-                  type: 'number',
-                  placeholder: 'Ex: 99.90',
-                  required: true,
-                  icon: 'bi bi-currency-dollar'
-                ) }}
-              </div>
+            <div class="col-span-2 md:col-span-1">
+              {{ Label.render(for: 'preco', text: 'Preço (R$)') }}
+              {{ Input.render(
+                name: 'preco',
+                type: 'number',
+                placeholder: 'Ex: 99.90',
+                required: true,
+                icon: 'bi bi-currency-dollar'
+              ) }}
+            </div>
 
-              <div class="col-span-2">
-                {{ Label.render(for: 'titulo', text: 'Título do Serviço') }}
-                {{ Input.render(
-                  name: 'titulo',
-                  type: 'text',
-                  placeholder: 'Ex: Encanador Residencial',
-                  required: true,
-                  icon: 'bi bi-card-heading'
-                ) }}
-              </div>
+            <div class="col-span-2">
+              {{ Label.render(for: 'titulo', text: 'Título do Serviço') }}
+              {{ Input.render(
+                name: 'titulo',
+                type: 'text',
+                placeholder: 'Ex: Encanador Residencial',
+                required: true,
+                icon: 'bi bi-card-heading'
+              ) }}
+            </div>
 
-              <div class="col-span-2">
-                {{ Label.render(for: 'foto', text: 'Foto do Serviço (Opcional)') }}
-                {{ Input.render(
-                  name: 'foto',
-                  type: 'file',
-                  required: false,
-                  icon: 'bi bi-image'
-                ) }}
-              </div>
+            <div class="col-span-2">
+              {{ Label.render(for: 'foto', text: 'Foto do Serviço (Opcional)') }}
+              {{ Input.render(
+                name: 'foto',
+                type: 'file',
+                required: false,
+                icon: 'bi bi-image'
+              ) }}
+            </div>
 
-              <div class="col-span-2">
-                {{ Label.render(name: 'descricao', text: 'Descrição') }}
-                {{ Textarea.render(
-                  name: 'descricao',
-                  text: '',
-                  placeholder: 'Descreva detalhadamente seu serviço...',
-                  required: true,
-                  icon: 'bi bi-text-paragraph'
-                ) }}
-              </div>
+            <div class="col-span-2">
+              {{ Label.render(name: 'descricao', text: 'Descrição') }}
+              {{ Textarea.render(
+                name: 'descricao',
+                text: '',
+                placeholder: 'Descreva detalhadamente seu serviço...',
+                required: true,
+                icon: 'bi bi-text-paragraph'
+              ) }}
             </div>
           </div>
 

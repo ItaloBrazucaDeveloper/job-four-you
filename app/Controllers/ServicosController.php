@@ -11,8 +11,6 @@ use App\Utils\SessionKeys;
 use App\DTOs\Servicos\ServicoCadastroDTO;
 use App\Services\Servicos\ServicosService;
 
-use function App\Utils\bp;
-
 #[Controller('/servicos')]
 class ServicosController extends WebController {
   public function __construct(private ServicosService $service) { }
@@ -43,7 +41,7 @@ class ServicosController extends WebController {
   public function exibirPaginaCadastrarServico() {    
     $categorias = $this->service->buscarCategorias();
     $this->render('Pages/servicos/cadastro.twig', [
-      'Categorias' => $categorias,
+      'categorias' => $categorias,
     ]);
   }
 

@@ -19,14 +19,14 @@
       <div class="flex-1 flex flex-col">
         <div class="flex items-center gap-2 mb-1">
           {{ Estrelas.render(
-            quantidade: avaliacao.nota|default(0)
+            quantidade: avaliacao.nota|default(4)
           ) }}
           <span class="text-sm text-gray-500">
-            ({{ avaliacao.nota|number_format(1, ',', '.') }})
+            ({{ avaliacao.nota|default(4.3)|number_format(1, ',', '.') }})
           </span>
         </div>
         <p class="text-gray-800 text-sm">
-          {{ avaliacao.comentario ?? 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis soluta ducimus, suscipit unde beatae quibusdam quam officia enim inventore sunt eius molestias saepe, necessitatibus ipsam obcaecati recusandae. Quae, accusamus veniam.' }}
+          {{ avaliacao.comentario ?? 'Excelente trabalho! O Júlio foi muito profissional e eficiente. Resolveu o problema do meu refrigerador rapidamente, explicou tudo que fez e ainda deu dicas para evitar problemas futuros. Recomendo muito o serviço dele!' }}
         </p>
       </div>
     </li>

@@ -17,8 +17,12 @@
 
 		<form action="/usuarios/cadastro" method="POST" class="space-y-6">
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-				<fieldset class="flex flex-wrap gap-6 col-span-2">
-					<div class="w-full">
+				<fieldset class="grid grid-cols-1 md:grid-cols-2 gap-6 col-span-2">
+					<legend class="text-lg font-semibold text-gray-900 mb-4">
+						Dados pessoais
+					</legend>
+
+					<div class="col-span-1">
 						{{ Label.render(for: 'nome', text: 'Nome') }}
 						{{ Input.render(
 						name: 'nome',
@@ -31,7 +35,8 @@
 						error: getInputError('nome')
 						) }}
 					</div>
-					<div class="w-full">
+					
+					<div class="col-span-1">
 						{{ Label.render(for: 'sobrenome', text: 'Sobrenome') }}
 						{{ Input.render(
 						name: 'sobrenome',
@@ -121,8 +126,91 @@
 					) }}
 				</div>
 
+				<fieldset class="flex flex-wrap gap-6 col-span-2">
+					<legend class="text-lg font-semibold text-gray-900 mb-4">
+						Endereço (Opcional)
+					</legend>
+					<div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full">
+						<div class="col-span-2 md:col-span-1">
+							{{ Label.render(for: 'cep', text: 'CEP') }}
+							{{ Input.render(
+								name: 'cep',
+								type: 'text',
+								placeholder: '00000-000',
+								required: false,
+								icon: 'bi bi-geo-alt',
+								value: null,
+								class: '',
+								error: getInputError('cep')
+							) }}
+						</div>
+
+						<div class="col-span-2 md:col-span-1">
+							{{ Label.render(for: 'rua', text: 'Rua') }}
+							{{ Input.render(
+								name: 'rua',
+								type: 'text',
+								placeholder: 'Apto, Bloco, etc',
+								required: false,
+								icon: 'bi bi-house',
+								value: null,
+								class: '',
+								error: getInputError('rua'),
+								disable: true
+							) }}
+						</div>
+
+						<div class="col-span-2 md:col-span-1">
+							{{ Label.render(for: 'bairro', text: 'Bairro') }}
+							{{ Input.render(
+								name: 'bairro',
+								type: 'text',
+								placeholder: 'Seu bairro',
+								required: false,
+								icon: 'bi bi-geo',
+								value: null,
+								class: '',
+								error: getInputError('bairro'),
+								disable: true
+							) }}
+						</div>
+
+						<div class="col-span-2 md:col-span-1">
+							{{ Label.render(for: 'cidade', text: 'Cidade') }}
+							{{ Input.render(
+								name: 'cidade',
+								type: 'text',
+								placeholder: 'Sua cidade',
+								required: false,
+								icon: 'bi bi-building',
+								value: null,
+								class: '',
+								error: getInputError('cidade'),
+								disable: true
+							) }}
+						</div>
+
+						<div class="col-span-2 md:col-span-1">
+							{{ Label.render(for: 'estado', text: 'Estado') }}
+							{{ Input.render(
+								name: 'estado',
+								type: 'text',
+								placeholder: 'Seu estado',
+								required: false,
+								icon: 'bi bi-map',
+								value: null,
+								class: '',
+								error: getInputError('estado'),
+								disable: true
+							) }}
+						</div>
+					</div>
+				</fieldset>
+
 				{{ Button.render(type: 'submit', text: 'Cadastrar', class: 'col-span-2 mt-4') }}
 		</form>
 	</div>
 </main>
+
+<script src="/assets/js/usuarios/endereco.js"></script>
 {% endblock %}
