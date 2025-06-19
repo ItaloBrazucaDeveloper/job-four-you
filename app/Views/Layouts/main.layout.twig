@@ -4,9 +4,7 @@
   <div class="flex flex-col min-h-screen bg-zinc-100">
     {% block header %} {% include "Partials/_header.twig" %} {% endblock %}
 
-    <main class="flex-grow">
-      {% block main %} {% endblock %}
-    </main>
+    {% block main %} {% endblock %}
 
     {% block footer %} {% include "Partials/_footer.twig" %} {% endblock %}
   </div>

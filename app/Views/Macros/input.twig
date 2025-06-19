@@ -25,7 +25,7 @@
       name="{{ name }}"
       type="{{ type }}"
       {% if autocomplete %} autocomplete="{{ autocomplete }}" {% endif %}
-      class="py-2 {% if icon %}pl-10{% endif %} block w-full border {% if errorMessage %}border-red-300{% else %}border-gray-300{% endif %} rounded-md focus:ring-gray-500 focus:border-gray-500 {% if disable %}bg-gray-50 cursor-not-allowed{% endif %} {{ class }}"
+      class="bg-white py-2 {% if icon %}pl-10{% endif %} block w-full border {% if errorMessage %}border-red-300{% else %}border-gray-300{% endif %} rounded-md focus:ring-gray-500 focus:border-gray-500 {% if disable %}bg-gray-50 cursor-not-allowed{% endif %} {{ class }}"
       value="{{ defaultValue }}"
     >
 		{% if errorMessage %}

@@ -1,0 +1,32 @@
+{% macro render(name, label = 'Sua Avaliação:') %}
+<div class="mb-3">
+  <label for="avaliacao" class="block mb-2 text-sm font-medium text-gray-700">
+    {{ label }}
+  </label>
+  <div id="avaliacao" class="flex items-center gap-2">
+    {% for i in 1..5 %}
+    <input
+      type="radio"
+      class="hidden"
+      name="{{ name }}"
+      id="star-{{ i }}"
+      autocomplete="off"
+      value="{{ i }}"
+    >
+    <label class="mr-1 relative cursor-pointer inline-block w-9 h-8" for="star-{{ i }}">
+      <span class="relative inline-block w-full h-full">
+        <i class="bi bi-star text-gray-800 text-3xl absolute top-0 left-0 z-10"></i>
+        <span
+          class="star-half-overlay absolute left-0 top-0 w-1/2 h-full z-20 cursor-pointer"
+          data-star="{{ i }}"
+        ></span>
+        <span
+          class="star-full-overlay absolute right-0 top-0 w-1/2 h-full z-20 cursor-pointer"
+          data-star="{{ i }}"
+        ></span>
+      </span>
+    </label>
+    {% endfor %}
+  </div>
+</div>
+{% endmacro %}

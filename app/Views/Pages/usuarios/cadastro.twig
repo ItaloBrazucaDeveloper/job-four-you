@@ -8,121 +8,121 @@
 {% block title %}Cadastro | Job4You{% endblock %}
 
 {% block main %}
-	<div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
-		<div class="p-8 sm:p-10">
-			<header class="text-center mb-8">
-				<h2 class="text-3xl font-bold text-gray-900">Cadastro de Usuário</h2>
-				<p class="mt-2 text-gray-600">Preencha o formulário para criar sua conta</p>
-			</header>
+<main class="grid place-items-center flex-grow my-8">
+	<div class="w-full mx-auto my-8 md:max-w-[600px] p-4 md:p-8 bg-white/80 rounded-lg shadow-sm">
+		<header class="text-center mb-5">
+			<h2 class="text-3xl font-bold text-gray-900">Cadastro de Usuário</h2>
+			<p class="mt-2 text-gray-600">Preencha o formulário para criar sua conta</p>
+		</header>
 
-			<form action="/usuarios/cadastro" method="POST" class="space-y-6">
-				<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<fieldset class="flex flex-wrap gap-6 col-span-2">
-						<div class="w-full">
-							{{ Label.render(for: 'nome', text: 'Nome') }}
-							{{ Input.render(
-							name: 'nome',
-							type: 'text',
-							placeholder: 'Digite seu nome',
-							required: true,
-							icon: 'bi bi-person',
-							value: null,
-							class: '',
-							error: getInputError('nome')
-							) }}
-						</div>
-						<div class="w-full">
-							{{ Label.render(for: 'sobrenome', text: 'Sobrenome') }}
-							{{ Input.render(
-							name: 'sobrenome',
-							type: 'text',
-							placeholder: 'Digite seu sobrenome',
-							required: true,
-							icon: 'bi bi-person',
-							value: null,
-							class: '',
-							error: getInputError('nome')
-							) }}
-						</div>
-					</fieldset>
-
-					<div class="col-span-2 md:col-span-1">
-						{{ Label.render(for: 'cpf', text: 'CPF') }}
+		<form action="/usuarios/cadastro" method="POST" class="space-y-6">
+			<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+				<fieldset class="flex flex-wrap gap-6 col-span-2">
+					<div class="w-full">
+						{{ Label.render(for: 'nome', text: 'Nome') }}
 						{{ Input.render(
-						name: 'cpf',
+						name: 'nome',
 						type: 'text',
-						placeholder: '000.000.000-00',
+						placeholder: 'Digite seu nome',
 						required: true,
-						icon: 'bi bi-card-text',
+						icon: 'bi bi-person',
 						value: null,
 						class: '',
-						error: getInputError('cpf')
+						error: getInputError('nome')
 						) }}
 					</div>
-
-					<div class="col-span-2 md:col-span-1">
-						{{ Label.render(for: 'dataNascimento', text: 'Data de Nascimento') }}
+					<div class="w-full">
+						{{ Label.render(for: 'sobrenome', text: 'Sobrenome') }}
 						{{ Input.render(
-						name: 'dataNascimento',
-						type: 'date',
-						placeholder: null,
-						required: true,
-						icon: 'bi bi-calendar',
-						value: null,
-						class: '',
-						error: getInputError('data_nascimento')
-						) }}
-					</div>
-
-					<div class="col-span-2">
-						{{ Label.render(for: 'email', text: 'Email') }}
-						{{ Input.render(
-						name: 'email',
-						type: 'email',
-						placeholder: 'seu@email.com',
-						required: true,
-						icon: 'bi bi-envelope',
-						value: null,
-						class: '',
-						error: getInputError('email')
-						) }}
-					</div>
-
-					<div class="col-span-2 md:col-span-1">
-						{{ Label.render(for: 'senha', text: 'Senha') }}
-						<div class="relative">
-							{{ Input.render(
-							name: 'senha',
-							type: 'password',
-							placeholder: 'Crie uma senha',
-							required: true,
-							icon: 'bi bi-lock',
-							value: null,
-							class: '',
-							error: getInputError('senha')
-							) }}
-							<button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-								<i class="bi bi-eye text-gray-400 hover:text-gray-500"></i>
-							</button>
-						</div>
-					</div>
-
-					<div class="col-span-2 md:col-span-1">
-						{{ Label.render(for: 'celular', text: 'Número de celular') }}
-						{{ Input.render(
-						name: 'celular',
+						name: 'sobrenome',
 						type: 'text',
-						placeholder: '(00) 00000-0000',
+						placeholder: 'Digite seu sobrenome',
 						required: true,
-						icon: 'bi bi-telephone',
+						icon: 'bi bi-person',
 						value: null,
 						class: '',
-						error: getInputError('telefone')
+						error: getInputError('nome')
 						) }}
 					</div>
+				</fieldset>
 
-					{{ Button.render(type: 'submit', text: 'Cadastrar', class: 'col-span-2') }}
-			</form>
-		</div>
+				<div class="col-span-2 md:col-span-1">
+					{{ Label.render(for: 'cpf', text: 'CPF') }}
+					{{ Input.render(
+					name: 'cpf',
+					type: 'text',
+					placeholder: '000.000.000-00',
+					required: true,
+					icon: 'bi bi-card-text',
+					value: null,
+					class: '',
+					error: getInputError('cpf')
+					) }}
+				</div>
+
+				<div class="col-span-2 md:col-span-1">
+					{{ Label.render(for: 'dataNascimento', text: 'Data de Nascimento') }}
+					{{ Input.render(
+					name: 'dataNascimento',
+					type: 'date',
+					placeholder: null,
+					required: true,
+					icon: 'bi bi-calendar',
+					value: null,
+					class: '',
+					error: getInputError('data_nascimento')
+					) }}
+				</div>
+
+				<div class="col-span-2">
+					{{ Label.render(for: 'email', text: 'Email') }}
+					{{ Input.render(
+					name: 'email',
+					type: 'email',
+					placeholder: 'seu@email.com',
+					required: true,
+					icon: 'bi bi-envelope',
+					value: null,
+					class: '',
+					error: getInputError('email')
+					) }}
+				</div>
+
+				<div class="col-span-2 md:col-span-1">
+					{{ Label.render(for: 'senha', text: 'Senha') }}
+					<div class="relative">
+						{{ Input.render(
+						name: 'senha',
+						type: 'password',
+						placeholder: 'Crie uma senha',
+						required: true,
+						icon: 'bi bi-lock',
+						value: null,
+						class: '',
+						error: getInputError('senha')
+						) }}
+						<button type="button" id="togglePassword" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+							<i class="bi bi-eye text-gray-400 hover:text-gray-500"></i>
+						</button>
+					</div>
+				</div>
+
+				<div class="col-span-2 md:col-span-1">
+					{{ Label.render(for: 'celular', text: 'Número de celular') }}
+					{{ Input.render(
+					name: 'celular',
+					type: 'text',
+					placeholder: '(00) 00000-0000',
+					required: true,
+					icon: 'bi bi-telephone',
+					value: null,
+					class: '',
+					error: getInputError('telefone')
+					) }}
+				</div>
+
+				{{ Button.render(type: 'submit', text: 'Cadastrar', class: 'col-span-2 mt-4') }}
+		</form>
 	</div>
+</main>
 {% endblock %}

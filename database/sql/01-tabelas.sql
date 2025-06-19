@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS Usuario(
     FOREIGN KEY         (FKEndereco) REFERENCES Endereco(ID) ON DELETE SET NULL ON UPDATE CASCADE,
     CONSTRAINT          CheckNome CHECK (Nome REGEXP '^[a-zA-ZÀ-ÖØ-öø-ÿ]+[[:space:]][a-zA-ZÀ-ÖØ-öø-ÿ]+$'),
     CONSTRAINT          CheckCPF CHECK (CPF REGEXP '[0-9]{11}'),
-    CONSTRAINT          CheckFoto CHECK (Foto IS NULL OR Foto REGEXP '\\.(jpg|jpeg|png|webp|bmp)$'),
+    CONSTRAINT          CheckFoto CHECK (Foto IS NULL OR Foto REGEXP '(jpg|jpeg|png|webp|bmp)'),
     CONSTRAINT          CheckCelular CHECK (Celular REGEXP '[0-9]{11}')
 );
 

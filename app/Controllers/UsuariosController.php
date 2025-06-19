@@ -36,14 +36,4 @@ class UsuariosController extends WebController {
     $request->session->setFlashMessage(FlashMessageType::Success, 'Cadastro realizado com sucesso!');
     return $this->redirectTo('/autenticacao');
   }
-
-  #[Get('/avaliar/:token:{alphanumeric}?')]
-  public function exibirPaginaDeAvaliacao() {
-
-  }
-
-  #[Post('/avaliar/:token:{alphanumeric}?')]
-  public function avaliarUsuario() {
-
-  }
 }

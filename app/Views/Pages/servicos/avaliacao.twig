@@ -1,0 +1,58 @@
+{% extends "Layouts/main.layout.twig" %}
+
+{% import "Macros/textarea.twig" as Textarea %}
+{% import "Macros/button.twig" as Button %}
+{% import "Macros/range-estrelas.twig" as RangeEstrelas %}
+
+{% block main %}
+<div class="flex justify-center items-center m-2 my-4">
+  <div class="p-4 md:p-8 w-full md:max-w-[600px] bg-white/80 rounded-lg shadow-sm">
+    <header class="flex flex-col gap-2 mb-4">
+      <h1 class="font-medium text-lg mb-4 border-b border-b-gray-400">
+        Me ajude com sua avaliação!
+      </h1>
+      <div class="flex gap-4">
+        <img
+          alt="Foto do prestador tal"
+          src="https://images.pexels.com/photos/8159657/pexels-photo-8159657.jpeg"
+          class="size-36 object-cover rounded-lg shadow-sm border-3 border-transparent outline outline-gray-800"
+        >
+        <ul class="mt-3 space-y-0.5">
+          <li class="mb-2">
+            <span class="px-2 py-1 text-sm bg-violet-300 text-violet-900 rounded-md shadow-sm">
+              Manutenção
+            </span>
+          </li>
+          <li class="text-nowrap">Prestador/a: <span class="opacity-80">Júlio Martones</span></li>
+          <li class="text-nowrap">Serviço: <span class="opacity-80"> Manutenção de eletro-doméstico</span></li>
+          <li class="text-nowrap">Na plataforma desde: <span class="opacity-80"> 03/2025</span></li>
+        </ul>
+      </div>
+    </header>
+
+    <form method="post" class="flex flex-col gap-3">
+      {{ RangeEstrelas.render(
+        name: 'nota',
+        label: '*Dê uma nota para o meu serviço:'
+      ) }}
+
+      {{ Textarea.render(
+        name: 'descricao',
+        placeholder: 'Faça um comentário para o Júlio Martone (Opcional)',
+        class: 'block'
+      ) }}
+
+      <p class="text-sm opacity-60">
+        **Sua avaliação ficará disponível em nossa plataforma, para ajudar os possíveis clientes,
+        que precisem deste serviço e/ou pensem em entrar em contato com Júlio Martone.
+      </p>
+
+      {{ Button.render(type: 'submit', text: 'Enviar') }}
+    </form>
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="/assets/js/avaliacao/input-estrelas.js"></script>
+{% endblock %}

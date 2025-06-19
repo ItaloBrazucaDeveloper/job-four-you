@@ -10,10 +10,10 @@
 {% block title %}Login | Job4You{% endblock %}
 
 {% block main %}
-	<main class="flex-grow flex items-center justify-center py-12 px-4 md:px-6 lg:px-8">
-		<div class="w-full max-w-md space-y-8">
+	<main class="grid place-items-center flex-grow my-8">
+		<div class="w-full md:max-w-md space-y-8 bg-white/80 p-4 md:p-8 shadow-sm rounded-lg">
 			<header class="text-center">
-				<h2 class="mt-6 text-3xl font-bold text-gray-900">Login</h2>
+				<h2 class="text-3xl font-bold text-gray-900">Login</h2>
 
 				{% if flash_message is not empty or getInputError('email') or getInputError('senha') %}
 					{{ Alert.render(
