@@ -4,13 +4,14 @@ namespace App\Factories\Usuarios;
 use App\Entities\Usuario;
 use App\DTOs\Usuario\EnderecoDTO;
 use App\DTOs\Usuario\UsuarioMeuPerfilDTO;
+use App\Utils\Formatacao;
 
 class UsuarioMeuPerfilDTOFactory {
   public static function fromEntity(Usuario $usuario): UsuarioMeuPerfilDTO {
     return new UsuarioMeuPerfilDTO(
       id: $usuario->id,
       nome: $usuario->nome ?? '',
-      cpf: $usuario->cpf ?? '',
+      cpf: Formatacao::formatarDocumento($usuario->cpf ?? ''),
       foto: $usuario->foto,
       celular: $usuario->celular,
       dataNascimento: $usuario->dataNascimento instanceof \DateTime ? $usuario->dataNascimento->format('Y-m-d') : '',

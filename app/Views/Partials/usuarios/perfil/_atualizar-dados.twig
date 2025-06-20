@@ -90,7 +90,8 @@
       placeholder: 'Selecione',
       required: true,
       icon: 'bi bi-map',
-      defaultValue: usuario.endereco.estado
+      defaultValue: usuario.endereco.estado,
+      disable: true
     ) }}
   </div>
 
@@ -101,7 +102,8 @@
       type: 'text',
       required: true,
       icon: 'bi bi-building',
-      defaultValue: usuario.endereco.cidade
+      defaultValue: usuario.endereco.cidade,
+      disable: true
     ) }}
   </div>
 
@@ -112,7 +114,8 @@
       type: 'text',
       required: true,
       icon: 'bi bi-pin-map',
-      defaultValue: usuario.endereco.bairro
+      defaultValue: usuario.endereco.bairro,
+      disable: true
     ) }}
   </div>
 
@@ -123,7 +126,8 @@
       type: 'text',
       required: true,
       icon: 'bi bi-signpost',
-      defaultValue: usuario.endereco.rua
+      defaultValue: usuario.endereco.rua,
+      disable: true
     ) }}
   </div>
 {% endif %} 
