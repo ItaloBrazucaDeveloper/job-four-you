@@ -39,21 +39,12 @@ class ViewPublicacao extends Entity {
   #[ORM\Column(type: "string", length: 25, name: "Categoria")]
   public string $categoria;
 
-  #[ORM\Column(type: "string", length: 255, nullable: true, name: "Email")]
-  public ?string $email;
+  #[ORM\Column(type: "string", length: 255, nullable: true, name: "Cidade")]
+  public string $cidade;
 
-  #[ORM\Column(type: "string", length: 255, nullable: true, name: "Facebook")]
-  public ?string $facebook;
+  #[ORM\Column(type: "string", length: 2, nullable: true, name: "Estado")]
+  public string $estado;
 
-  #[ORM\Column(type: "string", length: 11, nullable: true, name: "Celular")]
-  public ?string $celular;
-
-  #[ORM\Column(type: "string", length: 255, nullable: true, name: "Whatsapp")]
-  public ?string $whatsapp;
-
-  #[ORM\Column(type: "string", length: 255, nullable: true, name: "Instagram")]
-  public ?string $instagram;
-
-  #[ORM\Column(type: "string", length: 255, nullable: true, name: "OutroContato")]
-  public ?string $outroContato;
+  #[ORM\Column(type: "decimal", precision: 3, scale: 2, name: "MediaAvaliacoes")]
+  public float $mediaAvaliacoes;
 } 

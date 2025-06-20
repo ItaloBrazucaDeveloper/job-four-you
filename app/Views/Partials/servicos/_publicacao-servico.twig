@@ -25,7 +25,7 @@
       </div>
 
       <span class="absolute -top-2 -right-1 text-nowrap select-none">
-        {{ Estrelas.render(quantidade: publicacao.mediaAvaliacao ?? 0) }}
+        {{ Estrelas.render(quantidade: publicacao.mediaAvaliacoes ?? 0) }}
       </span>
     </header>
 
@@ -52,7 +52,7 @@
 
         <div class="*:block space-y-3">
           <span class="text-nowrap">
-            <i class="bi bi-geo-alt"></i> {{ publicacao.cidadeUsuario|default('Além do arco-íris') }}
+            <i class="bi bi-geo-alt"></i> {{ publicacao.cidade ~ ', ' ~ publicacao.estado }}
           </span>
         </div>
       </div>

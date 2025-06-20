@@ -1,4 +1,5 @@
-<!-- SEÇÃO DE SERVIÇO -->
+{% import "estrelas.twig" as estrelas %}
+
 <div id="servico" class="p-6 md:p-8 hidden">
   {% if servico %}
     <div class="space-y-6">
@@ -17,10 +18,7 @@
           <!-- Avaliação Média -->
           <div class="bg-blue-50 p-4 rounded-lg">
             <div class="flex items-center justify-center">
-              <div class="star-rating">
-                ★★★★★
-                <div class="filled" style="width: {{ (media_avaliacoes / 5) * 100 }}%">★★★★★</div>
-              </div>
+              {{ estrelas.render(media_avaliacoes, 'lg') }}
               <span class="ml-2 font-bold">{{ media_avaliacoes }}</span>
             </div>
             <p class="text-center text-sm text-gray-600 mt-2">Avaliação Média</p>
@@ -53,7 +51,8 @@
           </a>
           <button type="button" 
                   class="px-6 py-2 bg-red-500 hover:bg-red-600 text-white rounded-md"
-                  onclick="confirmarDesativacao({{ servico.id }})">
+                  data-servico-id="{{ servico.id }}"
+                  data-action="desativar">
             <i class="fas fa-times mr-2"></i> Desativar Serviço
           </button>
         </div>
@@ -70,10 +69,7 @@
                 <div class="flex items-start justify-between">
                   <div>
                     <div class="flex items-center">
-                      <div class="star-rating">
-                        ★★★★★
-                        <div class="filled" style="width: {{ (avaliacao.nota / 5) * 100 }}%">★★★★★</div>
-                      </div>
+                      {{ estrelas.render(avaliacao.nota, 'md') }}
                       <span class="ml-2 font-bold">{{ avaliacao.nota }}</span>
                     </div>
                     <p class="text-gray-600 mt-2">{{ avaliacao.comentario }}</p>

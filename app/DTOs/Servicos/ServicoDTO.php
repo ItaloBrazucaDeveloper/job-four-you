@@ -13,10 +13,7 @@ class ServicoDTO {
   public readonly \DateTime $publicadoEm;
   public readonly ?\DateTime $editadoEm;
   public readonly string $categoria;
-  public readonly ?string $email;
-  public readonly ?string $facebook;
-  public readonly ?string $celular;
-  public readonly ?string $whatsapp;
-  public readonly ?string $instagram;
-  public readonly ?string $outroContato;
+  public readonly string $cidade;
+  public readonly string $estado;
+  public readonly float $mediaAvaliacoes;
 } 
