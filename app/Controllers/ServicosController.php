@@ -4,7 +4,7 @@ namespace App\Controllers;
 use KissPhp\Protocols\Http\Request;
 use KissPhp\Abstractions\WebController;
 use KissPhp\Attributes\Http\Controller;
-use KissPhp\Attributes\Http\Methods\{ Get, Post };
+use KissPhp\Attributes\Http\Methods\{Delete, Get, Post };
 use KissPhp\Attributes\Http\Request\{ Body, RouteParam };
 
 use App\Utils\SessionKeys;
@@ -50,11 +50,11 @@ class ServicosController extends WebController {
     Request $request,
     #[Body] ServicoCadastroDTO $servico
   ) {
-    $foiCadastrado = $this->service->cadastrarServico($servico, []);
-    if ($foiCadastrado) return $this->redirectTo('/servicos');
+    // $foiCadastrado = $this->service->cadastrarServico($servico, []);
+    // if ($foiCadastrado) return $this->redirectTo('/servicos');
 
-    $request->session->set('UltimoServicoInserido', $servico);
-    return $this->redirectTo('/servicos/postar-servico');
+    // $request->session->set('UltimoServicoInserido', $servico);
+    // return $this->redirectTo('/servicos/postar-servico');
   }
 
   #[Post('/desativar/:id:{numeric}')]
@@ -66,8 +66,25 @@ class ServicosController extends WebController {
     return $this->redirectTo('/prestadores?sucesso=1');
   }
 
-  #[Get('/favoritar/:id:{numeric}')]
-  public function favoritarServico() {
-    # code...
+  #[Post('/favoritos/:id:{numeric}')]
+  public function favoritarServico(#[RouteParam] int $id, Request $request) {
+    $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
+    if (!$usuario->id) {
+      return json_encode(["sucesso" => false, "mensagem" => "Usuário não autenticado"]);
+    }
+
+    $sucesso = $this->service->favoritarServico($id, $usuario->id);
+    return json_encode(["sucesso" => $sucesso]);
+  }
+
+  #[Delete('/favoritos/:id:{numeric}')]
+  public function desfavoritarServico(#[RouteParam] int $id, Request $request) {
+    $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
+    if (!$usuario->id) {
+      return json_encode(["sucesso" => false, "mensagem" => "Usuário não autenticado"]);
+    }
+
+    $sucesso = $this->service->desfavoritarServico($id, $usuario->id);
+    return json_encode(["sucesso" => $sucesso]);
   }
 }

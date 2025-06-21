@@ -582,12 +582,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/orm.git",
-                "reference": "16f1be7f102439f8a072090c522b305740c9bf6b"
+                "reference": "19e1a64a913952e5b76937fadda1443fde03c88e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/orm/zipball/16f1be7f102439f8a072090c522b305740c9bf6b",
-                "reference": "16f1be7f102439f8a072090c522b305740c9bf6b",
+                "url": "https://api.github.com/repos/doctrine/orm/zipball/19e1a64a913952e5b76937fadda1443fde03c88e",
+                "reference": "19e1a64a913952e5b76937fadda1443fde03c88e",
                 "shasum": ""
             },
             "require": {
@@ -664,7 +664,7 @@
                 "issues": "https://github.com/doctrine/orm/issues",
                 "source": "https://github.com/doctrine/orm/tree/3.5.x"
             },
-            "time": "2025-06-17T22:12:23+00:00"
+            "time": "2025-06-21T11:57:03+00:00"
         },
         {
             "name": "doctrine/persistence",
@@ -827,12 +827,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItaloBrazucaDeveloper/kiss-php.git",
-                "reference": "b69aad084cc2e50aa4e8c7a9102275c77e4e1239"
+                "reference": "f9e4608efcae9ffff4efc3eea3cec2d1d540798b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItaloBrazucaDeveloper/kiss-php/zipball/b69aad084cc2e50aa4e8c7a9102275c77e4e1239",
-                "reference": "b69aad084cc2e50aa4e8c7a9102275c77e4e1239",
+                "url": "https://api.github.com/repos/ItaloBrazucaDeveloper/kiss-php/zipball/f9e4608efcae9ffff4efc3eea3cec2d1d540798b",
+                "reference": "f9e4608efcae9ffff4efc3eea3cec2d1d540798b",
                 "shasum": ""
             },
             "require": {
@@ -863,7 +863,7 @@
                 "source": "https://github.com/ItaloBrazucaDeveloper/kiss-php/tree/main",
                 "issues": "https://github.com/ItaloBrazucaDeveloper/kiss-php/issues"
             },
-            "time": "2025-06-16T01:43:21+00:00"
+            "time": "2025-06-21T23:24:08+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -1105,12 +1105,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/cache.git",
-                "reference": "815ded1eab1851f42eb3ffad930c0efc8591d971"
+                "reference": "ff5417e9205f2462e187c5fb35443f58fb36d37c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/cache/zipball/815ded1eab1851f42eb3ffad930c0efc8591d971",
-                "reference": "815ded1eab1851f42eb3ffad930c0efc8591d971",
+                "url": "https://api.github.com/repos/symfony/cache/zipball/ff5417e9205f2462e187c5fb35443f58fb36d37c",
+                "reference": "ff5417e9205f2462e187c5fb35443f58fb36d37c",
                 "shasum": ""
             },
             "require": {
@@ -1195,7 +1195,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-06-15T10:08:16+00:00"
+            "time": "2025-06-19T14:19:51+00:00"
         },
         {
             "name": "symfony/cache-contracts",
@@ -1280,12 +1280,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "969df4bcdb211680a7463b0c22484c8fa63dc3b0"
+                "reference": "3da24a8f8592670bb7c1d818339eaa46811bd238"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/969df4bcdb211680a7463b0c22484c8fa63dc3b0",
-                "reference": "969df4bcdb211680a7463b0c22484c8fa63dc3b0",
+                "url": "https://api.github.com/repos/symfony/console/zipball/3da24a8f8592670bb7c1d818339eaa46811bd238",
+                "reference": "3da24a8f8592670bb7c1d818339eaa46811bd238",
                 "shasum": ""
             },
             "require": {
@@ -1366,7 +1366,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2025-06-16T06:35:25+00:00"
+            "time": "2025-06-18T00:51:09+00:00"
         },
         {
             "name": "symfony/deprecation-contracts",

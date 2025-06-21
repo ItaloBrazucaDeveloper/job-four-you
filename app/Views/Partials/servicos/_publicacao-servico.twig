@@ -59,13 +59,15 @@
     </main>
 
     <footer class="flex gap-3">
-      <a href="/servicos?id={{ publicacao.idPublicacao|default(0) }}"
-        class="shadow-sm text-center rounded-md py-2 px-6 bg-gray-800 hover:opacity-85 text-gray-200 transition-opacity w-full">
-        Ver mais detalhes
-      </a>
-      <a title="Marcar como favorito" class="cursor-pointer rounded-md py-2 px-3 outline outline-zinc-700">
-        <i class="bi bi-heart"></i>
-      </a>
-    </footer>
+  <a href="/servicos?id={{ publicacao.idPublicacao|default(0) }}"
+    class="shadow-sm text-center rounded-md py-2 px-6 bg-gray-800 hover:opacity-85 text-gray-200 transition-opacity w-full">
+    Ver mais detalhes
+  </a>
+  <button type="button" title="Marcar como favorito" 
+    class="favoritar-btn cursor-pointer rounded-md py-2 px-3 outline outline-zinc-700"
+    data-id="{{ publicacao.idPublicacao|default(0) }}">
+    <i class="bi bi-heart"></i>
+  </button>
+</footer>
   </div>
 {% endfor %}

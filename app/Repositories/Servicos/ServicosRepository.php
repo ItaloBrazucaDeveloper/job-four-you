@@ -9,6 +9,48 @@ use App\Entities\Categorias\CategoriaServico;
 use App\DTOs\Servicos\{ ServicoCadastroDTO, ServicoDTO };
 
 class ServicosRepository extends Repository {
+  public function favoritarServico(int $idServico, int $idUsuario): bool {
+    try {
+      $qb = $this->database()->getConnection()->createQueryBuilder();
+      
+      $qb->insert('Favoritos')
+        ->values([
+          'FKUsuario' => ':idUsuario',
+          'FKPublicacaoServico' => ':idServico'
+        ])
+        ->setParameters([
+          'idUsuario' => $idUsuario,
+          'idServico' => $idServico
+        ])
+        ->executeStatement();
+      
+      return true;
+    } catch (\Throwable $th) {
+      error_log("[Error] ServicosRepository::favoritarServico: {$th->getMessage()}");
+      throw new \Exception("Erro ao favoritar serviço");
+    }
+  }
+
+  public function desfavoritarServico(int $idServico, int $idUsuario): bool {
+    try {
+      $qb = $this->database()->getConnection()->createQueryBuilder();
+      
+      $qb->delete('Favoritos')
+        ->where('FKUsuario = :idUsuario')
+        ->andWhere('FKPublicacaoServico = :idServico')
+        ->setParameters([
+          'idUsuario' => $idUsuario,
+          'idServico' => $idServico
+        ])
+        ->executeStatement();
+      
+      return true;
+    } catch (\Throwable $th) {
+      error_log("[Error] ServicosRepository::desfavoritarServico: {$th->getMessage()}");
+      throw new \Exception("Erro ao desfavoritar serviço");
+    }
+  }
+
   /** @return CategoriaServicoDTO[] */
   public function buscarCategorias(): array {
     try {

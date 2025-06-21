@@ -6,6 +6,12 @@
   font-family: "Reddit Sans", sans-serif;
 }
 
+.favoritado {
+  background-color: #dc2626; /* Vermelho */
+  color: #fdfdfd; /* Branco */
+  border-color: #dc2626; /* Vermelho */
+}
+
 input[type="password"]::-ms-reveal,
 input[type="password"]::-webkit-credentials-auto-fill-button,
 input[type="password"]::-webkit-textfield-decoration-container {

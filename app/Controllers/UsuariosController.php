@@ -32,7 +32,7 @@ class UsuariosController extends WebController {
       $request->session->setFlashMessage(FlashMessageType::Error, 'Não foi possível terminar o cadastro :/');
       return $this->redirectTo('/usuarios/cadastro');
     }
-
+    
     $request->session->setFlashMessage(FlashMessageType::Success, 'Cadastro realizado com sucesso!');
     return $this->redirectTo('/autenticacao');
   }

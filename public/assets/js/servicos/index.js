@@ -1,3 +1,5 @@
+import { initFavoritar } from "./favoritar.js";
+
 function initFiltrosModal() {
   const btnFiltros = document.getElementById('btnFiltros');
   const filtrosContainer = document.getElementById('filtrosContainer');
@@ -53,4 +55,5 @@ function initFiltrosModal() {
 
 document.addEventListener('DOMContentLoaded', function () {
   initFiltrosModal();
+  initFavoritar();
 });
