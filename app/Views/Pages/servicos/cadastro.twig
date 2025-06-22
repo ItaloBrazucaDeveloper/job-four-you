@@ -19,7 +19,10 @@
           </p>
         </header>
 
-        <form method="POST" enctype="multipart/form-data" class="space-y-6">
+        {% import "Macros/estrelas.twig" as estrelas %}
+        {{ estrelas.render(4.7) }}
+
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
           <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
             Dados do Serviço
           </h4>

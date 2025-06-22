@@ -1,32 +1,27 @@
 {% macro render(quantidade, tamanho = 'md') %}
   {% set quantidade = quantidade|default(0) %}
+  
+  {# Garantir que quantidade esteja entre 0 e 5 #}
+  {% set quantidade = quantidade < 0 ? 0 : (quantidade > 5 ? 5 : quantidade) %}
+  
+  {# Calcular componentes das estrelas #}
+  {% set estrelasCheias = quantidade|round(0, 'floor') %}
+  {% set resto = quantidade - estrelasCheias %}
+  {% set temMeiaEstrela = resto >= 0.5 ? 1 : 0 %}
+  {% set estrelasVazias = 5 - estrelasCheias - temMeiaEstrela %}
 
-  {% if quantidade == 0 %}
-    {% for i in 1..5 %}
-      <i class="bi bi-star text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
-    {% endfor %}
-  {% else %}
-    {% set estrelasCheias = quantidade|round(0, 'floor') %}
-    {% set resto = quantidade - estrelasCheias %}
-    {% set temMeiaEstrela = 0 %}
-    {% if resto >= 0.5 %}
-      {% set temMeiaEstrela = 1 %}
-    {% endif %}
-    {% set estrelasVazias = 5 - estrelasCheias - temMeiaEstrela %}
+  {# Estrelas cheias #}
+  {% for i in 1..estrelasCheias %}
+    <i class="bi bi-star-fill text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
+  {% endfor %}
 
-    {# Estrelas cheias #}
-    {% for i in 1..estrelasCheias %}
-      <i class="bi bi-star-fill text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
-    {% endfor %}
-
-    {# Meia estrela #}
-    {% if temMeiaEstrela %}
-      <i class="bi bi-star-half text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
-    {% endif %}
-
-    {# Estrelas vazias #}
-    {% for i in 1..estrelasVazias %}
-      <i class="bi bi-star text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
-    {% endfor %}
+  {# Meia estrela #}
+  {% if temMeiaEstrela %}
+    <i class="bi bi-star-half text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
   {% endif %}
+
+  {# Estrelas vazias #}
+  {% for i in 1..estrelasVazias %}
+    <i class="bi bi-star text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
+  {% endfor %}
 {% endmacro %}

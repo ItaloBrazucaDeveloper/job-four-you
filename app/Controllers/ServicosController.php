@@ -33,7 +33,7 @@ class ServicosController extends WebController {
   }
 
   #[Get('/mais-detalhes/:id:{numeric}')]
-  public function exibirMaisDetalhesDeServico(Request $request) {
+  public function exibirMaisDetalhesDeServico() {
     $this->render('Pages/servicos/mais-detalhes.twig', []);
   }
 
@@ -46,10 +46,7 @@ class ServicosController extends WebController {
   }
 
   #[Post('/cadastro')]
-  public function cadastrarServico(
-    Request $request,
-    #[Body] ServicoCadastroDTO $servico
-  ) {
+  public function cadastrarServico(Request $request) {
     // $foiCadastrado = $this->service->cadastrarServico($servico, []);
     // if ($foiCadastrado) return $this->redirectTo('/servicos');
 
