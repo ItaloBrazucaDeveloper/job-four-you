@@ -15,10 +15,10 @@ class ServicosRepository extends Repository {
     try {
       $qb = $this->database()->getConnection()->createQueryBuilder();
       
-      $qb->insert('Favoritos')
+      $qb->insert('ServicoFavorito')
         ->values([
-          'FKUsuario' => ':idUsuario',
-          'FKPublicacaoServico' => ':idServico'
+          'IDUsuario' => ':idUsuario',
+          'IDServico' => ':idServico'
         ])
         ->setParameters([
           'idUsuario' => $idUsuario,
@@ -37,9 +37,9 @@ class ServicosRepository extends Repository {
     try {
       $qb = $this->database()->getConnection()->createQueryBuilder();
       
-      $qb->delete('Favoritos')
-        ->where('FKUsuario = :idUsuario')
-        ->andWhere('FKPublicacaoServico = :idServico')
+      $qb->delete('ServicoFavorito')
+        ->where('IDUsuario = :idUsuario')
+        ->andWhere('IDServico = :idServico')
         ->setParameters([
           'idUsuario' => $idUsuario,
           'idServico' => $idServico
@@ -74,19 +74,18 @@ class ServicosRepository extends Repository {
   /** @return ServicoDTO[] */
   public function buscar(int $offset, int $itemsPorPagina): ?array {
     try {
-    $query = $this->database()
+      $query = $this->database()
         ->createQueryBuilder()
         ->select('v')
         ->from(ViewPublicacao::class, 'v')
         ->setFirstResult($offset)
         ->setMaxResults($itemsPorPagina);
-        
-    $publicacoes = $query->getQuery()->getResult();
 
-    return array_map(function($publicacao) {
-      return $publicacao->toObject(ServicoDTO::class);
-    }, $publicacoes);
-    
+      $publicacoes = $query->getQuery()->getResult();
+
+      return array_map(function($publicacao) {
+        return $publicacao->toObject(ServicoDTO::class);
+      }, $publicacoes);
     } catch (\Throwable $th) {
       error_log("[Error] ServicosRepository::buscarServicos: {$th->getMessage()}");
       throw new \Exception("Erro ao buscar serviços");

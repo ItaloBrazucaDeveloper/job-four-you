@@ -5,11 +5,19 @@ export function initFavoritar() {
     button.addEventListener('click', function() {
       const idPublicacao = this.getAttribute('data-id');
       const isFavoritado = button.classList.contains('bg-rose-500');
-      const url = `/favoritar-servico/${idPublicacao}`;
+      const url = `http://localhost:3001/favoritar-servico?id=${idPublicacao}`;
+
+      console.log(`url: ${url} method: ${isFavoritado ? 'DELETE' : 'POST'}`);
 
       fetch(url, { method: isFavoritado ? 'DELETE' : 'POST' })
-        .then(response => response.json())
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
         .then(data => {
+          console.dir(data);
           if (data.sucesso) {
             if (isFavoritado) {
               button.classList.remove('bg-rose-500', 'text-gray-200');

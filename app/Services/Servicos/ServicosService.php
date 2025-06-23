@@ -6,17 +6,22 @@ use App\Repositories\Servicos\ServicosRepository;
 use App\DTOs\Servicos\{ ServicoDTO, ServicoCadastroDTO };
 use App\Utils\Paginacao;
 use App\Utils\Paths;
+use Exception;
 use KissPhp\Core\Types\UploadedFile;
+use App\Services\Usuarios\UsuariosService;
 
 class ServicosService {
-  public function __construct(private ServicosRepository $repository) { }
+  public function __construct(private ServicosRepository $repository, private ?UsuariosService $usuariosService = null) { }
 
-  public function favoritarServico(int $idServico, int $idUsuario): bool {
+  public function favoritarServico(int $idServico, int $idUsuario): array {
     try {
-      return $this->repository->favoritarServico($idServico, $idUsuario);
+      $foiFavoritado = $this->repository->favoritarServico($idServico, $idUsuario);
+      if (!$foiFavoritado) throw new Exception();
+      
+      return ['sucesso' => $foiFavoritado];
     } catch (\Throwable $th) {
       error_log($th->getMessage());
-      return false;
+      return ['mensagem' => $th->getMessage()];
     }
   }
 
@@ -39,28 +44,19 @@ class ServicosService {
     }
   }
 
-  /** @return ServicoDTO[] */
-  public function buscarServicos(int $paginaAtual): array {
-    try {
-      $offset = Paginacao::getOffset($paginaAtual);
-      $itemsPorPagina = Paginacao::getItemsPorPagina();
-      return $this->repository->buscar($offset, $itemsPorPagina);
-    } catch (\Throwable $th) {
-      error_log($th->getMessage());
-      return [];
-    }
-  }
-
   /**
    * Retorna dados dos serviços com informações de paginação
    * @return array{servicos: ServicoDTO[], totalRegistros: int, totalPaginas: int, paginaAtual: int}
    */
   public function buscarServicosComPaginacao(int $paginaAtual): array {
     try {
-      $servicos = $this->buscarServicos($paginaAtual);
+      $offset = Paginacao::getOffset($paginaAtual);
+      $itemsPorPagina = Paginacao::getItemsPorPagina();
+      $servicos = $this->repository->buscar($offset, $itemsPorPagina);
+
       $totalRegistros = $this->repository->contarTotal();
       $totalPaginas = ceil($totalRegistros / Paginacao::getItemsPorPagina());
-      
+
       return [
         'servicos' => $servicos,
         'totalRegistros' => $totalRegistros,

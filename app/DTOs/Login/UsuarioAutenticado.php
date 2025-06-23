@@ -9,5 +9,4 @@ class UsuarioAutenticado {
   public readonly string $email;
   public readonly ?string $foto;
   public readonly string $grupo;
-  public readonly DateTime $dataCriacao;
 }
