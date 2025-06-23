@@ -89,7 +89,6 @@ class ServicosService {
       if (!$foiMovido) {
         throw new \Exception("Erro ao mover o arquivo para o destino.");
       }
-
       $servico->foto = $foiMovido ? $nomeEncriptografado : null;
       return $this->repository->cadastrar($servico);
     } catch (\Exception $e) {

@@ -5,7 +5,9 @@ use KissPhp\Abstractions\WebController;
 use KissPhp\Attributes\Http\Controller;
 use KissPhp\Attributes\Http\Methods\{ Get, Post };
 
-#[Controller('/avaliacao')]
+use App\Middlewares\VerificaSeUsuarioLogado;
+
+#[Controller('/avaliacao', [VerificaSeUsuarioLogado::class])]
 class AvaliacaoController extends WebController {
   #[Get('/:token:{alphanumeric}?')]
   public function exibirPaginaDeAvaliacao() {

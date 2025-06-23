@@ -5,7 +5,7 @@ use KissPhp\Abstractions\WebController;
 use KissPhp\Attributes\Http\Controller;
 use KissPhp\Attributes\Http\Methods\Get;
 
-#[Controller('index')]
+#[Controller('/sobre-nos')]
 class MainController extends WebController {
   #[Get]
   public function exbirPaginaHome() {

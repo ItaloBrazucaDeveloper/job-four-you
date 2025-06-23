@@ -5,7 +5,9 @@ use KissPhp\Abstractions\WebController;
 use KissPhp\Attributes\Http\Controller;
 use KissPhp\Attributes\Http\Methods\Get;
 
-#[Controller('/painel')]
+use App\Middlewares\{ VerificaSeUsuarioLogado, VerificaSePertenceGrupoAdmin };
+
+#[Controller('/painel', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoAdmin::class])]
 class AdminController extends WebController {
   #[Get]
   public function exbibirPaginaPainel() {

@@ -1,23 +1,19 @@
 <?php
 namespace App\Controllers;
 
+use KissPhp\Enums\FlashMessageType;
 use KissPhp\Protocols\Http\Request;
 use KissPhp\Abstractions\WebController;
 use KissPhp\Attributes\Http\Controller;
-use KissPhp\Attributes\Http\Methods\{Delete, Get, Post };
+use KissPhp\Attributes\Http\Methods\{ Delete, Get, Post };
 use KissPhp\Attributes\Http\Request\{ Body, RouteParam };
 
-use App\Utils\Paths;
 use App\Utils\SessionKeys;
-use KissPhp\Attributes\Data\File;
-use KissPhp\Core\Types\UploadedFile;
 use App\DTOs\Servicos\ServicoCadastroDTO;
+use App\Middlewares\{ VerificaSePertenceGrupoPrestador, VerificaSeUsuarioLogado };
 use App\Services\Servicos\ServicosService;
-use KissPhp\Enums\FlashMessageType;
 
-use function App\Utils\bp;
-
-#[Controller('/servicos')]
+#[Controller('index')]
 class ServicosController extends WebController {
   public function __construct(private ServicosService $service) { }
   
@@ -38,12 +34,12 @@ class ServicosController extends WebController {
     ]);
   }
 
-  #[Get('/mais-detalhes/:id:{numeric}')]
+  #[Get('/mais-detalhes/:id:{numeric}', [VerificaSeUsuarioLogado::class])]
   public function exibirMaisDetalhesDeServico() {
     $this->render('Pages/servicos/mais-detalhes.twig', []);
   }
 
-  #[Get('/cadastro')]
+  #[Get('/postar-servico', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoPrestador::class])]
   public function exibirPaginaCadastrarServico() {    
     $categorias = $this->service->buscarCategorias();
     $this->render('Pages/servicos/cadastro.twig', [
@@ -51,7 +47,7 @@ class ServicosController extends WebController {
     ]);
   }
 
-    #[Post('/cadastro')]
+    #[Post('/postar-servico', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoPrestador::class])]
     public function cadastrarServico(
       Request $request,
       #[Body] ServicoCadastroDTO $servico,
@@ -67,7 +63,7 @@ class ServicosController extends WebController {
       return $this->redirectTo('/servicos/cadastro');
     }
 
-  #[Post('/desativar/:id:{numeric}')]
+  #[Post('/desativar-servico/:id:{numeric}', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoPrestador::class])]
   public function desativarServico(#[RouteParam] int $id, Request $request) {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     if (!$usuario->id) return $this->redirectTo('/login');
@@ -76,7 +72,7 @@ class ServicosController extends WebController {
     return $this->redirectTo('/prestadores?sucesso=1');
   }
 
-  #[Post('/favoritos/:id:{numeric}')]
+  #[Post('/favoritar-servico/:id:{numeric}', [VerificaSeUsuarioLogado::class])]
   public function favoritarServico(#[RouteParam] int $id, Request $request) {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     if (!$usuario->id) {
@@ -87,7 +83,7 @@ class ServicosController extends WebController {
     return json_encode(["sucesso" => $sucesso]);
   }
 
-  #[Delete('/favoritos/:id:{numeric}')]
+  #[Delete('/favoritar-servico/:id:{numeric}', [VerificaSeUsuarioLogado::class])]
   public function desfavoritarServico(#[RouteParam] int $id, Request $request) {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     if (!$usuario->id) {

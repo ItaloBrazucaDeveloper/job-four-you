@@ -8,6 +8,7 @@ use App\Entities\Views\ViewPublicacao;
 use App\Entities\Categorias\CategoriaServico;
 use App\DTOs\Servicos\{ ServicoCadastroDTO, ServicoDTO };
 use App\Entities\Servico\PublicacaoServico;
+use App\Entities\Usuario;
 
 class ServicosRepository extends Repository {
   public function favoritarServico(int $idServico, int $idUsuario): bool {
@@ -108,7 +109,21 @@ class ServicosRepository extends Repository {
 
   public function cadastrar(ServicoCadastroDTO $dto): bool {
     try {
-      $servico = (new PublicacaoServico())->fromObject($dto);
+      $categoria = $this->database()
+        ->getRepository(CategoriaServico::class)
+        ->find($dto->categoria);
+
+      if (!$categoria) {
+        throw new \Exception("Categoria não encontrada");
+      }
+
+      $servico = new PublicacaoServico();
+      $servico->titulo = $dto->titulo;
+      $servico->sobre = $dto->descricao;
+      $servico->valor = $dto->preco;
+      $servico->categoria = $categoria;
+      $servico->usuario = $this->database()->getReference(Usuario::class, (int) $dto->usuario);
+
       $this->database()->persist($servico);
       $this->database()->flush();
       return true;

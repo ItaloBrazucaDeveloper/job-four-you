@@ -11,18 +11,18 @@ use KissPhp\Attributes\Http\Methods\{ Get, Post };
 use App\Utils\SessionKeys;
 use App\DTOs\Usuario\UsuarioCadastroDTO;
 use App\Services\Usuarios\UsuariosService;
-use App\Middlewares\VerificaSeUsuarioNaoLogado;
+use App\Middlewares\{ VerificaSeUsuarioLogado, VerificaSeUsuarioNaoLogado };
 
-#[Controller('/usuarios', [VerificaSeUsuarioNaoLogado::class])]
+#[Controller('/usuarios')]
 class UsuariosController extends WebController {
   public function __construct(private UsuariosService $service) { }
 
-  #[Get('/cadastro')]
+  #[Get('/cadastro', [VerificaSeUsuarioNaoLogado::class])]
   public function exibirPaginaDeCadastro() {
     $this->render('Pages/usuarios/cadastro.twig', []);
   }
 
-  #[Post('/cadastro')]
+  #[Post('/cadastro', [VerificaSeUsuarioNaoLogado::class])]
   public function cadastrarUsuario(Request $request, #[Body] UsuarioCadastroDTO $usuario) {
     if (!$this->service->cadastrarUsuario($usuario)) {
       $request->session->setFlashMessage(FlashMessageType::Error, 'Não foi possível terminar o cadastro :/');
@@ -32,7 +32,7 @@ class UsuariosController extends WebController {
     return $this->redirectTo('/autenticacao');
   }
 
-  #[Get('/meu-perfil')]
+  #[Get('/meu-perfil', [VerificaSeUsuarioLogado::class])]
   public function exibirPaginaDeMeuPerfil(Request $request) {
     $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     $dadosCompletos = $this->service->obterUsuarioPeloId($usuarioLogado->id);
@@ -42,12 +42,12 @@ class UsuariosController extends WebController {
     ]);
   }
 
-  #[Get('/meus-favoritos')]
+  #[Get('/meus-favoritos', [VerificaSeUsuarioLogado::class])]
   public function exibirListaDeServicosFavoritos() {
 
   }
 
-  #[Get('/meus-servicos')]
+  #[Get('/meus-servicos', [VerificaSeUsuarioLogado::class])]
   public function exibirListaDeServicosPostados() {
 
   }
