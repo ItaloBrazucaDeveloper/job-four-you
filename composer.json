@@ -26,6 +26,7 @@
   },
   "minimum-stability": "dev",
   "require": {
-    "kiss-php/framework": "dev-main"
+    "kiss-php/framework": "dev-main",
+    "nowakowskir/php-jwt": "dev-master"
   }
 }

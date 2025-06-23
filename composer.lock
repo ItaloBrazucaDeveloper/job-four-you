@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6396ad0049156482c8e7d3f88c1eb169",
+    "content-hash": "5238d5afc6983d32c5254b32ea389f02",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -827,12 +827,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItaloBrazucaDeveloper/kiss-php.git",
-                "reference": "f9e4608efcae9ffff4efc3eea3cec2d1d540798b"
+                "reference": "57547afa3ebe803d1e1a80958b12513955cf41b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItaloBrazucaDeveloper/kiss-php/zipball/f9e4608efcae9ffff4efc3eea3cec2d1d540798b",
-                "reference": "f9e4608efcae9ffff4efc3eea3cec2d1d540798b",
+                "url": "https://api.github.com/repos/ItaloBrazucaDeveloper/kiss-php/zipball/57547afa3ebe803d1e1a80958b12513955cf41b7",
+                "reference": "57547afa3ebe803d1e1a80958b12513955cf41b7",
                 "shasum": ""
             },
             "require": {
@@ -863,7 +863,57 @@
                 "source": "https://github.com/ItaloBrazucaDeveloper/kiss-php/tree/main",
                 "issues": "https://github.com/ItaloBrazucaDeveloper/kiss-php/issues"
             },
-            "time": "2025-06-21T23:24:08+00:00"
+            "time": "2025-06-23T00:41:09+00:00"
+        },
+        {
+            "name": "nowakowskir/php-jwt",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nowakowskir/php-jwt.git",
+                "reference": "f6089eb7871cf648ed64a03dbb9e92bb78cdf330"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nowakowskir/php-jwt/zipball/f6089eb7871cf648ed64a03dbb9e92bb78cdf330",
+                "reference": "f6089eb7871cf648ed64a03dbb9e92bb78cdf330",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.1"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.5|^8.0"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nowakowskir\\JWT\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Radosław Nowakowski",
+                    "email": "nowakowski.r@gmail.com"
+                }
+            ],
+            "description": "JSON Web Token implementation for PHP.",
+            "homepage": "https://github.com/nowakowskir/php-jwt",
+            "keywords": [
+                "json",
+                "jwt",
+                "token"
+            ],
+            "support": {
+                "issues": "https://github.com/nowakowskir/php-jwt/issues",
+                "source": "https://github.com/nowakowskir/php-jwt/tree/master"
+            },
+            "time": "2024-11-19T09:22:45+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -2335,7 +2385,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "kiss-php/framework": 20
+        "kiss-php/framework": 20,
+        "nowakowskir/php-jwt": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

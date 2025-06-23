@@ -23,17 +23,11 @@ class UsuariosController extends WebController {
   }
 
   #[Post('/cadastro')]
-  public function cadastrarUsuario(
-    Request $request,
-    #[Body] UsuarioCadastroDTO $usuario
-  ) {
-    $foiCadastrado = $this->service->cadastrarUsuario($usuario);
-
-    if (!$foiCadastrado) {
+  public function cadastrarUsuario(Request $request, #[Body] UsuarioCadastroDTO $usuario) {
+    if (!$this->service->cadastrarUsuario($usuario)) {
       $request->session->setFlashMessage(FlashMessageType::Error, 'Não foi possível terminar o cadastro :/');
       return $this->redirectTo('/usuarios/cadastro');
     }
-
     $request->session->setFlashMessage(FlashMessageType::Success, 'Cadastro realizado com sucesso!');
     return $this->redirectTo('/autenticacao');
   }
