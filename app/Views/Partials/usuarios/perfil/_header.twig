@@ -1,17 +1,28 @@
-<div class="bg-gray-800 px-8 py-6">
+<div class="relative bg-gray-800 px-8 py-6">
+  {% if session('usuario_autenticado').grupo == 'CLIENTE' %}
+    <a
+      href="/usuarios/tornar-prestador?id={{ session('usuario_autenticado').id }}"
+      class="absolute top-5 right-0 bg-white/95 py-2 px-4 rounded-l-full"
+    >
+      <i class="bi bi-person-up"></i>
+      <span>Quero anunciar meus serviços</span>
+    </a>
+  {% endif %}
+
   <div class="flex flex-col md:flex-row items-center gap-6">
     <img
       alt="Foto de perfil"
-      src="{{ usuario.foto ?? '/images/avatar-fallback.png' }}"
+      src="{{ session('usuario_autenticado').foto ?? '/images/avatar-fallback.png' }}"
       class="h-32 w-32 object-cover rounded-full border-transparent border-10 outline outline-gray-600 {{ not usuario.foto ? 'invert opacity-90' : '' }}"
     >
+
     <div class="text-center md:text-left">
       <h1 class="text-2xl font-bold text-gray-100">
-        {{ usuario.nome }}
+        {{ session('usuario_autenticado').nome }}
       </h1>
 
       <div class="mt-3 flex justify-center md:justify-start gap-2">
-        {% if usuario.grupo == 'prestador' %}
+        {% if session('usuario_autenticado').grupo == 'PRESTADOR' %}
           <span class="bg-blue-500/10 text-blue-500 px-3 py-1 rounded-full text-sm">
             Prestador
           </span>

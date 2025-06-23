@@ -8,9 +8,9 @@ use Doctrine\Common\Collections\{ Collection, ArrayCollection };
 use App\Entities\Status\StatusUsuario;
 use App\Entities\Servico\{ InformacaoContato, PublicacaoServico };
 
-#[ORM\Entity, ORM\Table(name:"Usuario")]
+#[ORM\Entity, ORM\Table(name:'Usuario')]
 class Usuario extends Entity {
-  #[ORM\Id, ORM\GeneratedValue, ORM\Column(type:"integer", name:"ID")]
+  #[ORM\Id, ORM\GeneratedValue, ORM\Column(type:'integer', name:'ID')]
   public ?int $id = null;
 
   #[ORM\Column(length:50, name:'Nome')]

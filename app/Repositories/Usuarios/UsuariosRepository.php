@@ -3,8 +3,9 @@ namespace App\Repositories\Usuarios;
 
 use KissPhp\Abstractions\Repository;
 
-use App\Entities\{Credencial, Usuario, Endereco };
+use App\Entities\{ Usuario, Endereco };
 use App\DTOs\Usuario\UsuarioCadastroDTO;
+use App\Entities\Servico\PublicacaoServico;
 use App\Repositories\Enderecos\EnderecoRepository;
 use App\Repositories\Credenciais\CredencialRepository;
 
@@ -53,16 +54,39 @@ class UsuariosRepository extends Repository {
 
   public function buscarPorId(int $id): ?Usuario {
     try {
-      $usuario = $this->database()->getReference(Usuario::class, $id);
-    
+      $usuario = $this->database()->find(Usuario::class, $id);
+      
       if (!$usuario) {
         error_log("[Error] UsuariosRepository::buscarPorId: Usuário não encontrado para o ID {$id}");
         return null;
       }
       return $usuario;
     } catch (\Throwable $th) {
-      error_log("[Error] UsuariosRepository::buscarPorId: {$th->getMessage()}");
+      error_log("[Error] UsuariosRepository::buscarPorId: Falha ao buscar usuário pelo ID: {$th->getMessage()}");
       return null;
     }
+  }
+
+  public function obterServicosFavoritos(int $id): ?array {
+    try {
+      $usuario = $this->database()->find(Usuario::class, $id);
+      if (!$usuario) {
+        error_log("[Error] UsuariosRepository::obterServicosFavoritos: Usuário não encontrado para o ID {$id}");
+        return null;
+      }
+      // Retorna os serviços favoritos como array
+      return $usuario->servicosFavoritos instanceof \Doctrine\Common\Collections\Collection
+        ? $usuario->servicosFavoritos->toArray()
+        : [];
+    } catch (\Throwable $th) {
+      error_log("[Error] UsuariosRepository::obterServicosFavoritos: Falha ao buscar serviços favoritos: {$th->getMessage()}");
+      return null;
+    }
+  }
+
+  public function obterServicosPostados(int $id): ?PublicacaoServico {
+    return $this->database()->find(PublicacaoServico::class, [
+      'usuario' => $id
+    ]);
   }
 }

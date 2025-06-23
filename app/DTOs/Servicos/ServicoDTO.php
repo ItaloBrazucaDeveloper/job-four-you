@@ -2,7 +2,7 @@
 
 namespace App\DTOs\Servicos;
 
-class ServicoDTO {
+class ServicoDTO {  
   public readonly int $idPublicacao;
   public readonly string $nomeUsuario;
   public readonly ?string $fotoUsuario;

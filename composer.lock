@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5238d5afc6983d32c5254b32ea389f02",
+    "content-hash": "bdeb186c4a4c22ebda6d58a4e272cfe5",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -867,16 +867,16 @@
         },
         {
             "name": "nowakowskir/php-jwt",
-            "version": "dev-master",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nowakowskir/php-jwt.git",
-                "reference": "f6089eb7871cf648ed64a03dbb9e92bb78cdf330"
+                "reference": "df6f9961d8c365f38742d2d6352254d6b8ae9abd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nowakowskir/php-jwt/zipball/f6089eb7871cf648ed64a03dbb9e92bb78cdf330",
-                "reference": "f6089eb7871cf648ed64a03dbb9e92bb78cdf330",
+                "url": "https://api.github.com/repos/nowakowskir/php-jwt/zipball/df6f9961d8c365f38742d2d6352254d6b8ae9abd",
+                "reference": "df6f9961d8c365f38742d2d6352254d6b8ae9abd",
                 "shasum": ""
             },
             "require": {
@@ -885,7 +885,6 @@
             "require-dev": {
                 "phpunit/phpunit": "^7.5|^8.0"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -911,9 +910,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nowakowskir/php-jwt/issues",
-                "source": "https://github.com/nowakowskir/php-jwt/tree/master"
+                "source": "https://github.com/nowakowskir/php-jwt/tree/2.1.1"
             },
-            "time": "2024-11-19T09:22:45+00:00"
+            "time": "2022-11-14T18:21:36+00:00"
         },
         {
             "name": "phpoption/phpoption",
@@ -2216,6 +2215,46 @@
             "time": "2025-06-02T14:13:49+00:00"
         },
         {
+            "name": "twbs/bootstrap-icons",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/twbs/icons.git",
+                "reference": "0548a6ba36da5277954b534851ad34d025678b43"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/twbs/icons/zipball/0548a6ba36da5277954b534851ad34d025678b43",
+                "reference": "0548a6ba36da5277954b534851ad34d025678b43",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Otto",
+                    "email": "markdotto@gmail.com"
+                }
+            ],
+            "description": "Official open source SVG icon library for Bootstrap",
+            "homepage": "https://icons.getbootstrap.com/",
+            "keywords": [
+                "bootstrap",
+                "icon font",
+                "icons",
+                "svg"
+            ],
+            "support": {
+                "issues": "https://github.com/twbs/icons/issues",
+                "source": "https://github.com/twbs/icons/tree/main"
+            },
+            "time": "2025-06-06T04:55:27+00:00"
+        },
+        {
             "name": "twig/twig",
             "version": "3.x-dev",
             "source": {
@@ -2386,7 +2425,7 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "kiss-php/framework": 20,
-        "nowakowskir/php-jwt": 20
+        "twbs/bootstrap-icons": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -5,6 +5,7 @@ use App\Repositories\Usuarios\UsuariosRepository;
 use App\Factories\Usuarios\UsuarioMeuPerfilDTOFactory;
 use App\Repositories\Credenciais\CredencialRepository;
 use App\DTOs\Usuario\{ UsuarioCadastroDTO, UsuarioMeuPerfilDTO };
+use App\Entities\Servico\PublicacaoServico;
 
 class UsuariosService {
   public function __construct(
@@ -34,5 +35,13 @@ class UsuariosService {
       error_log("[Error] UsuariosService::obterUsuarioPeloId: {$th->getMessage()}");
       return null;
     }
+  }
+
+  public function obterServicosFavoritos(int $id): ?array {
+    return $this->usuarioRepository->obterServicosFavoritos($id) ?? [];
+  }
+
+  public function obterServicosPostados(int $id): ?PublicacaoServico {
+    return $this->usuarioRepository->obterServicosPostados($id);
   }
 }

@@ -1,0 +1,43 @@
+{% import "Macros/estrelas.twig" as Estrelas %}
+
+<div id="favoritos" class="p-6 md:p-8">
+  <h2 class="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+    <i class="bi bi-heart-fill text-pink-500"></i> Favoritos
+  </h2>
+  {% if favoritos is empty %}
+    <div class="text-center text-gray-500 py-8">
+      <i class="bi bi-heart text-4xl mb-4"></i>
+      <p>Nenhuma publicação marcada como favorito ainda.</p>
+    </div>
+  {% else %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% for publicacao in favoritos %}
+        <div class="flex flex-col gap-4 p-4 w-full rounded-lg shadow-sm bg-white/80 border border-gray-200">
+          <header class="flex gap-4 items-center">
+            <img
+              loading="lazy"
+              src="{{ publicacao.fotoUsuario ?? '/images/avatar-fallback.png' }}"
+              onerror="this.onerror=null;this.src='/images/avatar-fallback.png';"
+              alt="Foto do serviço {{ publicacao.titulo }}"
+              class="rounded-md size-20 object-cover shadow-sm bg-zinc-300">
+            <div class="flex flex-col justify-center">
+              <h4 class="text-lg font-semibold text-gray-800">{{ publicacao.titulo }}</h4>
+              <span class="opacity-70 text-sm">Publicado em: {{ publicacao.publicadoEm|date('d/m/Y') }}</span>
+            </div>
+          </header>
+          <main class="flex-1">
+            <p class="mb-2 text-gray-700 line-clamp-2">
+              {{ publicacao.sobre|default('Sem descrição.') }}
+            </p>
+          </main>
+          <footer class="flex justify-between items-center mt-2">
+            <span class="text-sm text-gray-500 flex items-center gap-1">
+              <i class="bi bi-heart-fill text-pink-400"></i> {{ publicacao.quantidadeFavorito|default(0) }} favoritos
+            </span>
+            <a href="/servicos/mais-detalhes/{{ publicacao.idPublicacao }}" class="text-blue-600 hover:underline text-sm">Ver detalhes</a>
+          </footer>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>

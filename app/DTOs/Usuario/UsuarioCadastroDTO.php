@@ -1,8 +1,6 @@
 <?php
 namespace App\DTOs\Usuario;
 
-use App\DTOs\EnderecoDTO;
-
 class UsuarioCadastroDTO {
   public readonly string $nome;
   public readonly string $sobrenome;

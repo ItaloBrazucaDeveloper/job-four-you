@@ -11,25 +11,31 @@
 				{% include "Partials/usuarios/perfil/_header.twig" %}
 				{% include "Partials/usuarios/perfil/_nav.twig" %}
 
-				<section id="perfil" class="p-6 md:p-8">
-					<h2 class="text-xl font-bold text-gray-800 mb-6">
-						Informações Pessoais
-					</h2>
+				{% if usuario is defined %}
+					<section id="perfil" class="p-6 md:p-8">
+						<h2 class="text-xl font-bold text-gray-800 mb-6">
+							Informações Pessoais
+						</h2>
 
-					{% set formAction = usuario.tipo == 'PRESTADOR' ? '/prestadores/atualizar' : '/usuarios/atualizar' %}
+						{% set formAction = usuario.tipo == 'PRESTADOR' ? '/prestadores/atualizar' : '/usuarios/atualizar' %}
 
-					<form action="{{ formAction }}" method="POST" class="space-y-6">
-						<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-							{% include "Partials/usuarios/perfil/_atualizar-dados.twig" %}
-						</div>
+						<form action="{{ formAction }}" method="POST" class="space-y-6">
+							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+								{% include "Partials/usuarios/perfil/_atualizar-dados.twig" %}
+							</div>
 
-						<div class="pt-4">
-							{{ button.render(type: 'submit', text: 'Salvar Alterações') }}
-						</div>
-					</form>
-				</section>
+							<div class="pt-4">
+								{{ button.render(type: 'submit', text: 'Salvar Alterações') }}
+							</div>
+						</form>
+					</section>
+				{% endif %}
 
-				{% if usuario.grupo == 'PRESTADOR' %}
+				{% if favoritos is defined %}
+					{% include "Partials/usuarios/perfil/_favoritos.twig" %}
+				{% endif %}
+
+				{% if servicos is defined %}
 					{% include "Partials/usuarios/perfil/_servico.twig" %}
 				{% endif %}
 			</div>
