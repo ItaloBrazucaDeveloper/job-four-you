@@ -6,6 +6,6 @@ class ServicoCadastroDTO {
   public readonly string $descricao;
   public readonly float $preco;
   public readonly int $categoria;
-  public readonly int $usuario;
-  public readonly ?string $foto;
+  public readonly ?string $usuario;
+  public ?string $foto;
 }

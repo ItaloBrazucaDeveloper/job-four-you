@@ -3,8 +3,8 @@
 {% import "Macros/input.twig" as Input %}
 {% import "Macros/label.twig" as Label %}
 {% import "Macros/button.twig" as Button %}
-{% import "Macros/textarea.twig" as Textarea %}
 {% import "Macros/select.twig" as Select %}
+{% import "Macros/textarea.twig" as Textarea %}
 
 {% block main %}
   <div class="mx-auto my-8 max-w-2xl px-4 md:px-8">
@@ -19,13 +19,12 @@
           </p>
         </header>
 
-        {% import "Macros/estrelas.twig" as estrelas %}
-        {{ estrelas.render(4.7) }}
-
         <form method="post" enctype="multipart/form-data" class="space-y-6">
           <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
             Dados do Serviço
           </h4>
+
+          <input type="hidden" name="usuario" value="{{ session('usuario_autenticado').id }}">
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div class="col-span-2 md:col-span-1">

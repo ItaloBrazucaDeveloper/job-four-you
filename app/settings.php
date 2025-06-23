@@ -10,10 +10,6 @@ SessionCookieParams::set([
   'httponly' => true
 ]);
 
-ViewParams::addGlobals([
-  'static_links' => Links::STATIC_LINKS,
-]);
-
 ViewParams::addFunctions([
   'getCurrentUrl' => fn() => $_SERVER['REQUEST_URI'] ?? '/',
 ]);

@@ -7,9 +7,15 @@ use KissPhp\Attributes\Http\Controller;
 use KissPhp\Attributes\Http\Methods\{Delete, Get, Post };
 use KissPhp\Attributes\Http\Request\{ Body, RouteParam };
 
+use App\Utils\Paths;
 use App\Utils\SessionKeys;
+use KissPhp\Attributes\Data\File;
+use KissPhp\Core\Types\UploadedFile;
 use App\DTOs\Servicos\ServicoCadastroDTO;
 use App\Services\Servicos\ServicosService;
+use KissPhp\Enums\FlashMessageType;
+
+use function App\Utils\bp;
 
 #[Controller('/servicos')]
 class ServicosController extends WebController {
@@ -45,14 +51,21 @@ class ServicosController extends WebController {
     ]);
   }
 
-  #[Post('/cadastro')]
-  public function cadastrarServico(Request $request) {
-    // $foiCadastrado = $this->service->cadastrarServico($servico, []);
-    // if ($foiCadastrado) return $this->redirectTo('/servicos');
+    #[Post('/cadastro')]
+    public function cadastrarServico(
+      Request $request,
+      #[Body] ServicoCadastroDTO $servico,
+    ) {
+      $foto = $request->getFile('foto');
+      $foiCadastrado = $this->service->cadastrar($servico, $foto);
 
-    // $request->session->set('UltimoServicoInserido', $servico);
-    // return $this->redirectTo('/servicos/postar-servico');
-  }
+      if ($foiCadastrado) {
+        $request->session->setFlashMessage(FlashMessageType::Success, "Serviço cadastrado com sucesso!");
+        return $this->redirectTo('/servicos');
+      }
+      $request->session->setFlashMessage(FlashMessageType::Error, "Erro ao cadastrar serviço. Verifique os dados e tente novamente.");
+      return $this->redirectTo('/servicos/cadastro');
+    }
 
   #[Post('/desativar/:id:{numeric}')]
   public function desativarServico(#[RouteParam] int $id, Request $request) {

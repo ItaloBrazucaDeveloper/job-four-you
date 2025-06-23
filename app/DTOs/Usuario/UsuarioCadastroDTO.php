@@ -1,6 +1,8 @@
 <?php
 namespace App\DTOs\Usuario;
 
+use App\DTOs\EnderecoDTO;
+
 class UsuarioCadastroDTO {
   public readonly string $nome;
   public readonly string $sobrenome;
@@ -9,10 +11,5 @@ class UsuarioCadastroDTO {
   public readonly string $cpf;
   public readonly string $celular;
   public readonly string $dataNascimento;
-  
-  public readonly string $cep;
-  public readonly string $estado;
-  public readonly string $rua;
-  public readonly string $bairro;
-  public readonly string $cidade;
+  public readonly EnderecoDTO $endereco;
 }

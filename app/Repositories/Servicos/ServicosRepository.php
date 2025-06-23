@@ -7,6 +7,7 @@ use App\DTOs\CategoriaServicoDTO;
 use App\Entities\Views\ViewPublicacao;
 use App\Entities\Categorias\CategoriaServico;
 use App\DTOs\Servicos\{ ServicoCadastroDTO, ServicoDTO };
+use App\Entities\Servico\PublicacaoServico;
 
 class ServicosRepository extends Repository {
   public function favoritarServico(int $idServico, int $idUsuario): bool {
@@ -107,29 +108,9 @@ class ServicosRepository extends Repository {
 
   public function cadastrar(ServicoCadastroDTO $dto): bool {
     try {
-      $qb = $this->database()->getConnection()->createQueryBuilder();
-      
-      $qb->insert('PublicacaoServico')
-        ->values([
-          'Titulo' => ':titulo',
-          'Sobre' => ':descricao',
-          'Valor' => ':preco',
-          'FKCategoria' => ':categoriaServico',
-          'FKUsuario' => ':idUsuario',
-          'StatusPublicacao' => ':status',
-          'Foto' => ':fotoNome'
-        ])
-        ->setParameters([
-          'titulo' => $dto->titulo,
-          'descricao' => $dto->descricao,
-          'preco' => $dto->preco,
-          'categoriaServico' => $dto->categoria,
-          'idUsuario' => $dto->usuario,
-          'status' => 'EM_ANALISE',
-          'fotoNome' => $dto->foto
-        ])
-        ->executeStatement();
-      
+      $servico = (new PublicacaoServico())->fromObject($dto);
+      $this->database()->persist($servico);
+      $this->database()->flush();
       return true;
     } catch (\Throwable $th) {
       error_log("[Error] ServicosRepository::cadastrarServico: {$th->getMessage()}");
