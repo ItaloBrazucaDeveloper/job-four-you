@@ -48,11 +48,30 @@ class ServicosService {
    * Retorna dados dos serviços com informações de paginação
    * @return array{servicos: ServicoDTO[], totalRegistros: int, totalPaginas: int, paginaAtual: int}
    */
-  public function buscarServicosComPaginacao(int $paginaAtual): array {
+  public function buscarServicosComPaginacao(int $paginaAtual, ?int $idUsuario = null): array {
     try {
       $offset = Paginacao::getOffset($paginaAtual);
       $itemsPorPagina = Paginacao::getItemsPorPagina();
       $servicos = $this->repository->buscar($offset, $itemsPorPagina);
+
+      // Obter IDs dos serviços favoritos do usuário
+      $favoritosIds = [];
+      if ($idUsuario && $this->usuariosService) {
+        $favoritos = $this->usuariosService->obterServicosFavoritos($idUsuario);
+        if ($favoritos) {
+          $favoritosIds = array_map(function($servico) {
+            return is_object($servico) && property_exists($servico, 'id') ? $servico->id : (is_array($servico) && isset($servico['id']) ? $servico['id'] : null);
+          }, $favoritos);
+        }
+      }
+
+      // Adicionar campo favoritado em cada serviço (sem modificar readonly)
+      $servicos = array_map(function($servico) use ($favoritosIds) {
+        // Converter para array se for objeto
+        $dados = is_object($servico) ? get_object_vars($servico) : $servico;
+        $dados['favoritado'] = in_array($dados['idPublicacao'], $favoritosIds);
+        return $dados;
+      }, $servicos);
 
       $totalRegistros = $this->repository->contarTotal();
       $totalPaginas = ceil($totalRegistros / Paginacao::getItemsPorPagina());

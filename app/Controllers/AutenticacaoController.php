@@ -10,21 +10,22 @@ use KissPhp\Attributes\Http\Methods\{ Get, Post };
 
 use App\Utils\SessionKeys;
 use App\DTOs\Login\Credenciais;
+use App\Middlewares\VerificaSeUsuarioLogado;
 use App\Middlewares\VerificaSeUsuarioNaoLogado;
 use App\Services\Autenticacao\AutenticacaoService;
 
-#[Controller('/autenticacao', [VerificaSeUsuarioNaoLogado::class])]
+#[Controller('/autenticacao')]
 class AutenticacaoController extends WebController {
   public function __construct(private AutenticacaoService $service) { }
 
-  #[Get]
+  #[Get(middlewares: [VerificaSeUsuarioNaoLogado::class])]
   public function exibirPaginaDeLogin(Request $request) {
     $this->render('Pages/autenticacao/login.twig', [
       'flash_message' => $request->session->getFlashMessage()
     ]);
   }
 
-  #[Post]
+  #[Post(middlewares: [VerificaSeUsuarioNaoLogado::class])]
   public function autenticar(#[Body] Credenciais $usuario, Request $request) {
     $usuarioAutenticado = $this->service->obterUsuarioAutenticado($usuario);
 
@@ -36,7 +37,7 @@ class AutenticacaoController extends WebController {
     return $this->redirectTo('/autenticacao');
   }
 
-  #[Get('/sair')]
+  #[Get('/sair', [VerificaSeUsuarioLogado::class])]
   public function finalizarSessao(Request $request) {
     $request->session->clearAll();
     return $this->redirectTo('/autenticacao');

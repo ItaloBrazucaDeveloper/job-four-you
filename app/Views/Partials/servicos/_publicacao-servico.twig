@@ -73,10 +73,10 @@
         type="button"
         title="Marcar como favorito"
         {% if session('usuario_autenticado') is not defined %}disabled{% endif %}
-        class="disabled:opacity-50 favoritar-btn cursor-pointer disabled:cursor-not-allowed rounded-md py-2 px-3 outline outline-zinc-700"
+        class="favoritar-btn {{ publicacao.favoritado ? 'outline-red-600' : 'outline-zinc-700' }} disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed rounded-md py-2 px-3 outline "
         data-id="{{ publicacao.idPublicacao|default(0) }}"
       >
-        <i class="bi bi-heart"></i>
+        <i class="bi {{ publicacao.favoritado ? 'bi-heart-fill text-red-500' : 'bi-heart'}}"></i>
       </button>
     </footer>
   </div>

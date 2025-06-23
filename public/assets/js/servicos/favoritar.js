@@ -4,8 +4,8 @@ export function initFavoritar() {
   favoritarButtons.forEach(button => {
     button.addEventListener('click', function() {
       const idPublicacao = this.getAttribute('data-id');
-      const isFavoritado = button.classList.contains('bg-rose-500');
-      const url = `http://localhost:3001/favoritar-servico?id=${idPublicacao}`;
+      const isFavoritado = button.classList.contains('outline-rose-600');
+      const url = `/favoritar-servico?id=${idPublicacao}`;
 
       console.log(`url: ${url} method: ${isFavoritado ? 'DELETE' : 'POST'}`);
 
@@ -20,11 +20,13 @@ export function initFavoritar() {
           console.dir(data);
           if (data.sucesso) {
             if (isFavoritado) {
-              button.classList.remove('bg-rose-500', 'text-gray-200');
+              button.classList.remove('outline-red-600', 'text-rose-500');
+              button.classList.add('outline-zinc-700');
               button.querySelector('i').classList.remove('bi-heart-fill');
               button.querySelector('i').classList.add('bi-heart');
             } else {
-              button.classList.add('bg-rose-500', 'text-gray-200');
+              button.classList.remove('outline-zinc-700');
+              button.classList.add('outline-red-600', 'text-rose-500');
               button.querySelector('i').classList.remove('bi-heart');
               button.querySelector('i').classList.add('bi-heart-fill');
             }

@@ -16,4 +16,5 @@ class ServicoDTO {
   public readonly string $cidade;
   public readonly string $estado;
   public readonly float $mediaAvaliacoes;
+  public ?bool $favoritado;
 } 

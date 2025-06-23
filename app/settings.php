@@ -1,13 +1,16 @@
 <?php
 
-use App\Utils\Links;
 use KissPhp\Support\Env;
 use KissPhp\Support\ViewParams;
 use KissPhp\Support\DatabaseParams;
 use KissPhp\Support\SessionCookieParams;
 
 SessionCookieParams::set([
-  'httponly' => true
+  'httponly' => true,
+  'secure' => false, // Em desenvolvimento, não exige HTTPS
+  'samesite' => 'Lax', // Proteção básica contra CSRF
+  'lifetime' => 0, // Cookie expira ao fechar o navegador
+  'path' => '/',
 ]);
 
 ViewParams::addFunctions([

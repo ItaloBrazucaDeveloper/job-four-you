@@ -1,8 +1,6 @@
 SET NAMES UTF8MB4;
 SET time_zone = '+00:00';
 
-CHARACTER SET UTF8MB4 COLLATE utf8mb4_0900_ai_ci;
-
 CREATE TABLE IF NOT EXISTS Endereco(
     ID                  INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     CEP                 CHAR(8) NOT NULL,
@@ -15,13 +13,13 @@ CREATE TABLE IF NOT EXISTS Endereco(
     CONSTRAINT          CheckCidade CHECK (Cidade REGEXP '^[a-zA-ZÀ-ÖØ-öø-ÿ .]+$'),
     CONSTRAINT          CheckBairro CHECK (Bairro REGEXP '^[a-zA-ZÀ-ÖØ-öø-ÿ .]+$'),
     CONSTRAINT          CheckRua CHECK (Rua REGEXP '^[0-9a-zA-ZÀ-ÖØ-öø-ÿ .]+$')
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS NivelAcesso(
     ID                  TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Grupo               VARCHAR(255) NOT NULL COLLATE utf8mb4_general_ci,
     CONSTRAINT          CheckGrupo CHECK (Grupo REGEXP '^[A-Z_]+$')
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS Credencial(
     ID                  INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -31,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Credencial(
     FOREIGN KEY         (FKNivelAcesso) REFERENCES NivelAcesso(ID) ON DELETE RESTRICT ON UPDATE CASCADE,
     CONSTRAINT          CheckEmail CHECK (Email REGEXP '(^[a-zA-Z0-9._%+-]+)@([a-zA-Z0-9-]*)(\.[a-zA-Z]{2,}){1,2}$'),
     CONSTRAINT          CheckSenhaBCrypt CHECK (Senha REGEXP '^\\$2[abxy]\\$[0-9]{2}\\$[A-Za-z0-9\./]{53}$')
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS Usuario(
     ID                  INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -56,7 +54,7 @@ CREATE TABLE IF NOT EXISTS Usuario(
 CREATE TABLE IF NOT EXISTS CategoriaContato(
     ID                  TINYINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Nome                VARCHAR(255) NOT NULL
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS InformacaoContato(
     ID                  INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -65,12 +63,12 @@ CREATE TABLE IF NOT EXISTS InformacaoContato(
     FKCategoriaContato  TINYINT UNSIGNED NOT NULL,
     FOREIGN KEY         (FKUsuario) REFERENCES Usuario(ID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY         (FKCategoriaContato) REFERENCES CategoriaContato(ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS CategoriaServico (
     ID                  SMALLINT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
     Nome                VARCHAR(25) NOT NULL
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS PublicacaoServico(
     ID                  INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -85,7 +83,7 @@ CREATE TABLE IF NOT EXISTS PublicacaoServico(
     StatusPublicacao    ENUM('ATIVO', 'EM_ANALISE', 'REJEITADO', 'BLOQUEADO') NOT NULL DEFAULT 'EM_ANALISE',
     FOREIGN KEY         (FKUsuario) REFERENCES Usuario(ID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY         (FKCategoria) REFERENCES CategoriaServico(ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS ServicoFavorito(
     IDServico           INT UNSIGNED NOT NULL,
@@ -93,7 +91,7 @@ CREATE TABLE IF NOT EXISTS ServicoFavorito(
     PRIMARY KEY         (IDServico, IDUsuario),
     FOREIGN KEY         (IDServico) REFERENCES PublicacaoServico(ID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY         (IDUsuario) REFERENCES Usuario(ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
 
 CREATE TABLE IF NOT EXISTS AvaliacaoServico (
     ID                  INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
@@ -107,4 +105,4 @@ CREATE TABLE IF NOT EXISTS AvaliacaoServico (
     CONSTRAINT          CheckComentario CHECK (Comentario IS NULL OR length(Comentario) > 20),
     FOREIGN KEY         (FkPublicacao) REFERENCES PublicacaoServico(ID) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY         (FKUsuario) REFERENCES Usuario(ID) ON DELETE CASCADE ON UPDATE CASCADE
-);
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;

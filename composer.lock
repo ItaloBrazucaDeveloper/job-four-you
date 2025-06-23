@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bdeb186c4a4c22ebda6d58a4e272cfe5",
+    "content-hash": "c088e26cc86f38644d298b0ff535532c",
     "packages": [
         {
             "name": "doctrine/collections",
@@ -827,20 +827,19 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItaloBrazucaDeveloper/kiss-php.git",
-                "reference": "0e8f0d3e8dc779b720ce4a6aa9f79de5ca7e395b"
+                "reference": "1d99b5df96b5e5a6944c79169011a8b12b6c21c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItaloBrazucaDeveloper/kiss-php/zipball/0e8f0d3e8dc779b720ce4a6aa9f79de5ca7e395b",
-                "reference": "0e8f0d3e8dc779b720ce4a6aa9f79de5ca7e395b",
+                "url": "https://api.github.com/repos/ItaloBrazucaDeveloper/kiss-php/zipball/1d99b5df96b5e5a6944c79169011a8b12b6c21c4",
+                "reference": "1d99b5df96b5e5a6944c79169011a8b12b6c21c4",
                 "shasum": ""
             },
             "require": {
                 "doctrine/dbal": "^4",
                 "doctrine/orm": "^3",
                 "symfony/cache": "^7",
-                "twig/twig": "^3.21.1",
-                "vlucas/phpdotenv": "^5.6.2"
+                "twig/twig": "^3.21.1"
             },
             "default-branch": true,
             "type": "library",
@@ -863,7 +862,7 @@
                 "source": "https://github.com/ItaloBrazucaDeveloper/kiss-php/tree/main",
                 "issues": "https://github.com/ItaloBrazucaDeveloper/kiss-php/issues"
             },
-            "time": "2025-06-23T13:13:04+00:00"
+            "time": "2025-06-23T21:34:10+00:00"
         },
         {
             "name": "nowakowskir/php-jwt",
@@ -2215,46 +2214,6 @@
             "time": "2025-06-02T14:13:49+00:00"
         },
         {
-            "name": "twbs/bootstrap-icons",
-            "version": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/twbs/icons.git",
-                "reference": "0548a6ba36da5277954b534851ad34d025678b43"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/twbs/icons/zipball/0548a6ba36da5277954b534851ad34d025678b43",
-                "reference": "0548a6ba36da5277954b534851ad34d025678b43",
-                "shasum": ""
-            },
-            "default-branch": true,
-            "type": "library",
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Mark Otto",
-                    "email": "markdotto@gmail.com"
-                }
-            ],
-            "description": "Official open source SVG icon library for Bootstrap",
-            "homepage": "https://icons.getbootstrap.com/",
-            "keywords": [
-                "bootstrap",
-                "icon font",
-                "icons",
-                "svg"
-            ],
-            "support": {
-                "issues": "https://github.com/twbs/icons/issues",
-                "source": "https://github.com/twbs/icons/tree/main"
-            },
-            "time": "2025-06-06T04:55:27+00:00"
-        },
-        {
             "name": "twig/twig",
             "version": "3.x-dev",
             "source": {
@@ -2424,8 +2383,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "kiss-php/framework": 20,
-        "twbs/bootstrap-icons": 20
+        "kiss-php/framework": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

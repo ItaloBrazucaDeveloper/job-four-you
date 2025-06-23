@@ -10,6 +10,6 @@ class VerificaSeUsuarioNaoLogado extends WebMiddleware {
     if (!$request->session->has(SessionKeys::USUARIO_AUTENTICADO)) {
       return $next($request);
     }
-    return $request->redirectTo('/servicos');
+    return $request->redirectTo('/');
   }
 }

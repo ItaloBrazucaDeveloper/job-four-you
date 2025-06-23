@@ -10,10 +10,12 @@ use KissPhp\Attributes\Http\Request\{ Body, QueryString, RouteParam };
 
 use App\Utils\SessionKeys;
 use App\DTOs\Servicos\ServicoCadastroDTO;
-use App\Middlewares\{ VerificaSePertenceGrupoPrestador, VerificaSeUsuarioLogado };
 use App\Services\Servicos\ServicosService;
-use App\Repositories\Servicos\ServicosRepository;
 use App\Services\Usuarios\UsuariosService;
+use App\Repositories\Servicos\ServicosRepository;
+use App\Middlewares\{ VerificaSePertenceGrupoPrestador, VerificaSeUsuarioLogado };
+
+use function App\Utils\bp;
 
 #[Controller('index')]
 class ServicosController extends WebController {
@@ -29,7 +31,7 @@ class ServicosController extends WebController {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
 
     $categorias = $this->service->buscarCategorias();
-    $dadosPaginacao = $this->service->buscarServicosComPaginacao($pagina, $usuario->id);
+    $dadosPaginacao = $this->service->buscarServicosComPaginacao($pagina, $usuario?->id);
 
     $this->render('Pages/servicos/listar-servicos.twig', [
       'categorias' => $categorias,
