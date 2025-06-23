@@ -73,7 +73,7 @@ class ServicosController extends WebController {
   }
 
   #[Post('/favoritar-servico/:id:{numeric}', [VerificaSeUsuarioLogado::class])]
-  public function favoritarServico(#[RouteParam] int $id, Request $request) {
+  public function favoritarServico(Request $request, #[RouteParam] int $id = 0) {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     if (!$usuario->id) {
       return json_encode(["sucesso" => false, "mensagem" => "Usuário não autenticado"]);
@@ -83,7 +83,7 @@ class ServicosController extends WebController {
     return json_encode(["sucesso" => $sucesso]);
   }
 
-  #[Delete('/favoritar-servico/:id:{numeric}', [VerificaSeUsuarioLogado::class])]
+  #[Delete('/desfavoritar-servico/:id:{numeric}', [VerificaSeUsuarioLogado::class])]
   public function desfavoritarServico(#[RouteParam] int $id, Request $request) {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     if (!$usuario->id) {

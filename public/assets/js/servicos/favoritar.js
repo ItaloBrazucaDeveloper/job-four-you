@@ -4,8 +4,8 @@ export function initFavoritar() {
   favoritarButtons.forEach(button => {
     button.addEventListener('click', function() {
       const idPublicacao = this.getAttribute('data-id');
-      const url = `/servicos/favoritos/${idPublicacao}`;
-      const isFavoritado = button.classList.contains('bg-red-500');
+      const isFavoritado = button.classList.contains('bg-rose-500');
+      const url = `/favoritar-servico/${idPublicacao}`;
 
       fetch(url, { method: isFavoritado ? 'DELETE' : 'POST' })
         .then(response => response.json())
