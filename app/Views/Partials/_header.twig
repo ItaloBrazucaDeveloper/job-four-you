@@ -11,14 +11,14 @@
 		{# LINKS DO MENU (versão desktop) #}
 		<div class="hidden md:flex flex-col md:flex-row items-center space-x-8">
 			<a
-				class="{{ url == '/' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
-				href="/"
+				class="{{ url starts with '/sobre-nos' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
+				href="/sobre-nos"
 				>
 				Sobre Nós
 			</a>
 			<a
-				class="{{ url starts with '/servicos' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
-				href="/servicos"
+				class="{{ url == '/' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
+				href="/"
 			>
 				Buscar Serviços
 			</a>
@@ -33,7 +33,7 @@
 			{% else %}
 				<a
 					class="{{ url starts with '/meu-perfil' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
-					href="/meu-perfil"
+					href="/usuarios/meu-perfil"
 				>
 					Meu Perfil
 				</a>

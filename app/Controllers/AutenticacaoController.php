@@ -30,7 +30,7 @@ class AutenticacaoController extends WebController {
 
     if ($usuarioAutenticado) {
       $request->session->set(SessionKeys::USUARIO_AUTENTICADO, $usuarioAutenticado);
-      return $this->redirectTo('/servicos');
+      return $this->redirectTo('/');
     }
     $request->session->setFlashMessage(FlashMessageType::Error, 'Usuário inválido!');
     return $this->redirectTo('/autenticacao');

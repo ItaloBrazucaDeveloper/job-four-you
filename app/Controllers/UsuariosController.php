@@ -13,6 +13,8 @@ use App\DTOs\Usuario\UsuarioCadastroDTO;
 use App\Services\Usuarios\UsuariosService;
 use App\Middlewares\{ VerificaSeUsuarioLogado, VerificaSeUsuarioNaoLogado };
 
+use function App\Utils\bp;
+
 #[Controller('/usuarios')]
 class UsuariosController extends WebController {
   public function __construct(private UsuariosService $service) { }
@@ -35,7 +37,7 @@ class UsuariosController extends WebController {
   #[Get('/meu-perfil', [VerificaSeUsuarioLogado::class])]
   public function exibirPaginaDeMeuPerfil(Request $request) {
     $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
-    $dadosCompletos = $this->service->obterUsuarioPeloId($usuarioLogado->id);
+    $dadosCompletos = $this->service->obterUsuarioPeloId((int) $usuarioLogado->id);
 
     $this->render('Pages/usuarios/meu-perfil.twig', [
       'usuario' => $dadosCompletos

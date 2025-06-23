@@ -1,11 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt">
   <head>
-    {% block metas %}
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-    {% endblock %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Job4You - Your go-to platform for job opportunities">
+    <meta name="keywords" content="jobs, employment, career, opportunities">
+    <meta name="author" content="Job4You Team">
+    {% block metas %} {% endblock %}
+
+    <link rel="icon" href="/images/favicon.png" type="image/x-icon">
     <title>{% block title %}Job4You{% endblock %}</title>
+
     <link rel="stylesheet" href="/assets/css/tailwind.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">

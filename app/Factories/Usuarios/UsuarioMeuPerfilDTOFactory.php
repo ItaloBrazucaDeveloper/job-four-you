@@ -2,9 +2,9 @@
 namespace App\Factories\Usuarios;
 
 use App\Entities\Usuario;
-use App\DTOs\Usuario\EnderecoDTO;
-use App\DTOs\Usuario\UsuarioMeuPerfilDTO;
+use App\DTOs\EnderecoDTO;
 use App\Utils\Formatacao;
+use App\DTOs\Usuario\UsuarioMeuPerfilDTO;
 
 class UsuarioMeuPerfilDTOFactory {
   public static function fromEntity(Usuario $usuario): UsuarioMeuPerfilDTO {

@@ -827,12 +827,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/ItaloBrazucaDeveloper/kiss-php.git",
-                "reference": "ad34e0ad7183634820a029ea446400eb45cbd22d"
+                "reference": "0e8f0d3e8dc779b720ce4a6aa9f79de5ca7e395b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ItaloBrazucaDeveloper/kiss-php/zipball/ad34e0ad7183634820a029ea446400eb45cbd22d",
-                "reference": "ad34e0ad7183634820a029ea446400eb45cbd22d",
+                "url": "https://api.github.com/repos/ItaloBrazucaDeveloper/kiss-php/zipball/0e8f0d3e8dc779b720ce4a6aa9f79de5ca7e395b",
+                "reference": "0e8f0d3e8dc779b720ce4a6aa9f79de5ca7e395b",
                 "shasum": ""
             },
             "require": {
@@ -863,7 +863,7 @@
                 "source": "https://github.com/ItaloBrazucaDeveloper/kiss-php/tree/main",
                 "issues": "https://github.com/ItaloBrazucaDeveloper/kiss-php/issues"
             },
-            "time": "2025-06-23T12:07:32+00:00"
+            "time": "2025-06-23T13:13:04+00:00"
         },
         {
             "name": "nowakowskir/php-jwt",

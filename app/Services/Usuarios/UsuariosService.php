@@ -23,10 +23,6 @@ class UsuariosService {
 
   public function obterUsuarioPeloId(int $id): ?UsuarioMeuPerfilDTO {
     try {
-      if (!$id) {
-        error_log("[Error] UsuariosService::obterUsuarioPeloId: ID do usuário inválido");
-        return null;
-      }
       $usuario = $this->usuarioRepository->buscarPorId($id);
       
       if (!$usuario) {

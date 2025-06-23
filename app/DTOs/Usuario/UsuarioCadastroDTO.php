@@ -11,5 +11,10 @@ class UsuarioCadastroDTO {
   public readonly string $cpf;
   public readonly string $celular;
   public readonly string $dataNascimento;
-  public readonly EnderecoDTO $endereco;
+  
+  public readonly string $cep;
+  public readonly string $rua;
+  public readonly string $bairro;
+  public readonly string $cidade;
+  public readonly string $estado;
 }

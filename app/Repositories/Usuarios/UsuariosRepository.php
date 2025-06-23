@@ -3,7 +3,7 @@ namespace App\Repositories\Usuarios;
 
 use KissPhp\Abstractions\Repository;
 
-use App\Entities\{ Usuario, Endereco };
+use App\Entities\{Credencial, Usuario, Endereco };
 use App\DTOs\Usuario\UsuarioCadastroDTO;
 use App\Repositories\Enderecos\EnderecoRepository;
 use App\Repositories\Credenciais\CredencialRepository;
@@ -18,14 +18,21 @@ class UsuariosRepository extends Repository {
     try {
       $this->database()->getConnection()->beginTransaction();
 
-      $endereco = (new Endereco())->fromObject($usuarioDTO->endereco);
+      $endereco = new Endereco();
+      $endereco->cep = str_replace('-', '', $usuarioDTO->cep);
+      $endereco->rua = $usuarioDTO->rua;
+      $endereco->bairro = $usuarioDTO->bairro;
+      $endereco->cidade = $usuarioDTO->cidade;
+      $endereco->estado = $usuarioDTO->estado;
+
       $endereco = $this->enderecoRepository->cadastrar($endereco);
       $credencial = $this->credencialRepository->cadastrar($usuarioDTO->email, $senhaHash);
 
       $usuario = new Usuario();
-      $usuario->nome = $usuarioDTO->nome;
+      $usuario->nome = $usuarioDTO->nome . ' ' . $usuarioDTO->sobrenome;
       $usuario->cpf = $usuarioDTO->cpf;
       $usuario->celular = $usuarioDTO->celular;
+      $usuario->credencial = $credencial;
       $usuario->dataNascimento = new \DateTime($usuarioDTO->dataNascimento);
       $usuario->credencial = $credencial;
       $usuario->endereco = $endereco;
@@ -41,60 +48,6 @@ class UsuariosRepository extends Repository {
       }
       error_log("[Error] UsuariosRepository::cadastrar: {$th->getMessage()}");
       throw new \Exception("Erro ao cadastrar usuário: {$th->getMessage()}");
-    }
-  }
-
-  private function verificarNivelAcesso(int $idUsuario): void {
-    try {
-      $qb = $this->database()->getConnection()->createQueryBuilder();
-      
-      $resultado = $qb->select('COUNT(*) AS total')
-        ->from('PublicacaoServico')
-        ->where('FKUsuario = :idUsuario')
-        ->andWhere('StatusPublicacao = :status')
-        ->setParameters([
-          'idUsuario' => $idUsuario,
-          'status' => 'ATIVO'
-        ])
-        ->executeQuery()
-        ->fetchAssociative();
-
-      // Se não restar nenhum, volta a ser CLIENTE
-      if ($resultado['total'] === 0) {
-        $qb = $this->database()->getConnection()->createQueryBuilder();
-        
-        $qb->update('Credencial')
-          ->set('FKNivelAcesso', ':nivel')
-          ->where('ID = (SELECT FKCredencial FROM Usuario WHERE ID = :idUsuario)')
-          ->setParameters([
-            'nivel' => 3,
-            'idUsuario' => $idUsuario
-          ])
-          ->executeStatement();
-      }
-    } catch (\Throwable $th) {
-      error_log("[Error] ServicosRepository::verificarNivelAcesso: {$th->getMessage()}");
-      throw new \Exception("Erro ao verificar nível de acesso");
-    }
-  }
-
-  public function verificarTipoUsuario(int $idUsuario): string {
-    try {
-      $query = $this->database()->getConnection()
-        ->createQueryBuilder()
-        ->select('COUNT(*) as qtd')
-        ->from('PublicacaoServico', 'p')
-        ->where('p.FKUsuario = :idUsuario')
-        ->setParameter('idUsuario', $idUsuario);
-
-      $result = $query->executeQuery()->fetchAssociative();
-
-      if ($result['qtd'] > 0) return "PRESTADOR";
-
-      return "CLIENTE";
-    } catch (\Throwable $th) {
-      error_log("[Error] UsuariosRepository::verificarTipoUsuario: {$th->getMessage()}");
-      throw new \Exception("Erro ao verificar tipo de usuário");
     }
   }
 
