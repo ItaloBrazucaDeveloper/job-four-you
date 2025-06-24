@@ -7,23 +7,21 @@ use KissPhp\Attributes\Http\Controller;
 use KissPhp\Attributes\Http\Methods\{ Get, Post };
 use KissPhp\Attributes\Http\Request\{ Body, RouteParam };
 
+use KissPhp\Enums\FlashMessageType;
 use App\Middlewares\VerificaSeUsuarioNaoLogado;
 use App\Services\RecuperarSenha\RecuperarSenhaService;
-use KissPhp\Enums\FlashMessageType;
-
-use function App\Utils\bp;
 
 #[Controller('/recuperar-senha', [VerificaSeUsuarioNaoLogado::class])]
 class RecuperarSenhaController extends WebController {
   public function __construct(private RecuperarSenhaService $service) { }
 
-  #[Get('/:etapa:{alpha}?')]
+  #[Get('/:etapa:{alpha}')]
   public function exibirPaginaRecuperarSenha(
     Request $request,  
     #[RouteParam] ?string $etapa
   ) {
     $this->render('Pages/autenticacao/recuperar-senha.twig', [
-      'etapa' => $etapa ?? 'email',
+      'etapa' => $etapa,
       'flash_message' => $request->session->getFlashMessage()
     ]);
   }
@@ -48,29 +46,38 @@ class RecuperarSenhaController extends WebController {
     $codigo = implode($request->getAllBody());
     $emailInserido = $request->session->get('email_recuperar_senha') ?? '';
 
+    if ($emailInserido === '') {
+      $request->session->setFlashMessage(FlashMessageType::Error, 'Não foi possível verificar o código, tente novamente.');
+      return $this->redirectTo('/recuperar-senha/email');
+    }
     $eValido = $this->service->validarCodigo($emailInserido, $codigo);
 
     if (!$eValido) {
       $request->session->setFlashMessage(FlashMessageType::Error, 'Código inválido, confira o código enviado e tente novamente.');
       return $this->redirectTo('/recuperar-senha/codigo');
     }
-
     $request->session->setFlashMessage(FlashMessageType::Success, 'Código verificado com sucesso, insira sua nova senha.');
     return $this->redirectTo('/recuperar-senha/senha');
   }
 
   #[Post('/senha')]
   public function mudarSenha(
-    Request $request,
     #[Body('primeira-senha')] string $primeiraSenha,
-    #[Body('segunda-senha')] string $segundaSenha
+    #[Body('segunda-senha')] string $segundaSenha,
+    Request $request
   ) {
     if ($primeiraSenha !== $segundaSenha) {
-      $request->session->setFlashMessage(FlashMessageType::Error, 'Código inválido, confira o código enviado e tente novamente.');
+      $request->session->setFlashMessage(FlashMessageType::Error, 'As senha não são iguais, por favor, tente novamente.');
       return $this->redirectTo('/recuperar-senha/codigo');
     }
+    $emailInserido = $request->session->get('email_recuperar_senha'); 
+    $senhaFoiAtualizada = $this->service->redefinirSenha($emailInserido, $primeiraSenha);
 
-    $request->session->setFlashMessage(FlashMessageType::Success, 'Código verificado com sucesso, insira sua nova senha.');
-    return $this->redirectTo('/recuperar-senha/senha');
+    if (!$senhaFoiAtualizada) {
+      $request->session->setFlashMessage(FlashMessageType::Error, 'Não foi possível atualizar a senha, tente novamente.');
+      return $this->redirectTo('/recuperar-senha/senha');
+    }
+    $request->session->setFlashMessage(FlashMessageType::Success, 'Senha redefina com sucesso!');
+    return $this->redirectTo('/autenticacao');
   }
 }

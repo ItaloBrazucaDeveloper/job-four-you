@@ -36,6 +36,7 @@
 							autocomplete: 'email'
 						) }}
 					</div>
+
 					<div>
 						{{ Label.render(for: 'senha', text: 'Senha') }}
 						{{ Input.render(
@@ -50,7 +51,7 @@
 				
 				<div class="flex items-center justify-between">
 					{{ Checkbox.render(name: 'remember-me', label: 'Lembrar-me') }}
-					{{ Link.render(href: '/recuperar-senha', text: 'Esqueceu sua senha?', class: 'text-sm') }}
+					{{ Link.render(href: '/recuperar-senha/email', text: 'Esqueceu sua senha?', class: 'text-sm') }}
 				</div>
 
 				{{ Button.render(type: 'submit', text: 'Entrar') }}

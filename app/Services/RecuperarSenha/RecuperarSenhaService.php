@@ -5,8 +5,6 @@ use Resend;
 use KissPhp\Support\Env;
 use App\Repositories\Credenciais\CredencialRepository;
 
-use function App\Utils\bp;
-
 class RecuperarSenhaService {
   private int $periodoExpiracao = 300; // 5 minutos em segundos
 
@@ -57,5 +55,10 @@ class RecuperarSenhaService {
       error_log("RecuperarSenhaService::enviarEmail Fallha ao enviar o email - {$th->getMessage}");
       return false;
     }
+  }
+
+  public function redefinirSenha(string $email, string $novaSenha): bool {
+    $foiAtualizado = $this->credencialRepository->atualizarSenha($email, $novaSenha);
+    return $foiAtualizado;
   }
 }

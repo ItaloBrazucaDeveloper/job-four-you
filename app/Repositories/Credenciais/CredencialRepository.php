@@ -62,4 +62,21 @@ class CredencialRepository extends Repository {
       return null;
     }
   }
-} 
+
+  public function atualizarSenha(string $email, string $novaSenha): bool {
+    try {
+      $query = $this->database()->getConnection()
+        ->createQueryBuilder()
+        ->update('Credencial')
+        ->set('senha', $novaSenha)
+        ->where("Email = :email")
+        ->setParameter(':email', $email);
+
+      $linhasAfetadas = (int) $query->executeStatement();
+      return $linhasAfetadas > 0;
+    } catch (\Throwable $th) {
+      error_log("[Error] CredencialRepository: {$th->getMessage()}");
+      return false;
+    }
+  }
+}
