@@ -2,6 +2,7 @@
 
 {% import "Macros/input.twig" as Input %}
 {% import "Macros/label.twig" as Label %}
+{% import "Macros/alert.twig" as Alert %}
 {% import "Macros/button.twig" as Button %}
 
 {% block main %}
@@ -18,11 +19,11 @@
       </header>
 
       {% if flash_message %}
-        {{ Alert.render(flash_message.type, flash_message.type) }}
+        {{ Alert.render(flash_message.type, flash_message.message) }}
       {% endif %}
 
       {% if etapa == 'email' %}
-        <form class="mt-8 space-y-6" action="/recuperar-senha" method="POST">
+        <form class="mt-8 space-y-6" method="post">
           <div>
             {{ Label.render(for: 'email', text: 'E-mail') }}
             {{ Input.render(
@@ -37,7 +38,7 @@
           {{ Button.render(type: 'submit', text: 'Enviar código de Recuperação') }}
         </form>
       {% elseif etapa == 'codigo' %}
-        <form class="mt-8 space-y-6" action="/recuperar-senha" method="POST">
+        <form class="mt-8 space-y-6" method="post">
           <div class="text-center grid gap-3">
             <div id="verification-code-inputs" class="flex gap-2 justify-center">
               <input type="text" inputmode="numeric" pattern="[0-9]{1}" maxlength="1" class="size-12 text-center shadow-sm bg-white ring ring-gray-400 rounded text-2xl" name="code1" id="code1" autocomplete="one-time-code" required />
@@ -50,20 +51,20 @@
           {{ Button.render(type: 'submit', text: 'Continuar') }}
         </form>
       {% elseif etapa == 'senha' %}
-        <form class="mt-8 space-y-6" action="/recuperar-senha" method="POST">
+        <form class="mt-8 space-y-6" method="post">
           <div>
-            {{ Label.render(for: 'senha', text: 'Nova senha') }}
+            {{ Label.render(for: 'primeira-senha', text: 'Nova senha') }}
             {{ Input.render(
-              name: 'senha',
+              name: 'primeira-senha',
               type: 'password',
               icon: 'bi bi-lock',
               placeholder: 'Insira sua nova senha'
             ) }}
           </div>
           <div>
-            {{ Label.render(for: 'senha', text: 'Repita sua nova senha') }}
+            {{ Label.render(for: 'segunda-senha', text: 'Repita sua nova senha') }}
             {{ Input.render(
-              name: 'senha',
+              name: 'segunda-senha',
               type: 'password',
               icon: 'bi bi-lock',
               placeholder: 'Insira sua nova senha novamente'

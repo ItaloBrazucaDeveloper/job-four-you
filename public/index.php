@@ -11,13 +11,13 @@ include '../app/settings.php';
 
 SessionInitializer::init();
 BoundinaryError::register();  
-Env::load(dirname(__DIR__, 1));
+Env::load('/../');
 
 BoundinaryError::wrap(function() {
   $uri = $_SERVER['REQUEST_URI'] ?? '';
   $uriParsed = parse_url($uri, PHP_URL_PATH) ?? '';
 
-  $endpoint = $uriParsed === '/' ? '' : $uriParsed;
+  $endpoint = $uriParsed === '/' ? '' : rtrim($uriParsed, '/');
   $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 
   $container = Container::getInstance();

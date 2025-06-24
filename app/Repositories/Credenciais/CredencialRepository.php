@@ -55,7 +55,7 @@ class CredencialRepository extends Repository {
     try {
       $credencial = $this->database()
         ->getRepository(Credencial::class)
-        ->find(['email' => $email]);
+        ->findOneBy(['email' => $email]);
       return $credencial;
     } catch (\Throwable $th) {
       error_log("[Error] CredencialRepository: {$th->getMessage()}");
