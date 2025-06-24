@@ -15,6 +15,7 @@ SessionCookieParams::set([
 
 ViewParams::addFunctions([
   'getCurrentUrl' => fn() => $_SERVER['REQUEST_URI'] ?? '/',
+  'getAllQueryParams' => fn() => $_SERVER['QUERY_STRING'] ?? []
 ]);
 
 DatabaseParams::setConnectionParams([

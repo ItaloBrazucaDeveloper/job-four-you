@@ -56,4 +56,14 @@ function initFiltrosModal() {
 document.addEventListener('DOMContentLoaded', function () {
   initFiltrosModal();
   initFavoritar();
+
+  // Submissão automática dos filtros em telas grandes
+  const filtrosForm = document.getElementById('filtros');
+  if (filtrosForm) {
+    filtrosForm.addEventListener('change', function (e) {
+      if (window.innerWidth >= 1024) {
+        filtrosForm.submit();
+      }
+    });
+  }
 });

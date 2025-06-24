@@ -19,20 +19,26 @@ class ServicosController extends WebController {
   
   #[Get]
   public function exibirPaginaDeServicos(Request $request) {
-    $categoria = $request->getQueryString('categoria');
     $pagina = $request->getQueryString('pagina') ?? 1;
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
+
+    $queryStrings = $request->getAllQueryStrings();
+    $categoria = $queryStrings['categoria'] ?? null;
+    $estado = (array)($queryStrings['estado'] ?? []);
+    $valor = (array)($queryStrings['valor'] ?? []);
 
     $categorias = $this->service->buscarCategorias();
     $dadosPaginacao = $this->service->buscarServicosComPaginacao($pagina, $usuario?->id);
 
-    $this->render('Pages/servicos/listar-servicos.twig', [
+    $this->render('Pages/servicos/listar-servicos.twig', array_merge($queryStrings, [
       'categorias' => $categorias,
       'publicacoes' => $dadosPaginacao['servicos'],
-      'categoriaSelecionada' => $categoria,
+      'categoria' => $categoria,
+      'estado' => $estado,
+      'valor' => $valor,
       'paginaAtual' => $pagina,
       'totalPaginas' => $dadosPaginacao['totalPaginas']
-    ]);
+    ]));
   }
 
   #[Get('/mais-detalhes', [VerificaSeUsuarioLogado::class])]
