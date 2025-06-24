@@ -11,7 +11,7 @@ include '../app/settings.php';
 
 SessionInitializer::init();
 BoundinaryError::register();  
-Env::load(dirname(__DIR__, 3));
+Env::load(dirname(__DIR__, 1));
 
 BoundinaryError::wrap(function() {
   $uri = $_SERVER['REQUEST_URI'] ?? '';
