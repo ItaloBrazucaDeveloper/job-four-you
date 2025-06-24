@@ -58,7 +58,7 @@ class RecuperarSenhaService {
   }
 
   public function redefinirSenha(string $email, string $novaSenha): bool {
-    $foiAtualizado = $this->credencialRepository->atualizarSenha($email, $novaSenha);
-    return $foiAtualizado;
+    $senhaHash = password_hash($novaSenha, PASSWORD_BCRYPT);
+    return $this->credencialRepository->atualizarSenha($email, $senhaHash);
   }
 }
