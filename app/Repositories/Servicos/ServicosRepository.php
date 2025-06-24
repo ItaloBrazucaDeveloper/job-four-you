@@ -153,4 +153,60 @@ class ServicosRepository extends Repository {
       throw new \Exception("Erro ao desativar serviço");
     }
   }
+
+  public function obterMaisDetalhes(int $idServico): ?array {
+    try {
+      // Buscar dados principais do serviço na ViewPublicacao
+      $view = $this->database()
+        ->getRepository(\App\Entities\Views\ViewPublicacao::class)
+        ->findOneBy(['idPublicacao' => $idServico]);
+      if (!$view) return null;
+
+      // Buscar entidade PublicacaoServico para acessar relações
+      $publicacao = $this->database()
+        ->getRepository(\App\Entities\Servico\PublicacaoServico::class)
+        ->find($idServico);
+      if (!$publicacao) return null;
+
+      // Buscar contatos do prestador
+      $usuario = $publicacao->usuario;
+      $contatos = [];
+      foreach ($usuario->informacoesContato as $contato) {
+        $contatos[] = [
+          'tipo' => $contato->categoria->nome,
+          'valor' => $contato->contato
+        ];
+      }
+
+      // Buscar avaliações do serviço
+      $avaliacoes = [];
+      $quantidadeEstrelas = 0;
+      if ($publicacao->avaliacoes && count($publicacao->avaliacoes) > 0) {
+        foreach ($publicacao->avaliacoes as $avaliacao) {
+          $avaliacoes[] = [
+            'nota' => $avaliacao->nota,
+            'comentario' => $avaliacao->comentario,
+            'nome' => $avaliacao->usuario->nome,
+            'foto_perfil' => $avaliacao->usuario->foto,
+            'cargo' => $avaliacao->usuario->credencial->tipo ?? 'Usuário',
+          ];
+          $quantidadeEstrelas++;
+        }
+      }
+
+      return [
+        'foto' => $view->fotoUsuario,
+        'prestador' => $view->nomeUsuario,
+        'titulo' => $view->titulo,
+        'descricacao' => $view->sobre,
+        'contatos' => $contatos,
+        'quantiadadeEstrelas' => $quantidadeEstrelas,
+        'mediaAvaliacoes' => $view->mediaAvaliacoes,
+        'avaliacoes' => $avaliacoes,
+      ];
+    } catch (\Throwable $th) {
+      error_log("[Error] ServicosRepository::obterMaisDetalhes: {$th->getMessage()}");
+      return null;
+    }
+  }
 }

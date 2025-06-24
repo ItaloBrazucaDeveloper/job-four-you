@@ -11,16 +11,11 @@ use KissPhp\Attributes\Http\Request\{ Body, QueryString, RouteParam };
 use App\Utils\SessionKeys;
 use App\DTOs\Servicos\ServicoCadastroDTO;
 use App\Services\Servicos\ServicosService;
-use App\Services\Usuarios\UsuariosService;
-use App\Repositories\Servicos\ServicosRepository;
 use App\Middlewares\{ VerificaSePertenceGrupoPrestador, VerificaSeUsuarioLogado };
 
 #[Controller('index')]
 class ServicosController extends WebController {
-  private ServicosService $service;
-  public function __construct(ServicosRepository $servicosRepository, UsuariosService $usuariosService) {
-    $this->service = new ServicosService($servicosRepository, $usuariosService);
-  }
+  public function __construct(private ServicosService $service) { }
   
   #[Get]
   public function exibirPaginaDeServicos(Request $request) {
@@ -42,7 +37,15 @@ class ServicosController extends WebController {
 
   #[Get('/mais-detalhes', [VerificaSeUsuarioLogado::class])]
   public function exibirMaisDetalhesDeServico(#[QueryString] int $id) {
-    $this->render('Pages/servicos/mais-detalhes.twig', []);
+    $detalhes = $this->service->buscarMaisDetalhesDoServico($id);
+    if (!$detalhes) {
+      // Redireciona ou exibe erro se não encontrado
+      return $this->redirectTo('/servicos?erro=nao-encontrado');
+    }
+    $this->render('Pages/servicos/mais-detalhes.twig', [
+      'detalhes' => $detalhes,
+      'avaliacoes' => $detalhes->avaliacoes,
+    ]);
   }
 
   #[Get('/postar-servico', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoPrestador::class])]

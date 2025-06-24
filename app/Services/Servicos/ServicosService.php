@@ -1,22 +1,24 @@
 <?php
 namespace App\Services\Servicos;
 
+use KissPhp\Core\Types\UploadedFile;
+
+use App\Utils\{ Paginacao, Paths };
+use App\Services\Usuarios\UsuariosService;
 use App\Entities\Categorias\CategoriaServico;
 use App\Repositories\Servicos\ServicosRepository;
-use App\DTOs\Servicos\{ ServicoDTO, ServicoCadastroDTO };
-use App\Utils\Paginacao;
-use App\Utils\Paths;
-use Exception;
-use KissPhp\Core\Types\UploadedFile;
-use App\Services\Usuarios\UsuariosService;
+use App\DTOs\Servicos\{MaisDetalhesDTO, ServicoDTO, ServicoCadastroDTO };
 
 class ServicosService {
-  public function __construct(private ServicosRepository $repository, private ?UsuariosService $usuariosService = null) { }
+  public function __construct(
+    private ServicosRepository $repository,
+    private UsuariosService $usuariosService
+  ) { }
 
   public function favoritarServico(int $idServico, int $idUsuario): array {
     try {
       $foiFavoritado = $this->repository->favoritarServico($idServico, $idUsuario);
-      if (!$foiFavoritado) throw new Exception();
+      if (!$foiFavoritado) throw new \Exception();
       
       return ['sucesso' => $foiFavoritado];
     } catch (\Throwable $th) {
@@ -119,5 +121,21 @@ class ServicosService {
       error_log($th->getMessage());
       return false;
     }
+  }
+
+  public function buscarMaisDetalhesDoServico(int $id): ?MaisDetalhesDTO {
+    $dados = $this->repository->obterMaisDetalhes($id);
+    if (!$dados) return null;
+    return new MaisDetalhesDTO(
+      $dados['foto'],
+      $dados['prestador'],
+      $dados['titulo'],
+      $dados['descricacao'],
+      $dados['contatos'],
+      $dados['quantiadadeEstrelas'],
+      $dados['mediaAvaliacoes'],
+      $dados['avaliacoes']
+    );
+    return $dto;
   }
 }
