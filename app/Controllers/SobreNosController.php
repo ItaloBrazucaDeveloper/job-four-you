@@ -8,7 +8,5 @@ use KissPhp\Attributes\Http\Methods\Get;
 #[Controller('/sobre-nos')]
 class SobreNosController extends WebController {
   #[Get]
-  public function exbirPaginaHome() {
-    $this->render('Pages/main.twig');
-  }
+  public function exbirPaginaHome() { $this->render('Pages/main.twig'); }
 }

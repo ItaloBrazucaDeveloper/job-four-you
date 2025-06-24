@@ -15,8 +15,6 @@ use App\Services\Usuarios\UsuariosService;
 use App\Repositories\Servicos\ServicosRepository;
 use App\Middlewares\{ VerificaSePertenceGrupoPrestador, VerificaSeUsuarioLogado };
 
-use function App\Utils\bp;
-
 #[Controller('index')]
 class ServicosController extends WebController {
   private ServicosService $service;

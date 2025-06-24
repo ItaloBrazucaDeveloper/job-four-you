@@ -10,9 +10,8 @@ use KissPhp\Attributes\Http\Methods\{ Get, Post };
 
 use App\Utils\SessionKeys;
 use App\DTOs\Login\Credenciais;
-use App\Middlewares\VerificaSeUsuarioLogado;
-use App\Middlewares\VerificaSeUsuarioNaoLogado;
 use App\Services\Autenticacao\AutenticacaoService;
+use App\Middlewares\{ VerificaSeUsuarioLogado, VerificaSeUsuarioNaoLogado };
 
 #[Controller('/autenticacao')]
 class AutenticacaoController extends WebController {

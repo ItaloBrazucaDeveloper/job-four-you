@@ -5,8 +5,8 @@ use KissPhp\Enums\FlashMessageType;
 use KissPhp\Protocols\Http\Request;
 use KissPhp\Abstractions\WebController;
 use KissPhp\Attributes\Http\Controller;
-use KissPhp\Attributes\Http\Request\{ Body, QueryString};
 use KissPhp\Attributes\Http\Methods\{ Get, Post };
+use KissPhp\Attributes\Http\Request\{ Body, QueryString};
 
 use App\Utils\SessionKeys;
 use App\DTOs\Usuario\UsuarioCadastroDTO;
