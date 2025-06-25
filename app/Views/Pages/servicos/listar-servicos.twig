@@ -12,7 +12,7 @@
 			{% include "Partials/servicos/_busca.twig" %}
 
 			{% if filtros_ativos|length > 0 %}
-			  <div class="mb-6 flex flex-wrap gap-2 items-center">
+			  <div class="ml-3 mb-6 flex flex-wrap gap-2 items-center">
 				<span class="font-semibold text-gray-700 mr-2">Filtros aplicados:</span>
 				{% for filtro in filtros_ativos %}
 				  <form method="get" class="inline filtro-ativo">
@@ -55,10 +55,20 @@
 			{% endif %}
 
 			<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-5 gap-y-10">
-				{% include "Partials/servicos/_publicacao-servico.twig" %}
+				{% if publicacoes is not empty %}
+					{% include "Partials/servicos/_publicacao-servico.twig" %}
+				{% else %}
+					<div class="col-span-full flex flex-col items-center justify-center py-10">
+						<i class="bi bi-emoji-frown text-xl"></i>
+						<h2 class="text-xl font-semibold mb-2">Nenhum serviço encontrado</h2>
+						<p class="text-gray-500 text-center">Não encontramos serviços com os filtros selecionados.<br>Tente ajustar os filtros ou realizar uma nova busca.</p>
+					</div>
+				{% endif %}
 			</div>
 
-			{{ Paginacao.render(atual: paginaAtual, total: totalPaginas) }}
+			{% if totalPaginas > 1 %}
+				{{ Paginacao.render(atual: paginaAtual, total: totalPaginas) }}
+			{% endif %}
 		</main>
 	</section>
 {% endblock %}

@@ -36,10 +36,6 @@
 
 				{% if usuario is defined %}
 					<section id="perfil" class="p-6 md:p-8">
-						<h2 class="text-xl font-bold text-gray-800 mb-6">
-							Informações Pessoais
-						</h2>
-
 						{% set formAction = usuario.grupo == 'PRESTADOR' ? '/prestadores/atualizar' : '/usuarios/atualizar' %}
 
 						<form action="{{ formAction }}" method="POST" class="space-y-6" enctype="multipart/form-data">

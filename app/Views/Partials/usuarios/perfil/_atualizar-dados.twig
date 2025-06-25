@@ -2,156 +2,213 @@
 {% import "Macros/label.twig" as label %}
 {% import "Macros/select.twig" as select %}
 
-<div class="{% if usuario.grupo != 'PRESTADOR' %}col-span-2{% endif %}">
-  {{ label.render(for: 'nome', text: 'Nome Completo') }}
-  {{ input.render(
-    name: 'nome',
-    type: 'text',
-    required: true,
-    icon: 'bi bi-person',
-    defaultValue: usuario.nome
-  ) }}
-</div>
-
-<div>
-  {{ label.render(for: 'cpf', text: usuario.grupo == 'PRESTADOR' ? 'CPF/CNPJ' : 'CPF') }}
-  {{ input.render(
-    name: 'cpf',
-    type: 'text',
-    required: true,
-    icon: 'bi bi-card-text',
-    defaultValue: usuario.cpf,
-    disable: true
-  ) }}
-</div>
-
-{% if usuario.grupo != 'PRESTADOR' %}
-  <div>
-    {{ label.render(for: 'data_nascimento', text: 'Data de Nascimento') }}
-    {{ input.render(
-      name: 'data_nascimento',
-      type: 'date',
-      required: true,
-      icon: 'bi bi-calendar',
-      defaultValue: usuario.dataNascimento
-    ) }}
-  </div>
-{% endif %}
-
-<div>
-  {{ label.render(for: 'email', text: 'Email') }}
-  {{ input.render(
-    name: 'email',
-    type: 'email',
-    required: true,
-    icon: 'bi bi-envelope',
-    defaultValue: usuario.email
-  ) }}
-</div>
-
-<div>
-  {{ label.render(for: 'telefone', text: 'Telefone') }}
-  {{ input.render(
-    name: 'telefone',
-    type: 'tel',
-    required: true,
-    icon: 'bi bi-telephone',
-    defaultValue: usuario.celular
-  ) }}
-</div>
-
-<div>
-  {{ label.render(for: 'foto', text: 'Foto de Perfil') }}
-  {{ input.render(
-    name: 'foto',
-    type: 'file',
-    accept: 'image/*',
-    icon: 'bi bi-camera',
-    defaultValue: usuario.foto
-  ) }}
-  {% if erros_prestador is defined and 'foto' in erros_prestador %}
-    <div class="mt-1 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
-      <i class="bi bi-exclamation-triangle mr-1"></i>
-      Para se tornar prestador, é necessário ter uma foto de perfil cadastrada.
+<fieldset class="col-span-2 mb-4">
+  <legend class="font-semibold text-lg mb-2">Informações pessoais</legend>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'nome', text: 'Nome') }}
+      {{ input.render(
+        name: 'nome',
+        type: 'text',
+        required: true,
+        icon: 'bi bi-person',
+        defaultValue: usuario.nome
+      ) }}
     </div>
-  {% endif %}
-</div>
-
-{% if usuario.grupo != 'prestador' %}
-  <div>
-    {{ label.render(for: 'cep', text: 'CEP') }}
-    {{ input.render(
-      name: 'cep',
-      type: 'text',
-      required: true,
-      icon: 'bi bi-mailbox',
-      defaultValue: usuario.endereco.cep
-    ) }}
-  </div>
-
-  <div>
-    {{ label.render(for: 'estado', text: 'Estado') }}
-    {{ select.render(
-      name: 'estado',
-      options: {
-        'AC': 'Acre', 'AL': 'Alagoas', 'AP': 'Amapá', 'AM': 'Amazonas',
-        'BA': 'Bahia', 'CE': 'Ceará', 'DF': 'Distrito Federal',
-        'ES': 'Espírito Santo', 'GO': 'Goiás', 'MA': 'Maranhão',
-        'MT': 'Mato Grosso', 'MS': 'Mato Grosso do Sul', 'MG': 'Minas Gerais',
-        'PA': 'Pará', 'PB': 'Paraíba', 'PR': 'Paraná', 'PE': 'Pernambuco',
-        'PI': 'Piauí', 'RJ': 'Rio de Janeiro', 'RN': 'Rio Grande do Norte',
-        'RS': 'Rio Grande do Sul', 'RO': 'Rondônia', 'RR': 'Roraima',
-        'SC': 'Santa Catarina', 'SP': 'São Paulo', 'SE': 'Sergipe',
-        'TO': 'Tocantins'
-      },
-      placeholder: 'Selecione',
-      required: true,
-      icon: 'bi bi-map',
-      defaultValue: usuario.endereco.estado,
-      disable: true
-    ) }}
-  </div>
-
-  <div>
-    {{ label.render(for: 'cidade', text: 'Cidade') }}
-    {{ input.render(
-      name: 'cidade',
-      type: 'text',
-      required: true,
-      icon: 'bi bi-building',
-      defaultValue: usuario.endereco.cidade,
-      disable: true
-    ) }}
-  </div>
-
-  <div>
-    {{ label.render(for: 'bairro', text: 'Bairro') }}
-    {{ input.render(
-      name: 'bairro',
-      type: 'text',
-      required: true,
-      icon: 'bi bi-pin-map',
-      defaultValue: usuario.endereco.bairro,
-      disable: true
-    ) }}
-  </div>
-
-  <div>
-    {{ label.render(for: 'rua', text: 'Rua') }}
-    {{ input.render(
-      name: 'rua',
-      type: 'text',
-      required: true,
-      icon: 'bi bi-signpost',
-      defaultValue: usuario.endereco.rua,
-      disable: true
-    ) }}
-  </div>
-
-  {% if erros_prestador is defined and 'endereco' in erros_prestador %}
-    <div class="col-span-2 mt-1 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
-      <i class="bi bi-exclamation-triangle mr-1"></i>
-      Para se tornar prestador, é necessário ter um endereço completo cadastrado.
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'sobrenome', text: 'Sobrenome') }}
+      {{ input.render(
+        name: 'sobrenome',
+        type: 'text',
+        required: true,
+        icon: 'bi bi-person',
+        defaultValue: usuario.sobrenome
+      ) }}
     </div>
-  {% endif %}
-{% endif %} 
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'cpf', text: usuario.grupo == 'PRESTADOR' ? 'CPF/CNPJ' : 'CPF') }}
+      {{ input.render(
+        name: 'cpf',
+        type: 'text',
+        required: true,
+        icon: 'bi bi-card-text',
+        defaultValue: usuario.cpf,
+        disable: true
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'data_nascimento', text: 'Data de Nascimento') }}
+      {{ input.render(
+        name: 'data_nascimento',
+        type: 'date',
+        required: true,
+        icon: 'bi bi-calendar',
+        defaultValue: usuario.dataNascimento
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'email', text: 'Email') }}
+      {{ input.render(
+        name: 'email',
+        type: 'email',
+        required: true,
+        icon: 'bi bi-envelope',
+        defaultValue: usuario.email
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'telefone', text: 'Telefone') }}
+      {{ input.render(
+        name: 'telefone',
+        type: 'tel',
+        required: true,
+        icon: 'bi bi-telephone',
+        defaultValue: usuario.celular
+      ) }}
+    </div>
+    <div class="col-span-2">
+      {{ label.render(for: 'foto', text: 'Foto de Perfil') }}
+      {{ input.render(
+        name: 'foto',
+        type: 'file',
+        accept: 'image/*',
+        icon: 'bi bi-camera',
+        defaultValue: usuario.foto
+      ) }}
+      {% if erros_prestador is defined and 'foto' in erros_prestador %}
+        <div class="mt-1 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
+          <i class="bi bi-exclamation-triangle mr-1"></i>
+          Para se tornar prestador, é necessário ter uma foto de perfil cadastrada.
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</fieldset>
+
+<fieldset class="col-span-2 mb-4">
+  <legend class="font-semibold text-lg mb-2">Endereço</legend>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'cep', text: 'CEP') }}
+      {{ input.render(
+        name: 'cep',
+        type: 'text',
+        required: true,
+        icon: 'bi bi-mailbox',
+        defaultValue: usuario.endereco.cep
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'estado', text: 'Estado') }}
+      {{ input.render(
+        required: true,
+        name: 'estado',
+        icon: 'bi bi-map',
+        placeholder: 'Estado',
+        defaultValue: usuario.endereco.estado,
+        disable: true
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'cidade', text: 'Cidade') }}
+      {{ input.render(
+        name: 'cidade',
+        type: 'text',
+        required: true,
+        icon: 'bi bi-building',
+        defaultValue: usuario.endereco.cidade,
+        disable: true
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'bairro', text: 'Bairro') }}
+      {{ input.render(
+        name: 'bairro',
+        type: 'text',
+        required: true,
+        icon: 'bi bi-pin-map',
+        defaultValue: usuario.endereco.bairro,
+        disable: true
+      ) }}
+    </div>
+    <div class="col-span-2">
+      {{ label.render(for: 'rua', text: 'Rua') }}
+      {{ input.render(
+        name: 'rua',
+        type: 'text',
+        required: true,
+        icon: 'bi bi-signpost',
+        defaultValue: usuario.endereco.rua,
+        disable: true
+      ) }}
+    </div>
+    {% if erros_prestador is defined and 'endereco' in erros_prestador %}
+      <div class="col-span-2 mt-1 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
+        <i class="bi bi-exclamation-triangle mr-1"></i>
+        Para se tornar prestador, é necessário ter um endereço completo cadastrado.
+      </div>
+    {% endif %}
+  </div>
+</fieldset>
+
+<fieldset class="col-span-2 mb-4">
+  <legend class="font-semibold text-lg mb-2">
+    Contatos
+  </legend>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'contato_email', text: 'Email') }}
+      {{ input.render(
+        name: 'contato_email',
+        type: 'email',
+        icon: 'bi bi-envelope',
+        defaultValue: usuario.contato_email
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'contato_celular', text: 'Celular') }}
+      {{ input.render(
+        name: 'contato_celular',
+        type: 'tel',
+        icon: 'bi bi-telephone',
+        defaultValue: usuario.contato_celular
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'contato_facebook', text: 'Facebook') }}
+      {{ input.render(
+        name: 'contato_facebook',
+        type: 'text',
+        icon: 'bi bi-facebook',
+        defaultValue: usuario.contato_facebook
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'contato_instagram', text: 'Instagram') }}
+      {{ input.render(
+        name: 'contato_instagram',
+        type: 'text',
+        icon: 'bi bi-instagram',
+        defaultValue: usuario.contato_instagram
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'contato_whatsapp', text: 'WhatsApp') }}
+      {{ input.render(
+        name: 'contato_whatsapp',
+        type: 'text',
+        icon: 'bi bi-whatsapp',
+        defaultValue: usuario.contato_whatsapp
+      ) }}
+    </div>
+    <div class="col-span-2 md:col-span-1">
+      {{ label.render(for: 'contato_outro', text: 'Outro contato') }}
+      {{ input.render(
+        name: 'contato_outro',
+        type: 'text',
+        icon: 'bi bi-link-45deg',
+        defaultValue: usuario.contato_outro
+      ) }}
+    </div>
+  </div>
+</fieldset>
