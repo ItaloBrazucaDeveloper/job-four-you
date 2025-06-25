@@ -10,18 +10,24 @@
   {% set temMeiaEstrela = resto >= 0.5 ? 1 : 0 %}
   {% set estrelasVazias = 5 - estrelasCheias - temMeiaEstrela %}
 
-  {# Estrelas cheias #}
-  {% for i in 1..estrelasCheias %}
+  {% if estrelasCheias == 5 %}
+    {% for i in 1..estrelasCheias %}
+      <i class="bi bi-star-fill text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
+    {% endfor %}
+  {% else %}
+    {# Estrelas cheias #}
+    {% for i in 1..estrelasCheias %}
     <i class="bi bi-star-fill text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
-  {% endfor %}
+    {% endfor %}
 
-  {# Meia estrela #}
-  {% if temMeiaEstrela %}
+    {# Meia estrela #}
+    {% if temMeiaEstrela %}
     <i class="bi bi-star-half text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
-  {% endif %}
+    {% endif %}
 
-  {# Estrelas vazias #}
-  {% for i in 1..estrelasVazias %}
+    {# Estrelas vazias #}
+    {% for i in 1..estrelasVazias %}
     <i class="bi bi-star text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
-  {% endfor %}
+    {% endfor %}
+  {% endif %}
 {% endmacro %}

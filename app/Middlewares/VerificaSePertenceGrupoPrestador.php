@@ -10,6 +10,6 @@ class VerificaSePertenceGrupoPrestador extends WebMiddleware {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
 
     if ($usuario->grupo === 'PRESTADOR') return $next($request);
-    return $request->redirectTo('/servicos');
+    return $request->redirectTo('/');
   }
 }

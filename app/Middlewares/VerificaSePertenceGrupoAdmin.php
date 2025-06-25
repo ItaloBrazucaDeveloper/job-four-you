@@ -10,6 +10,6 @@ class VerificaSePertenceGrupoAdmin extends WebMiddleware {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     
     if ($usuario->grupo === 'ADMIN') return $next($request);
-    return $request->redirectTo('/servicos');
+    return $request->redirectTo('/');
   }
 }
