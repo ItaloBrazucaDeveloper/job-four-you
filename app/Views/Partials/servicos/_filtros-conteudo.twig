@@ -21,6 +21,7 @@
           name="categoria"
           id="categoria_servico_{{ categoria.id }}"
           value="{{ categoria.id }}"
+          {% if categoria.id == categoria_selecionada %}checked{% endif %}
           class="absolute inset-0 opacity-0 size-full"
         >
       </div>
@@ -37,6 +38,7 @@
         type="radio"
         name="categoria"
         id="categoria_servico_0"
+        {% if not categoria or categoria == '0' %}checked{% endif %}
         class="absolute inset-0 opacity-0 size-full"
       >
     </div>
@@ -71,6 +73,7 @@
             name="estado[]"
             id="estado_{{ sigla }}"
             value="{{ sigla }}"
+            {% if sigla in estado %}checked{% endif %}
             class="absolute inset-0 opacity-0 size-full"
           >
         </div>
@@ -91,10 +94,10 @@
         '500-1000': 'R$ 500,00 - R$ 1.000,00',
         '1000-plus': 'Acima de R$ 1.000,00'
       } %}
-      {% for valor, texto in faixas_preco %}
+      {% for faixa_valor, texto in faixas_preco %}
         <div class="group relative">
           <label
-            for="valor_{{ valor }}"
+            for="valor_{{ faixa_valor }}"
             class="block rounded-md w-full py-2 px-4 opacity-70 hover:opacity-100 group-has-[input:checked]:opacity-100 group-has-[input:checked]:font-semibold group-has-[input:checked]:text-gray-600 group-hover:bg-gray-200 group-has-[input:checked]:bg-gray-200 transition-all duration-200"
           >
             {{ texto }}
@@ -102,8 +105,9 @@
           <input
             type="checkbox"
             name="valor[]"
-            id="valor_{{ valor }}"
-            value="{{ valor }}"
+            id="valor_{{ faixa_valor }}"
+            value="{{ faixa_valor }}"
+            {% if faixa_valor in valor %}checked{% endif %}
             class="absolute inset-0 opacity-0 size-full"
           >
         </div>

@@ -9,7 +9,7 @@ use KissPhp\Attributes\Http\Methods\{ Delete, Get, Post };
 use KissPhp\Attributes\Http\Request\{ Body, QueryString, RouteParam };
 
 use App\Utils\SessionKeys;
-use App\DTOs\Servicos\ServicoCadastroDTO;
+use App\DTOs\Servicos\{ ServicoCadastroDTO, FiltrosServicoDTO };
 use App\Services\Servicos\ServicosService;
 use App\Middlewares\{ VerificaSePertenceGrupoPrestador, VerificaSeUsuarioLogado };
 
@@ -23,21 +23,29 @@ class ServicosController extends WebController {
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
 
     $queryStrings = $request->getAllQueryStrings();
-    $categoria = $queryStrings['categoria'] ?? null;
-    $estado = (array)($queryStrings['estado'] ?? []);
-    $valor = (array)($queryStrings['valor'] ?? []);
+    
+    // Criar DTO de filtros
+    $filtros = new FiltrosServicoDTO(
+      categoria: $queryStrings['categoria'] ?? null,
+      estado: (array)($queryStrings['estado'] ?? []),
+      valor: (array)($queryStrings['valor'] ?? []),
+      prestador: $queryStrings['prestador'] ?? null
+    );
 
     $categorias = $this->service->buscarCategorias();
-    $dadosPaginacao = $this->service->buscarServicosComPaginacao($pagina, $usuario?->id);
+    $dadosPaginacao = $this->service->buscarServicosComPaginacao($pagina, $usuario?->id, $filtros);
+    $filtrosAtivos = $this->service->processarFiltrosAtivos($filtros);
 
     $this->render('Pages/servicos/listar-servicos.twig', array_merge($queryStrings, [
       'categorias' => $categorias,
       'publicacoes' => $dadosPaginacao['servicos'],
-      'categoria' => $categoria,
-      'estado' => $estado,
-      'valor' => $valor,
+      'categoria_selecionada' => $filtros->categoria,
+      'estado' => $filtros->estado,
+      'valor' => $filtros->valor,
+      'prestador' => $filtros->prestador,
       'paginaAtual' => $pagina,
-      'totalPaginas' => $dadosPaginacao['totalPaginas']
+      'totalPaginas' => $dadosPaginacao['totalPaginas'],
+      'filtros_ativos' => $filtrosAtivos
     ]));
   }
 

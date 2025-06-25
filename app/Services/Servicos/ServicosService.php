@@ -7,7 +7,7 @@ use App\Utils\{ Paginacao, Paths };
 use App\Services\Usuarios\UsuariosService;
 use App\Entities\Categorias\CategoriaServico;
 use App\Repositories\Servicos\ServicosRepository;
-use App\DTOs\Servicos\{MaisDetalhesDTO, ServicoDTO, ServicoCadastroDTO };
+use App\DTOs\Servicos\{MaisDetalhesDTO, ServicoDTO, ServicoCadastroDTO, FiltrosServicoDTO, FiltroAtivoDTO };
 
 class ServicosService {
   public function __construct(
@@ -50,11 +50,11 @@ class ServicosService {
    * Retorna dados dos serviços com informações de paginação
    * @return array{servicos: ServicoDTO[], totalRegistros: int, totalPaginas: int, paginaAtual: int}
    */
-  public function buscarServicosComPaginacao(int $paginaAtual, ?int $idUsuario = null): array {
+  public function buscarServicosComPaginacao(int $paginaAtual, ?int $idUsuario = null, ?FiltrosServicoDTO $filtros = null): array {
     try {
       $offset = Paginacao::getOffset($paginaAtual);
       $itemsPorPagina = Paginacao::getItemsPorPagina();
-      $servicos = $this->repository->buscar($offset, $itemsPorPagina);
+      $servicos = $this->repository->buscar($offset, $itemsPorPagina, $filtros);
 
       // Obter IDs dos serviços favoritos do usuário
       $favoritosIds = [];
@@ -75,7 +75,7 @@ class ServicosService {
         return $dados;
       }, $servicos);
 
-      $totalRegistros = $this->repository->contarTotal();
+      $totalRegistros = $this->repository->contarTotal($filtros);
       $totalPaginas = ceil($totalRegistros / Paginacao::getItemsPorPagina());
 
       return [
@@ -93,6 +93,114 @@ class ServicosService {
         'paginaAtual' => $paginaAtual
       ];
     }
+  }
+
+  /**
+   * Processa os filtros ativos baseado nos parâmetros recebidos
+   * @return FiltroAtivoDTO[]
+   */
+  public function processarFiltrosAtivos(FiltrosServicoDTO $filtros): array {
+    $filtrosAtivos = [];
+
+    // Filtro de categoria
+    if (!empty($filtros->categoria) && $filtros->categoria !== '0') {
+      $categoria = $this->buscarCategoriaPorId($filtros->categoria);
+      if ($categoria) {
+        $filtrosAtivos[] = new FiltroAtivoDTO(
+          'Categoria',
+          $categoria->nome,
+          'categoria',
+          $filtros->categoria
+        );
+      }
+    }
+
+    // Filtros de estado
+    foreach ($filtros->estado as $estado) {
+      $nomeEstado = $this->obterNomeEstado($estado);
+      $filtrosAtivos[] = new FiltroAtivoDTO(
+        'Estado',
+        $nomeEstado,
+        'estado',
+        $estado
+      );
+    }
+
+    // Filtros de valor
+    foreach ($filtros->valor as $valor) {
+      $nomeValor = $this->obterNomeFaixaValor($valor);
+      $filtrosAtivos[] = new FiltroAtivoDTO(
+        'Preço',
+        $nomeValor,
+        'valor',
+        $valor
+      );
+    }
+
+    // Filtro de prestador
+    if (!empty($filtros->prestador)) {
+      $filtrosAtivos[] = new FiltroAtivoDTO(
+        'Prestador',
+        $filtros->prestador,
+        'prestador',
+        $filtros->prestador
+      );
+    }
+
+    return $filtrosAtivos;
+  }
+
+  /**
+   * Busca categoria por ID
+   */
+  private function buscarCategoriaPorId(string $id): ?\App\DTOs\CategoriaServicoDTO {
+    try {
+      $categorias = $this->repository->buscarCategorias();
+      foreach ($categorias as $categoria) {
+        if ($categoria->id == $id) {
+          return $categoria;
+        }
+      }
+      return null;
+    } catch (\Throwable $th) {
+      error_log($th->getMessage());
+      return null;
+    }
+  }
+
+  /**
+   * Obtém o nome completo do estado pela sigla
+   */
+  private function obterNomeEstado(string $sigla): string {
+    $estados = [
+      'AC' => 'Acre', 'AL' => 'Alagoas', 'AP' => 'Amapá', 'AM' => 'Amazonas',
+      'BA' => 'Bahia', 'CE' => 'Ceará', 'DF' => 'Distrito Federal',
+      'ES' => 'Espírito Santo', 'GO' => 'Goiás', 'MA' => 'Maranhão',
+      'MT' => 'Mato Grosso', 'MS' => 'Mato Grosso do Sul', 'MG' => 'Minas Gerais',
+      'PA' => 'Pará', 'PB' => 'Paraíba', 'PR' => 'Paraná', 'PE' => 'Pernambuco',
+      'PI' => 'Piauí', 'RJ' => 'Rio de Janeiro', 'RN' => 'Rio Grande do Norte',
+      'RS' => 'Rio Grande do Sul', 'RO' => 'Rondônia', 'RR' => 'Roraima',
+      'SC' => 'Santa Catarina', 'SP' => 'São Paulo', 'SE' => 'Sergipe',
+      'TO' => 'Tocantins'
+    ];
+
+    return $estados[$sigla] ?? $sigla;
+  }
+
+  /**
+   * Obtém o nome da faixa de valor pelo código
+   */
+  private function obterNomeFaixaValor(string $codigo): string {
+    $faixas = [
+      '0-50' => 'Até R$ 50,00',
+      '50-100' => 'R$ 50,00 - R$ 100,00',
+      '100-200' => 'R$ 100,00 - R$ 200,00',
+      '200-500' => 'R$ 200,00 - R$ 500,00',
+      '500-1000' => 'R$ 500,00 - R$ 1.000,00',
+      '1000-plus' => 'Acima de R$ 1.000,00'
+    ];
+
+    return $faixas[$codigo] ?? $codigo;
   }
 
   public function cadastrar(ServicoCadastroDTO $servico, UploadedFile $foto): bool {

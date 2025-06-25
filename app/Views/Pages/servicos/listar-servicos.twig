@@ -11,56 +11,24 @@
 		<main class="m-3 flex-1">
 			{% include "Partials/servicos/_busca.twig" %}
 
-			{% set filtros_ativos = {} %}
-			{% if categoria is defined and categoria %}
-			  {% set filtros_ativos = filtros_ativos.append({
-				'tipo': 'Categoria',
-				'valor': categorias|filter(c => c.id == categoria)|first.nome ?? 'Selecionada',
-				'param': 'categoria',
-				'param_valor': categoria
-			  }) %}
-			{% endif %}
-
-			{% if estado is defined and estado %}
-			  {% for uf in estado %}
-					{% set _ = filtros_ativos.append({
-						'tipo': 'Estado',
-						'valor': uf,
-						'param': 'estado[]',
-						'param_valor': uf
-					}) %}
-			  {% endfor %}
-			{% endif %}
-
-			{% if valor is defined and valor %}
-			  {% for faixa in valor %}
-				{% set _ = filtros_ativos.append({
-				  'tipo': 'Preço',
-				  'valor': faixa,
-				  'param': 'valor[]',
-				  'param_valor': faixa
-				}) %}
-			  {% endfor %}
-			{% endif %}
-
 			{% if filtros_ativos|length > 0 %}
 			  <div class="mb-6 flex flex-wrap gap-2 items-center">
 				<span class="font-semibold text-gray-700 mr-2">Filtros aplicados:</span>
 				{% for filtro in filtros_ativos %}
-				  <form method="get" class="inline">
+				  <form method="get" class="inline filtro-ativo">
 					{# Mantém todos os parâmetros exceto o que será removido #}
 					{% for key, value in getAllQueryParams() %}
 					  {% if key != filtro.param or value != filtro.param_valor %}
 						<input type="hidden" name="{{ key }}" value="{{ value }}">
 					  {% endif %}
 					{% endfor %}
-					<button type="submit" class="bg-gray-200 rounded-full px-3 py-1 text-sm flex items-center gap-1 hover:bg-gray-300">
+					<button type="submit" class="bg-gray-200 rounded-full px-3 py-1 text-sm flex items-center gap-1 hover:bg-gray-300 transition-colors">
 					  {{ filtro.tipo }}: {{ filtro.valor }} <i class="bi bi-x"></i>
 					</button>
 				  </form>
 				{% endfor %}
 				<form method="get" class="inline">
-				  <button type="submit" class="ml-2 text-xs px-3 py-1 rounded-full bg-red-100 text-red-700 hover:bg-red-200">
+				  <button type="submit" class="btn-limpar-filtros ml-2 text-xs px-3 py-1 rounded-full bg-red-100 text-red-700 hover:bg-red-200 transition-colors">
 						Limpar filtros
 					</button>
 				</form>
