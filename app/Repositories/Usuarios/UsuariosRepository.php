@@ -89,4 +89,84 @@ class UsuariosRepository extends Repository {
       'usuario' => $id
     ]);
   }
+
+  public function tornarClienteEmPrestador(int $id): bool {
+    try {
+      $this->database()->getConnection()->beginTransaction();
+
+      $usuario = $this->database()->find(Usuario::class, $id);
+      
+      if (!$usuario) {
+        error_log("[Error] UsuariosRepository::tornarClienteEmPrestador: Usuário não encontrado para o ID {$id}");
+        return false;
+      }
+
+      // Buscar o nível de acesso PRESTADOR
+      $nivelPrestador = $this->database()->getRepository(\App\Entities\NivelAcesso::class)
+        ->findOneBy(['grupo' => 'PRESTADOR']);
+
+      if (!$nivelPrestador) {
+        error_log("[Error] UsuariosRepository::tornarClienteEmPrestador: Nível de acesso PRESTADOR não encontrado");
+        return false;
+      }
+
+      // Atualizar o nível de acesso do usuário
+      $usuario->credencial->nivelAcesso = $nivelPrestador;
+      $usuario->ultimaAtualizacao = new \DateTime();
+
+      $this->database()->persist($usuario);
+      $this->database()->flush();
+
+      $this->database()->getConnection()->commit();
+      return true;
+    } catch (\Throwable $th) {
+      if ($this->database()->getConnection()->isTransactionActive()) {
+        $this->database()->getConnection()->rollBack();
+      }
+      error_log("[Error] UsuariosRepository::tornarClienteEmPrestador: {$th->getMessage()}");
+      return false;
+    }
+  }
+
+  public function atualizar(int $id, \App\DTOs\Usuario\UsuarioAtualizarDTO $dados): bool {
+    try {
+      $this->database()->getConnection()->beginTransaction();
+
+      $usuario = $this->database()->find(Usuario::class, $id);
+      
+      if (!$usuario) {
+        error_log("[Error] UsuariosRepository::atualizar: Usuário não encontrado para o ID {$id}");
+        return false;
+      }
+
+      // Atualizar dados do usuário
+      $usuario->nome = $dados->nome;
+      $usuario->celular = $dados->telefone;
+      
+      if ($dados->foto) {
+        $usuario->foto = $dados->foto;
+      }
+      
+      if ($dados->dataNascimento) {
+        $usuario->dataNascimento = new \DateTime($dados->dataNascimento);
+      }
+
+      // Atualizar email na credencial
+      $usuario->credencial->email = $dados->email;
+      
+      $usuario->ultimaAtualizacao = new \DateTime();
+
+      $this->database()->persist($usuario);
+      $this->database()->flush();
+
+      $this->database()->getConnection()->commit();
+      return true;
+    } catch (\Throwable $th) {
+      if ($this->database()->getConnection()->isTransactionActive()) {
+        $this->database()->getConnection()->rollBack();
+      }
+      error_log("[Error] UsuariosRepository::atualizar: {$th->getMessage()}");
+      return false;
+    }
+  }
 }

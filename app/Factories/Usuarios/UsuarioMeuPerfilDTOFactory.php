@@ -16,6 +16,7 @@ class UsuarioMeuPerfilDTOFactory {
         celular: $usuario->celular,
         dataNascimento: $usuario->dataNascimento instanceof \DateTime ? $usuario->dataNascimento->format('Y-m-d') : '',
         email: $usuario->credencial->email,
+        grupo: $usuario->credencial->nivelAcesso->grupo,
         endereco: new EnderecoDTO(
           cep: $usuario->endereco->cep,
           rua: $usuario->endereco->rua,

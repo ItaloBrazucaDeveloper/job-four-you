@@ -11,15 +11,38 @@
 				{% include "Partials/usuarios/perfil/_header.twig" %}
 				{% include "Partials/usuarios/perfil/_nav.twig" %}
 
+				{% if erros_prestador is defined and erros_prestador|length > 0 %}
+					<div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mx-6 mt-6">
+						<div class="flex">
+							<div class="flex-shrink-0">
+								<i class="bi bi-exclamation-triangle text-yellow-400"></i>
+							</div>
+							<div class="ml-3">
+								<p class="text-sm text-yellow-700">
+									<strong>Atenção:</strong> Para se tornar um prestador de serviços, você precisa completar as seguintes informações:
+								</p>
+								<ul class="mt-2 text-sm text-yellow-700 list-disc list-inside">
+									{% if 'foto' in erros_prestador %}
+										<li>Adicionar uma foto de perfil</li>
+									{% endif %}
+									{% if 'endereco' in erros_prestador %}
+										<li>Completar seu endereço</li>
+									{% endif %}
+								</ul>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+
 				{% if usuario is defined %}
 					<section id="perfil" class="p-6 md:p-8">
 						<h2 class="text-xl font-bold text-gray-800 mb-6">
 							Informações Pessoais
 						</h2>
 
-						{% set formAction = usuario.tipo == 'PRESTADOR' ? '/prestadores/atualizar' : '/usuarios/atualizar' %}
+						{% set formAction = usuario.grupo == 'PRESTADOR' ? '/prestadores/atualizar' : '/usuarios/atualizar' %}
 
-						<form action="{{ formAction }}" method="POST" class="space-y-6">
+						<form action="{{ formAction }}" method="POST" class="space-y-6" enctype="multipart/form-data">
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								{% include "Partials/usuarios/perfil/_atualizar-dados.twig" %}
 							</div>

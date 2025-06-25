@@ -5,8 +5,8 @@ use KissPhp\Enums\FlashMessageType;
 use KissPhp\Protocols\Http\Request;
 use KissPhp\Abstractions\WebController;
 use KissPhp\Attributes\Http\Controller;
+use KissPhp\Attributes\Http\Request\Body;
 use KissPhp\Attributes\Http\Methods\{ Get, Post };
-use KissPhp\Attributes\Http\Request\{ Body, QueryString};
 
 use App\Utils\SessionKeys;
 use App\DTOs\Usuario\UsuarioCadastroDTO;
@@ -42,6 +42,23 @@ class UsuariosController extends WebController {
     ]);
   }
 
+  #[Post('/atualizar', [VerificaSeUsuarioLogado::class])]
+  public function atualizarUsuario(Request $request, #[Body] \App\DTOs\Usuario\UsuarioAtualizarDTO $dados) {
+    $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
+    
+    if (!$this->service->atualizarUsuario($usuarioLogado->id, $dados)) {
+      $request->session->setFlashMessage(FlashMessageType::Error, 'Não foi possível atualizar seus dados. Tente novamente.');
+      return $this->redirectTo('/usuarios/meu-perfil');
+    }
+    
+    // Atualizar a sessão do usuário
+    $usuarioAtualizado = $this->service->obterUsuarioPeloId($usuarioLogado->id);
+    $request->session->set(SessionKeys::USUARIO_AUTENTICADO, $usuarioAtualizado);
+    
+    $request->session->setFlashMessage(FlashMessageType::Success, 'Dados atualizados com sucesso!');
+    return $this->redirectTo('/usuarios/meu-perfil');
+  }
+
   #[Get('/meus-favoritos', [VerificaSeUsuarioLogado::class])]
   public function exibirListaDeServicosFavoritos(Request $request) {
     $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
@@ -62,8 +79,39 @@ class UsuariosController extends WebController {
     ]);
   }
 
-  #[Get('/tornar-prestador')]
-  public function tornarClienteEmPrestador(#[QueryString] int $id) {
-    return "Usuário: {$id}";
+  #[Get('/tornar-prestador', [VerificaSeUsuarioLogado::class])]
+  public function verificarSePodeSeTornarPrestador(Request $request) {
+    $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
+    
+    // Verificar se o usuário já é prestador
+    if ($usuarioLogado->grupo === 'PRESTADOR') {
+      $request->session->setFlashMessage(FlashMessageType::Info, 'Você já é um prestador de serviços!');
+      return $this->redirectTo('/usuarios/meu-perfil');
+    }
+
+    $verificacao = $this->service->verificarSePodeSeTornarPrestador($usuarioLogado->id);
+    
+    if ($verificacao['pode_se_tornar']) {
+      // Se pode se tornar prestador, realizar a conversão
+      if ($this->service->tornarClienteEmPrestador($usuarioLogado->id)) {
+        // Atualizar a sessão do usuário
+        $usuarioAtualizado = $this->service->obterUsuarioPeloId($usuarioLogado->id);
+        $request->session->set(SessionKeys::USUARIO_AUTENTICADO, $usuarioAtualizado);
+        
+        $request->session->setFlashMessage(FlashMessageType::Success, 'Parabéns! Agora você pode publicar seus serviços na plataforma!');
+        return $this->redirectTo('/usuarios/meu-perfil');
+      } else {
+        $request->session->setFlashMessage(FlashMessageType::Error, 'Erro ao processar sua solicitação. Tente novamente.');
+        return $this->redirectTo('/usuarios/meu-perfil');
+      }
+    } else {
+      // Se não pode se tornar prestador, exibir a página com os erros
+      $dadosCompletos = $this->service->obterUsuarioPeloId($usuarioLogado->id);
+      
+      $this->render('Pages/usuarios/meu-perfil.twig', [
+        'usuario' => $dadosCompletos,
+        'erros_prestador' => $verificacao['erros']
+      ]);
+    }
   }
 }

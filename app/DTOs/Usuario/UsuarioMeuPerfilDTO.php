@@ -12,6 +12,7 @@ class UsuarioMeuPerfilDTO {
     public readonly ?string $celular,
     public readonly ?string $dataNascimento,
     public readonly ?string $email,
+    public readonly ?string $grupo,
     public readonly EnderecoDTO $endereco
   ) { }
 }

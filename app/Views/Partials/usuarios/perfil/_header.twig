@@ -1,8 +1,8 @@
 <div class="relative bg-gray-800 px-8 py-6">
   {% if session('usuario_autenticado').grupo == 'CLIENTE' %}
     <a
-      href="/usuarios/tornar-prestador?id={{ session('usuario_autenticado').id }}"
-      class="absolute top-5 right-0 bg-white/95 py-2 px-4 rounded-l-full"
+      href="/usuarios/tornar-prestador"
+      class="absolute top-5 right-0 bg-white/95 py-2 px-4 rounded-l-full hover:bg-white transition-colors"
     >
       <i class="bi bi-person-up"></i>
       <span class="hidden md:inline">Quero anunciar meus serviços</span>
