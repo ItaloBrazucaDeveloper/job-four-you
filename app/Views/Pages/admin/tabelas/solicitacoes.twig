@@ -3,175 +3,155 @@
 {% block title %}Aprovações Pendentes | Job4You ADM{% endblock %}
 
 {% block painel %}
-  <div class="main-content w-full">
-    <!-- Top Bar -->
-    <header class="bg-white shadow-sm">
-      <div class="flex justify-between items-center p-4">
-        <button id="menuToggle" class="md:hidden text-gray-700">
-          <i class="bi bi-list text-xl"></i>
+  <div class="bg-white rounded-lg shadow-md p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">Aprovações Pendentes</h1>
+
+    <!-- Abas -->
+    <div class="border-b border-gray-200 mb-6">
+      <nav class="-mb-px flex space-x-8">
+        <button id="tabServicos"
+          class="tab-button border-b-2 border-blue-500 text-blue-600 px-4 py-2 text-sm font-medium">
+          Serviços
         </button>
-        <div class="flex items-center space-x-4">
-          <span class="text-gray-700">Olá, {{ admin.nome }}</span>
-          <img src="{{ admin.foto ?: 'https://via.placeholder.com/40' }}" alt="Admin" class="w-8 h-8 rounded-full">
+        <button id="tabPrestadores"
+          class="tab-button border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 px-4 py-2 text-sm font-medium">
+          Prestadores
+        </button>
+      </nav>
+    </div>
+
+    <!-- Conteúdo da aba Serviços -->
+    <div id="servicosContent" class="tab-content">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-medium">Serviços Pendentes</h2>
+        <div class="relative w-full md:w-64">
+          <input type="text" id="searchServicos" placeholder="Buscar serviços..."
+            class="w-full border border-gray-300 rounded-md p-2 pl-8 text-sm">
+          <i class="bi bi-search absolute left-2 top-3 text-gray-400"></i>
         </div>
       </div>
-    </header>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serviço
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prestador
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
+                Cadastro</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            {% if servicos_pendentes|length > 0 %}
+            {% for servico in servicos_pendentes %}
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.id }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ servico.nome }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.prestadorNome }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.categoriaNome }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">R$ {{ servico.valor|number_format(2,
+                ',', '.') }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.dataCadastro }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <button onclick="servicoModal.open({{ servico.id }})"
+                  class="text-indigo-600 hover:text-indigo-900 mr-3">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <button data-action="aprovar-servico" data-servico-id="{{ servico.id }}"
+                  class="text-green-600 hover:text-green-900 mr-3">
+                  <i class="bi bi-check-circle"></i>
+                </button>
+                <button data-action="rejeitar-servico" data-servico-id="{{ servico.id }}"
+                  class="text-red-600 hover:text-red-900">
+                  <i class="bi bi-x-circle"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="7" class="px-6 py-4 text-center text-gray-500">Nenhum serviço pendente encontrado.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-    <!-- Page Content -->
-    <main class="p-6">
-      <div class="bg-white rounded-lg shadow-md p-6">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6">Aprovações Pendentes</h1>
-
-        <!-- Abas -->
-        <div class="border-b border-gray-200 mb-6">
-          <nav class="-mb-px flex space-x-8">
-            <button id="tabServicos"
-              class="tab-button border-b-2 border-blue-500 text-blue-600 px-4 py-2 text-sm font-medium">
-              Serviços
-            </button>
-            <button id="tabPrestadores"
-              class="tab-button border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 px-4 py-2 text-sm font-medium">
-              Prestadores
-            </button>
-          </nav>
-        </div>
-
-        <!-- Conteúdo da aba Serviços -->
-        <div id="servicosContent" class="tab-content">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-medium">Serviços Pendentes</h2>
-            <div class="relative w-full md:w-64">
-              <input type="text" id="searchServicos" placeholder="Buscar serviços..."
-                class="w-full border border-gray-300 rounded-md p-2 pl-8 text-sm">
-              <i class="bi bi-search absolute left-2 top-3 text-gray-400"></i>
-            </div>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serviço
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prestador
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
-                    Cadastro</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                {% if servicos_pendentes|length > 0 %}
-                {% for servico in servicos_pendentes %}
-                <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.id }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap">{{ servico.nome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.prestadorNome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.categoriaNome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">R$ {{ servico.valor|number_format(2,
-                    ',', '.') }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.dataCadastro }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button onclick="servicoModal.open({{ servico.id }})"
-                      class="text-indigo-600 hover:text-indigo-900 mr-3">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button data-action="aprovar-servico" data-servico-id="{{ servico.id }}"
-                      class="text-green-600 hover:text-green-900 mr-3">
-                      <i class="bi bi-check-circle"></i>
-                    </button>
-                    <button data-action="rejeitar-servico" data-servico-id="{{ servico.id }}"
-                      class="text-red-600 hover:text-red-900">
-                      <i class="bi bi-x-circle"></i>
-                    </button>
-                  </td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                  <td colspan="7" class="px-6 py-4 text-center text-gray-500">Nenhum serviço pendente encontrado.</td>
-                </tr>
-                {% endif %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <!-- Conteúdo da aba Prestadores -->
-        <div id="prestadoresContent" class="tab-content hidden">
-          <div class="flex justify-between items-center mb-4">
-            <h2 class="text-lg font-medium">Prestadores Pendentes</h2>
-            <div class="relative w-full md:w-64">
-              <input type="text" id="searchPrestadores" placeholder="Buscar prestadores..."
-                class="w-full border border-gray-300 rounded-md p-2 pl-8 text-sm">
-              <i class="bi bi-search absolute left-2 top-3 text-gray-400"></i>
-            </div>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prestador
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPF</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    Especialidade</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
-                    Cadastro</th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Documentos
-                  </th>
-                  <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
-                </tr>
-              </thead>
-              <tbody class="bg-white divide-y divide-gray-200">
-                {% if prestadores_pendentes|length > 0 %}
-                {% for prestador in prestadores_pendentes %}
-                <tr>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.id }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap">{{ prestador.nome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.prestadorNome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.categoriaNome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.dataCadastro }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    {% if prestador.linkDocumentos %}
-                    <a href="{{ prestador.linkDocumentos }}" target="_blank" class="text-blue-600 hover:underline">Ver
-                      Documentos</a>
-                    {% else %}
-                    <span class="text-gray-400">Não disponível</span>
-                    {% endif %}
-                  </td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <button onclick="prestadorModal.open({{ prestador.id }})"
-                      class="text-indigo-600 hover:text-indigo-900 mr-3">
-                      <i class="bi bi-eye"></i>
-                    </button>
-                    <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="ativar"
-                      class="text-green-600 hover:text-green-900 mr-3">
-                      <i class="bi bi-check-circle"></i>
-                    </button>
-                    <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="rejeitar"
-                      class="text-red-600 hover:text-red-900">
-                      <i class="bi bi-x-circle"></i>
-                    </button>
-                  </td>
-                </tr>
-                {% endfor %}
-                {% else %}
-                <tr>
-                  <td colspan="7" class="px-6 py-4 text-center text-gray-500">Nenhum prestador pendente encontrado.</td>
-                </tr>
-                {% endif %}
-              </tbody>
-            </table>
-          </div>
+    <!-- Conteúdo da aba Prestadores -->
+    <div id="prestadoresContent" class="tab-content hidden">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-lg font-medium">Prestadores Pendentes</h2>
+        <div class="relative w-full md:w-64">
+          <input type="text" id="searchPrestadores" placeholder="Buscar prestadores..."
+            class="w-full border border-gray-300 rounded-md p-2 pl-8 text-sm">
+          <i class="bi bi-search absolute left-2 top-3 text-gray-400"></i>
         </div>
       </div>
-    </main>
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prestador
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">CPF</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Especialidade</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data
+                Cadastro</th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Documentos
+              </th>
+              <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            {% if prestadores_pendentes|length > 0 %}
+            {% for prestador in prestadores_pendentes %}
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.id }}</td>
+              <td class="px-6 py-4 whitespace-nowrap">{{ prestador.nome }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.prestadorNome }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.categoriaNome }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.dataCadastro }}</td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {% if prestador.linkDocumentos %}
+                <a href="{{ prestador.linkDocumentos }}" target="_blank" class="text-blue-600 hover:underline">Ver
+                  Documentos</a>
+                {% else %}
+                <span class="text-gray-400">Não disponível</span>
+                {% endif %}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <button onclick="prestadorModal.open({{ prestador.id }})"
+                  class="text-indigo-600 hover:text-indigo-900 mr-3">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="ativar"
+                  class="text-green-600 hover:text-green-900 mr-3">
+                  <i class="bi bi-check-circle"></i>
+                </button>
+                <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="rejeitar"
+                  class="text-red-600 hover:text-red-900">
+                  <i class="bi bi-x-circle"></i>
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+            {% else %}
+            <tr>
+              <td colspan="7" class="px-6 py-4 text-center text-gray-500">Nenhum prestador pendente encontrado.</td>
+            </tr>
+            {% endif %}
+          </tbody>
+        </table>
+      </div>
+    </div>
   </div>
-
-  <script src="/assets/js/admin/admin-painel.js"></script>
 {% endblock %}

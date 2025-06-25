@@ -1,44 +1,54 @@
-<div class="sidebar fixed h-full bg-gray-800 text-white">
-  <div class="p-4">
-    <h1 class="text-2xl font-bold">Job4You ADM</h1>
+{% set currentUrl = getCurrentUrl() %}
+
+{% set defaultLinkStyle = 'hover:bg-gray-400 rounded-lg' %}
+{% set activeLinkStyle = 'bg-gray-700 hover:opacity-80 text-gray-200 rounded-lg' %}
+
+<aside class="sidebar flex flex-col justify-between h-screen p-4 border-r border-r-gray-300 min-w-[250px]">
+  <div>
+    <header class="flex items-center gap-1 p-3 shadow-sm shadow-zinc-400/50 rounded-md bg-white/80 space-x-1">
+      <span class="font-bold text-lg px-2.5 py-px rounded-md bg-gray-800 text-yellow-400">J</span>
+      <h1 class="text-xl font-bold text-nowrap">Job4You</h1>
+    </header>
+
+    <div class="mt-6">
+      <h5 class="opacity-75 py-1 border-b border-gray-400 mb-2">
+        Área administrativa
+      </h5>
+      <nav class="flex flex-col gap-2">
+        <a href="/painel" class="px-4 py-3 {{ (currentUrl == '/painel' or currentUrl == '/painel/') ? activeLinkStyle : defaultLinkStyle }}">
+          <i class="bi bi-house-door mr-2"></i>
+          <span>Home</span>
+        </a>
+        <a href="/painel/usuarios" class="px-4 py-3 {{ currentUrl starts with '/painel/usuarios' ? activeLinkStyle : defaultLinkStyle }}">
+          <i class="bi bi-people mr-2"></i>
+          <span>Usuários</span>
+        </a>
+        <a href="/painel/servicos" class="px-4 py-3 {{ currentUrl starts with '/painel/servicos' ? activeLinkStyle : defaultLinkStyle }}">
+          <i class="bi bi-tools mr-2"></i>
+          <span>Serviços</span>
+        </a>
+        <a href="/painel/solicitacoes" class="px-4 py-3 {{ currentUrl starts with '/painel/solicitacoes' ? activeLinkStyle : defaultLinkStyle }}">
+          <i class="bi bi-check-circle mr-2"></i>
+          <span>Aprovações</span>
+        </a>
+        
+        <div class="mt-3 space-x-3 w-full">
+          <h5 class="opacity-75 py-1 border-b border-gray-400 mb-5">
+            Perfil
+          </h5>
+          <a href="/usuarios/meu-perfil" class="block px-4 py-3">
+            <i class="bi bi-person-circle mr-2"></i>
+            <span>Meu Perfil</span>
+          </a>
+        </div>
+      </nav>
+    </div>
   </div>
-  <nav class="mt-6">
-    <ul>
-      <li class="px-4 py-3 hover:bg-gray-700">
-        <a href="#" class="flex items-center">
-          <i class="bi bi-house-door mr-2"></i> Home
-        </a>
-      </li>
-      <li class="px-4 py-3 bg-gray-700">
-        <a href="#" class="flex items-center">
-          <i class="bi bi-people mr-2"></i> Usuários
-        </a>
-      </li>
-      <li class="px-4 py-3 hover:bg-gray-700">
-        <a href="#" class="flex items-center">
-          <i class="bi bi-briefcase mr-2"></i> Prestadores
-        </a>
-      </li>
-      <li class="px-4 py-3 hover:bg-gray-700">
-        <a href="#" class="flex items-center">
-          <i class="bi bi-tools mr-2"></i> Serviços
-        </a>
-      </li>
-      <li class="px-4 py-3 hover:bg-gray-700">
-        <a href="#" class="flex items-center">
-          <i class="bi bi-check-circle mr-2"></i> Aprovações
-        </a>
-      </li>
-      <li class="px-4 py-3 hover:bg-gray-700">
-        <a href="#" class="flex items-center">
-          <i class="bi bi-gear mr-2"></i> Configurações
-        </a>
-      </li>
-      <li class="px-4 py-3 hover:bg-gray-700 mt-6 border-t border-gray-600">
-        <a href="#" class="flex items-center text-red-400">
-          <i class="bi bi-box-arrow-right mr-2"></i> Sair
-        </a>
-      </li>
-    </ul>
-  </nav>
-</div>
+
+  <div class="border-t border-gray-300 w-full">
+    <a href="/autenticacao/sair" class="block px-4 py-2 pt-4 text-rose-600">
+      <i class="bi bi-box-arrow-right mr-2"></i>
+      <span>Sair</span>
+    </a>
+  </div>
+</aside>

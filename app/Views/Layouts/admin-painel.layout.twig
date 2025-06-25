@@ -1,14 +1,24 @@
 {% extends "root.layout.twig" %}
 
 {% block content %}
-  {% block siderbar %}{% include "Partials/admin/_sidebar.twig" %}{% endblock %}
+  <div class="flex h-screen w-screen bg-gray-100">
+    {% block siderbar %} {% include "Partials/admin/_sidebar.twig" %} {% endblock %}
 
-  <div class="flex">
-    {% block painel %} {% endblock %}
+    <div class="bg-white/80 overflow-auto flex-grow">
+      <header class="bg-gray-800 text-gray-100 p-8">
+        <h2 class="text-3xl font-bold">
+          Bem vindo ao Painel Administrativo
+        </h2>
+        <p class="text-gray-300 mt-2">
+          Você está no centro de controle do Job4You. Aqui você gerencia usuários, prestadores e serviços.
+        </p>
+      </header>
+
+      {% block painel %} {% endblock %}
+    </div>
   </div>
 {% endblock %}
 
 {% block scripts %}
-  <script type="module" src="/assets/js/servicos/index.js"></script>
   <script src="/assets/js/admin/admin-painel.js"></script>
 {% endblock %}
