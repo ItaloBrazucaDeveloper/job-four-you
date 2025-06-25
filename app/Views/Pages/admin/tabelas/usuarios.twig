@@ -1,6 +1,6 @@
 {% extends "Layouts/admin-painel.layout.twig" %}
 
-{% block title %}Lista de Usuários | Job4You ADM{% endblock %}
+{% block title %}Lista de Prestadores | Job4You ADM{% endblock %}
 
 {% block painel %}
   <div class="main-content w-full">
@@ -20,7 +20,7 @@
     <!-- Page Content -->
     <main class="p-6">
       <div class="bg-white rounded-lg shadow-md p-6">
-        <h1 class="text-2xl font-bold text-gray-800 mb-6">Lista de Usuários Cadastrados</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Lista de Prestadores Cadastrados</h1>
 
         <!-- Filtros e Busca -->
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
@@ -31,16 +31,17 @@
               <option value="active">Ativos</option>
               <option value="inactive">Inativos</option>
               <option value="pending">Pendentes</option>
+              <option value="rejected">Rejeitados</option>
             </select>
           </div>
           <div class="relative w-full md:w-64">
-            <input type="text" id="searchInput" placeholder="Buscar usuário..."
+            <input type="text" id="searchInput" placeholder="Buscar prestador..."
               class="w-full border border-gray-300 rounded-md p-2 pl-8 text-sm">
             <i class="bi bi-search absolute left-2 top-3 text-gray-400"></i>
           </div>
         </div>
 
-        <!-- Tabela de Usuários -->
+        <!-- Tabela de Prestadores -->
         <div class="overflow-x-auto">
           <table class="min-w-full divide-y divide-gray-200">
             <thead class="bg-gray-50">
@@ -49,16 +50,19 @@
                   ID
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Nome
+                  Prestador
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  CPF
+                  CPF/CNPJ
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Email
+                  Especialidade
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Celular
+                  Serviços
+                </th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                  Avaliação
                 </th>
                 <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Status
@@ -69,63 +73,82 @@
               </tr>
             </thead>
             <tbody class="bg-white divide-y divide-gray-200">
-              {% if usuarios|length > 0 %}
-              {% for usuario in usuarios %}
+              {% if prestadores|length > 0 %}
+              {% for prestador in prestadores %}
               <tr>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ usuario.id }}
+                  {{ prestador.id }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
                     <div class="flex-shrink-0 h-10 w-10">
-                      <img class="h-10 w-10 rounded-full" src="{{ usuario.foto ?: 'https://via.placeholder.com/40' }}"
+                      <img class="h-10 w-10 rounded-full" src="{{ prestador.foto ?: 'https://via.placeholder.com/40' }}"
                         alt="">
                     </div>
                     <div class="ml-4">
                       <div class="text-sm font-medium text-gray-900">
-                        {{ usuario.nome }}
+                        {{ prestador.nome }}
                       </div>
                     </div>
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ usuario.cpf }}
+                  {{ prestador.documento }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ usuario.email }}
+                  {{ prestador.especialidade }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ usuario.celular }}
+                  {{ prestador.total_servicos }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex items-center">
+                      {% for i in 1..5 %}
+                      {% if i <= prestador.avaliacao %} <i class="bi bi-star-fill text-yellow-400"></i>
+                        {% else %}
+                        <i class="bi bi-star text-yellow-400"></i>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <span class="ml-2 text-sm text-gray-500">({{ prestador.total_avaliacoes }})</span>
+                  </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                                {% if usuario.status == 'ativo' %}
+                                                {% if prestador.status == 'ativo' %}
                                                     bg-green-100 text-green-800
-                                                {% elseif usuario.status == 'inativo' %}
+                                                {% elseif prestador.status == 'inativo' %}
                                                     bg-red-100 text-red-800
-                                                {% else %}
+                                                {% elseif prestador.status == 'pendente' %}
                                                     bg-yellow-100 text-yellow-800
+                                                {% else %}
+                                                    bg-gray-100 text-gray-800
                                                 {% endif %}">
-                    {{ usuario.status|capitalize }}
+                    {{ prestador.status|capitalize }}
                   </span>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  <button onclick="userModal.open({{ usuario.id }})" class="text-indigo-600 hover:text-indigo-900 mr-3">
+                  <button onclick="prestadorModal.open({{ prestador.id }})"
+                    class="text-indigo-600 hover:text-indigo-900 mr-3">
                     <i class="bi bi-eye"></i>
                   </button>
-                  <button onclick="userModal.edit({{ usuario.id }})" class="text-blue-600 hover:text-blue-900 mr-3">
+                  <button onclick="prestadorModal.edit({{ prestador.id }})"
+                    class="text-blue-600 hover:text-blue-900 mr-3">
                     <i class="bi bi-pencil"></i>
                   </button>
-                  <button onclick="userModal.delete({{ usuario.id }})" class="text-red-600 hover:text-red-900">
-                    <i class="bi bi-trash"></i>
+                  {% if prestador.status == 'pendente' %}
+                  <button onclick="approvalModal.open({{ prestador.id }})" class="text-green-600 hover:text-green-900">
+                    <i class="bi bi-check-circle"></i>
                   </button>
+                  {% endif %}
                 </td>
               </tr>
               {% endfor %}
               {% else %}
               <tr>
-                <td colspan="7" class="px-6 py-4 text-center text-gray-500">
-                  Nenhum usuário encontrado.
+                <td colspan="8" class="px-6 py-4 text-center text-gray-500">
+                  Nenhum prestador encontrado.
                 </td>
               </tr>
               {% endif %}
@@ -137,7 +160,7 @@
         <div class="flex justify-between items-center mt-6">
           <div class="text-sm text-gray-700">
             Mostrando <span>{{ paginacao.inicio }}</span> a <span>{{ paginacao.fim }}</span> de <span>{{ paginacao.total
-              }}</span> usuários
+              }}</span> prestadores
           </div>
           <div class="flex space-x-1">
             {% if paginacao.pagina_atual > 1 %}
@@ -164,29 +187,5 @@
         </div>
       </div>
     </main>
-  </div>
-
-  <!-- Modal de Detalhes -->
-  <div id="userModal" class="fixed inset-0 bg-black bg-opacity-50 items-center justify-center hidden z-50">
-    <div class="bg-white rounded-lg p-6 w-full max-w-2xl max-h-screen overflow-y-auto">
-      <div class="flex justify-between items-center mb-4">
-        <h3 class="text-xl font-bold">Detalhes do Usuário</h3>
-        <button onclick="userModal.close()" class="text-gray-500 hover:text-gray-700">
-          <i class="bi bi-x-lg"></i>
-        </button>
-      </div>
-
-      <div id="userDetails">
-        <!-- Conteúdo será preenchido via JavaScript -->
-        <p>Carregando detalhes do usuário...</p>
-      </div>
-
-      <div class="flex justify-end space-x-4 pt-6 border-t">
-        <button type="button" onclick="userModal.close()"
-          class="px-4 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-          Fechar
-        </button>
-      </div>
-    </div>
   </div>
 {% endblock %}

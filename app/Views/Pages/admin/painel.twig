@@ -13,7 +13,7 @@
       </div>
     </header>
     
-    <!-- Cards de estatísticas -->
+    {# Cards de estatísticas #}
     <div class="container mx-auto p-6">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <div class="bg-white rounded-lg shadow-md dashboard-card p-6 border-t-4 border-blue-400">
@@ -62,16 +62,18 @@
         </div>
       </div>
     </div>
-    <!-- Seções inferiores -->
+
     <div class="container mx-auto px-6 pb-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <!-- Notificações Recentes -->
+      {# Notificações Recentes #}
       <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-blue-400">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-lg font-bold text-gray-800">
             <i class="bi bi-bell-fill text-blue-500 mr-2"></i>
             Notificações Recentes
           </h3>
-          <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">{{ notificacoes|length }} novas</span>
+          <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+            {{ notificacoes|length }} novas
+          </span>
         </div>
         <ul class="space-y-3">
           {% for notificacao in notificacoes %}
@@ -85,12 +87,13 @@
             </div>
           </li>
           {% else %}
-          <li class="text-gray-500 text-sm">Nenhuma notificação recente.</li>
+            <li class="text-gray-500 text-sm">Nenhuma notificação recente.</li>
           {% endfor %}
         </ul>
       </div>
-      <!-- Últimos Serviços Cadastrados -->
-      <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-green-400">
+
+      {# Últimos Serviços Cadastrados #}
+      <div class="bg-white/80 rounded-lg shadow-md p-6 border-t-4 border-green-400">
         <h3 class="text-lg font-bold text-gray-800 mb-4">
           <i class="bi bi-list-ul text-green-500 mr-2"></i>
           Últimos Serviços Cadastrados
@@ -105,11 +108,12 @@
             <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">{{ servico.status }}</span>
           </li>
           {% else %}
-          <li class="text-gray-500 text-sm">Nenhum serviço cadastrado recentemente.</li>
+            <li class="text-gray-500 text-sm">Nenhum serviço cadastrado recentemente.</li>
           {% endfor %}
         </ul>
       </div>
-      <!-- Aprovações de Prestadores -->
+
+      {# Aprovações de Prestadores #}
       <div class="bg-white rounded-lg shadow-md p-6 border-t-4 border-purple-400">
         <h3 class="text-lg font-bold text-gray-800 mb-4">
           <i class="bi bi-clock-history text-purple-500 mr-2"></i>
@@ -127,7 +131,7 @@
             </button>
           </li>
           {% else %}
-          <li class="text-gray-500 text-sm">Nenhuma aprovação pendente.</li>
+            <li class="text-gray-500 text-sm">Nenhuma aprovação pendente.</li>
           {% endfor %}
         </ul>
       </div>

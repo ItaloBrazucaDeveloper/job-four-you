@@ -7,20 +7,20 @@ use KissPhp\Attributes\Http\Methods\Get;
 
 use App\Middlewares\{ VerificaSeUsuarioLogado, VerificaSePertenceGrupoAdmin };
 
-#[Controller('/painel', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoAdmin::class])]
+#[Controller('/painel')]
 class AdminController extends WebController {
   #[Get]
-  public function exbibirPaginaPainel() {
+  public function exbibirPaginaPrincipalPainel() {
     $this->render('Pages/admin/painel.twig', []);
   }
 
   #[Get('/usuarios')]
   public function exbibirPaginaPainelUsuarios() {
-    $this->render('Pages/admin/painel.twig', []);
+    $this->render('Pages/admin/tabelas/usuarios.twig', []);
   }
 
   #[Get('/solicitacoes')]
   public function exbibirPaginaPainelSolicitacoes() {
-    $this->render('Pages/admin/painel.twig', []);
+    $this->render('Pages/admin/tabelas/solicitacoes.twig', []);
   }
 }
