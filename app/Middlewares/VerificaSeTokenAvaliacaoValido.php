@@ -12,7 +12,10 @@ class VerificaSeTokenAvaliacaoValido extends WebMiddleware {
     $token = $request->getRouteParam('token');
   
     if (!TokenJwt::verificarSeELegitimo($token)) {
-      $request->session->setFlashMessage(FlashMessageType::Error, 'Link para avaliação inválido ou expirado! Peça outro link ao prestador.');
+      $request->session->setFlashMessage(
+        FlashMessageType::Error,
+        'Link para avaliação inválido ou expirado! Peça outro link ao prestador.'
+      );
       return $request->redirectTo('/');
     }
     return $next($request);

@@ -3,6 +3,7 @@
 
 .vscode
 .idea
+.cursorignore
 
 vendor/
 node_modules/
