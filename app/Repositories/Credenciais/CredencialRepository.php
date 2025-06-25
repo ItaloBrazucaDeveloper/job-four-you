@@ -68,9 +68,10 @@ class CredencialRepository extends Repository {
       $query = $this->database()->getConnection()
         ->createQueryBuilder()
         ->update('Credencial')
-        ->set('senha', $novaSenha)
+        ->set('senha', ':senha')
         ->where("Email = :email")
-        ->setParameter(':email', $email);
+        ->setParameter('email', $email)
+        ->setParameter('senha', $novaSenha);
 
       $linhasAfetadas = (int) $query->executeStatement();
       return $linhasAfetadas > 0;

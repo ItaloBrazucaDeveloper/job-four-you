@@ -77,6 +77,11 @@ class AdminController extends WebController {
     }
   }
 
+  #[Get('/servicos')]
+  public function exibirPaginaPainelServicos() {
+
+  }
+
   #[Get('/solicitacoes')]
   public function exbibirPaginaPainelSolicitacoes(Request $request) {
     try {

@@ -1,0 +1,48 @@
+{# Listagem de Serviços Pendentes #}
+<div id="servicosContent" class="tab-content">
+  <h2 class="text-lg font-medium mb-3">Serviços Pendentes</h2>
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Serviço</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Prestador</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Categoria</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Valor</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Data Cadastro</th>
+          <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white/80 divide-y divide-gray-200">
+        {% if servicos_pendentes|length > 0 %}
+        {% for servico in servicos_pendentes %}
+        <tr>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.id }}</td>
+          <td class="px-6 py-4 whitespace-nowrap">{{ servico.nome }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.prestadorNome }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.categoriaNome }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">R$ {{ servico.valor|number_format(2, ',', '.') }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.dataCadastro }}</td>
+          <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+            <button onclick="servicoModal.open({{ servico.id }})" class="text-indigo-600 hover:text-indigo-900 mr-3">
+              <i class="bi bi-eye"></i>
+            </button>
+            <button data-action="aprovar-servico" data-servico-id="{{ servico.id }}" class="text-green-600 hover:text-green-900 mr-3">
+              <i class="bi bi-check-circle"></i>
+            </button>
+            <button data-action="rejeitar-servico" data-servico-id="{{ servico.id }}" class="text-red-600 hover:text-red-900">
+              <i class="bi bi-x-circle"></i>
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+          <td colspan="7" class="px-6 py-4 text-center text-gray-500">Nenhum serviço pendente encontrado.</td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+  </div>
+</div> 

@@ -1,0 +1,39 @@
+{# Cards de estatísticas do dashboard #}
+<ul class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+  <li class="bg-white rounded-lg shadow-md dashboard-card p-6 border-t-4 border-blue-400 flex items-center">
+    <span class="p-3 rounded-full bg-blue-50 text-blue-500 mr-4">
+      <i class="bi bi-people text-xl"></i>
+    </span>
+    <span>
+      <span class="text-sm font-bold text-gray-600 uppercase block">Usuários cadastrados</span>
+      <span class="text-3xl font-semibold mt-1 block">{{ total_usuarios|default(0) }}</span>
+    </span>
+  </li>
+  <li class="bg-white rounded-lg shadow-md dashboard-card p-6 border-t-4 border-green-400 flex items-center">
+    <span class="p-3 rounded-full bg-green-50 text-green-500 mr-4">
+      <i class="bi bi-person-check text-xl"></i>
+    </span>
+    <span>
+      <span class="text-sm font-bold text-gray-600 uppercase block">Prestadores</span>
+      <span class="text-3xl font-semibold mt-1 block">{{ total_prestadores|default(0) }}</span>
+    </span>
+  </li>
+  <li class="bg-white rounded-lg shadow-md dashboard-card p-6 border-t-4 border-purple-400 flex items-center">
+    <span class="p-3 rounded-full bg-purple-50 text-purple-500 mr-4">
+      <i class="bi bi-briefcase text-xl"></i>
+    </span>
+    <span>
+      <span class="text-sm font-bold text-gray-600 uppercase block">Serviços ativos</span>
+      <span class="text-3xl font-semibold mt-1 block">{{ total_servicos|default(0) }}</span>
+    </span>
+  </li>
+  <li class="bg-white rounded-lg shadow-md dashboard-card p-6 border-t-4 border-yellow-400 flex items-center">
+    <span class="p-3 rounded-full bg-yellow-50 text-yellow-500 mr-4">
+      <i class="bi bi-clock-history text-xl"></i>
+    </span>
+    <span>
+      <span class="text-sm font-bold text-gray-600 uppercase block">Aprovações pendentes</span>
+      <span class="text-3xl font-semibold mt-1 block">{{ total_aprovacoes|default(0) }}</span>
+    </span>
+  </li>
+</ul> 

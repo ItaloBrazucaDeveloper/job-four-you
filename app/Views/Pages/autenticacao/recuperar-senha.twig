@@ -13,13 +13,16 @@
         <h2 class="mt-2 text-3xl font-bold text-gray-900">
           Recuperar Senha
         </h2>
-        <span class="font-medium opacity-70">
+        <span class="opacity-70">
           {{ descricao|default('default value') }}
         </span>
       </header>
 
       {% if flash_message %}
-        {{ Alert.render(flash_message.type, flash_message.message) }}
+        {{ Alert.render(
+          type: flash_message.type|lower|default('error'),
+          message: flash_message.message|default('Algo deu errado, tente novamente...'),
+        ) }}
       {% endif %}
 
       {% if etapa == 'email' %}

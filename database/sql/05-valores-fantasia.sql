@@ -1,14 +1,12 @@
--- Active: 1750113539618@@127.0.0.1@3306@JOB4YOU
 -- =====================================================
 -- ARQUIVO: 05-valores-fantasia.sql
 -- DESCRIÇÃO: Script para inserir dados fantasiosos
 -- QUANTIDADE: 50 registros por tabela
 -- =====================================================
 
-USE JOB4YOU;
-
 -- =====================================================
 -- INSERÇÃO DE ENDEREÇOS (50 registros)
+-- GARANTIA: Todos os 50 endereços serão referenciados por usuários.
 -- =====================================================
 INSERT INTO Endereco (CEP, Estado, Cidade, Bairro, Rua) VALUES
 ('01310100', 'SP', 'São Paulo', 'Bela Vista', 'Avenida Paulista'),
@@ -30,7 +28,7 @@ INSERT INTO Endereco (CEP, Estado, Cidade, Bairro, Rua) VALUES
 ('60115221', 'CE', 'Fortaleza', 'Meireles', 'Avenida Beira Mar'),
 ('52061280', 'PE', 'Recife', 'Parnamirim', 'Rua José Bonifácio'),
 ('70297400', 'DF', 'Brasília', 'Asa Sul', 'Quadra Sul'),
-('88040400', 'SC', 'Florianópolis', 'Trindade', 'Rua Lauro Linhares'),
+('88040400', 'SC', 'Florianianópolis', 'Trindade', 'Rua Lauro Linhares'),
 ('13013161', 'SP', 'Campinas', 'Centro', 'Rua Barão de Jaguara'),
 ('24220261', 'RJ', 'Niterói', 'Icaraí', 'Rua Moreira César'),
 ('32400000', 'MG', 'Ibirité', 'Centro', 'Rua Principal'),
@@ -67,168 +65,170 @@ INSERT INTO Endereco (CEP, Estado, Cidade, Bairro, Rua) VALUES
 -- Senhas são hash bcrypt de "123456"
 -- =====================================================
 INSERT INTO Credencial (Email, Senha, FKNivelAcesso) VALUES
-('maria.silva@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('joao.santos@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('ana.costa@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('pedro.oliveira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('carla.ferreira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('admin@job4you.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 1),
-('lucas.pereira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('juliana.alves@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('rafael.souza@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('fernanda.lima@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('bruno.rodrigues@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('camila.martins@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('diego.nascimento@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('amanda.ribeiro@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('thiago.cardoso@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('patricia.gomes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('rodrigo.barbosa@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('larissa.freitas@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('gustavo.araujo@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('carolina.moreira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('felipe.teixeira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('isabela.cavalcanti@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('leonardo.melo@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('natalia.ramos@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('vinicius.machado@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('gabriela.castro@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('marcelo.pinto@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('priscila.dias@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('anderson.silva@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('daniela.fernandes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('ricardo.mendes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('vanessa.vieira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('fabio.cunha@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('monica.torres@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('alex.junior@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('renata.campos@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('sergio.duarte@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('tatiana.lopes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('henrique.medeiros@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('luciana.santana@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('eduardo.correa@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('simone.azevedo@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('carlos.nunes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('aline.moura@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('junior.batista@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('kelly.rocha@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('otavio.reis@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('bianca.fonseca@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3),
-('mauricio.braga@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2),
-('claudia.xavier@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3);
+('maria.silva@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('joao.santos@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('ana.costa@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('pedro.oliveira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('carla.ferreira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('admin@job4you.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 1), -- Admin
+('lucas.pereira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('juliana.alves@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('rafael.souza@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('fernanda.lima@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('bruno.rodrigues@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('camila.martins@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('diego.nascimento@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('amanda.ribeiro@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('thiago.cardoso@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('patricia.gomes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('rodrigo.barbosa@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('larissa.freitas@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('gustavo.araujo@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('carolina.moreira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('felipe.teixeira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('isabela.cavalcanti@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('leonardo.melo@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('natalia.ramos@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('vinicius.machado@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('gabriela.castro@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('marcelo.pinto@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('priscila.dias@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('anderson.silva@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('daniela.fernandes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('ricardo.mendes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('vanessa.vieira@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('fabio.cunha@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('monica.torres@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('alex.junior@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('renata.campos@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('sergio.duarte@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('tatiana.lopes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('henrique.medeiros@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('luciana.santana@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('eduardo.correa@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('simone.azevedo@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('carlos.nunes@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('aline.moura@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('junior.batista@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('kelly.rocha@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('otavio.reis@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('bianca.fonseca@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3), -- Cliente
+('mauricio.braga@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 2), -- Prestador
+('claudia.xavier@email.com', '$2b$10$N9qo8uLOickgx2ZMRZoMye.IjdJxCFWKLKFjWMNYVdGm2i7qK9fGK', 3); -- Cliente
 
 -- =====================================================
 -- INSERÇÃO DE USUÁRIOS (50 registros)
--- Alguns com endereço (70%) e outros sem (30%)
+-- ALTERADO: Todos os prestadores (FKNivelAcesso = 2) terão o campo Celular = NULL.
+-- ALTERADO: Todos os usuários terão um FKEndereco válido (não NULL).
 -- =====================================================
 INSERT INTO Usuario (Nome, CPF, Foto, Celular, DataNascimento, FKCredencial, FKEndereco, StatusUsuario) VALUES
-('Maria Silva', '12345678901', 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=300', '11987654321', '1985-03-15', 1, 1, 'ATIVO'),
-('João Santos', '23456789012', NULL, '21976543210', '1990-07-22', 2, 2, 'ATIVO'),
-('Ana Costa', '34567890123', 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300', '31965432109', '1988-11-08', 3, 3, 'ATIVO'),
-('Pedro Oliveira', '45678901234', NULL, NULL, '1992-01-30', 4, NULL, 'ATIVO'),
-('Carla Ferreira', '56789012345', 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=300', '41954321098', '1987-09-12', 5, 4, 'ATIVO'),
-('Admin Sistema', '67890123456', NULL, '11999887766', '1980-05-20', 6, 5, 'ATIVO'),
-('Lucas Pereira', '78901234567', 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300', '51943210987', '1995-12-03', 7, 6, 'ATIVO'),
-('Juliana Alves', '89012345678', NULL, '61932109876', '1993-04-18', 8, NULL, 'ATIVO'),
-('Rafael Souza', '90123456789', 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300', '71921098765', '1989-08-25', 9, 7, 'ATIVO'),
-('Fernanda Lima', '01234567890', NULL, '81910987654', '1991-06-14', 10, 8, 'ATIVO'),
-('Bruno Rodrigues', '12309876543', 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=300', '11876543210', '1986-10-07', 11, 9, 'ATIVO'),
-('Camila Martins', '23410987654', NULL, NULL, '1994-02-28', 12, NULL, 'ATIVO'),
-('Diego Nascimento', '34521098765', 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=300', '21865432109', '1988-12-11', 13, 10, 'ATIVO'),
-('Amanda Ribeiro', '45632109876', NULL, '31854321098', '1990-05-16', 14, 11, 'ATIVO'),
-('Thiago Cardoso', '56743210987', 'https://images.pexels.com/photos/1755385/pexels-photo-1755385.jpeg?auto=compress&cs=tinysrgb&w=300', '41843210987', '1987-09-03', 15, 12, 'ATIVO'),
-('Patricia Gomes', '67854321098', NULL, '51832109876', '1992-11-22', 16, NULL, 'ATIVO'),
-('Rodrigo Barbosa', '78965432109', 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=300', '61821098765', '1989-07-09', 17, 13, 'ATIVO'),
-('Larissa Freitas', '89076543210', NULL, '71810987654', '1991-03-26', 18, 14, 'ATIVO'),
-('Gustavo Araujo', '90187654321', 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=300', '81809876543', '1988-01-13', 19, 15, 'ATIVO'),
-('Carolina Moreira', '01298765432', NULL, NULL, '1993-08-05', 20, NULL, 'ATIVO'),
-('Felipe Teixeira', '12987654321', 'https://images.pexels.com/photos/1239288/pexels-photo-1239288.jpeg?auto=compress&cs=tinysrgb&w=300', '11798765432', '1985-12-18', 21, 16, 'ATIVO'),
-('Isabela Cavalcanti', '23098765432', NULL, '21787654321', '1990-04-23', 22, 17, 'ATIVO'),
-('Leonardo Melo', '34109876543', 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=300', '31776543210', '1987-10-10', 23, 18, 'ATIVO'),
-('Natalia Ramos', '45210987654', NULL, '41765432109', '1992-06-27', 24, NULL, 'ATIVO'),
-('Vinicius Machado', '56321098765', 'https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=300', '51754321098', '1989-02-14', 25, 19, 'ATIVO'),
-('Gabriela Castro', '67432109876', NULL, '61743210987', '1991-09-01', 26, 20, 'ATIVO'),
-('Marcelo Pinto', '78543210987', 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=300', '71732109876', '1988-05-18', 27, 21, 'ATIVO'),
-('Priscila Dias', '89654321098', NULL, NULL, '1994-11-05', 28, NULL, 'ATIVO'),
-('Anderson Silva', '90765432109', 'https://images.pexels.com/photos/1484794/pexels-photo-1484794.jpeg?auto=compress&cs=tinysrgb&w=300', '81721098765', '1986-07-22', 29, 22, 'ATIVO'),
-('Daniela Fernandes', '01876543210', NULL, '11710987654', '1990-03-09', 30, 23, 'ATIVO'),
-('Ricardo Mendes', '12345098765', 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=300', '21709876543', '1987-12-26', 31, 24, 'ATIVO'),
-('Vanessa Vieira', '23456109876', NULL, '31698765432', '1992-08-13', 32, NULL, 'ATIVO'),
-('Fabio Cunha', '34567210987', 'https://images.pexels.com/photos/1043473/pexels-photo-1043473.jpeg?auto=compress&cs=tinysrgb&w=300', '41687654321', '1989-04-30', 33, 25, 'ATIVO'),
-('Monica Torres', '45678321098', NULL, '51676543210', '1991-01-17', 34, 26, 'ATIVO'),
-('Alex Junior', '56789432109', 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=300', '61665432109', '1988-10-04', 35, 27, 'ATIVO'),
-('Renata Campos', '67890543210', NULL, NULL, '1993-06-21', 36, NULL, 'ATIVO'),
-('Sergio Duarte', '78901654321', 'https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=300', '71654321098', '1985-02-08', 37, 28, 'ATIVO'),
-('Tatiana Lopes', '89012765432', NULL, '81643210987', '1990-11-25', 38, 29, 'ATIVO'),
-('Henrique Medeiros', '90123876543', 'https://images.pexels.com/photos/2128807/pexels-photo-2128807.jpeg?auto=compress&cs=tinysrgb&w=300', '11632109876', '1987-07-12', 39, 30, 'ATIVO'),
-('Luciana Santana', '01234987654', NULL, '21621098765', '1992-03-29', 40, NULL, 'ATIVO'),
-('Eduardo Correa', '12345678098', 'https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=300', '31610987654', '1989-12-16', 41, 31, 'ATIVO'),
-('Simone Azevedo', '23456789109', NULL, '41609876543', '1991-08-03', 42, 32, 'ATIVO'),
-('Carlos Nunes', '34567890210', 'https://images.pexels.com/photos/1040882/pexels-photo-1040882.jpeg?auto=compress&cs=tinysrgb&w=300', '51598765432', '1988-04-20', 43, 33, 'ATIVO'),
-('Aline Moura', '45678901321', NULL, NULL, '1994-01-07', 44, NULL, 'ATIVO'),
-('Junior Batista', '56789012432', 'https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&w=300', '61587654321', '1986-09-24', 45, 34, 'ATIVO'),
-('Kelly Rocha', '67890123543', NULL, '71576543210', '1990-05-11', 46, 35, 'ATIVO'),
-('Otavio Reis', '78901234654', 'https://images.pexels.com/photos/1040883/pexels-photo-1040883.jpeg?auto=compress&cs=tinysrgb&w=300', '81565432109', '1987-01-28', 47, 36, 'ATIVO'),
-('Bianca Fonseca', '89012345765', NULL, '11554321098', '1992-10-15', 48, NULL, 'ATIVO'),
-('Mauricio Braga', '90123456876', 'https://images.pexels.com/photos/2182975/pexels-photo-2182975.jpeg?auto=compress&cs=tinysrgb&w=300', '21543210987', '1989-06-02', 49, 37, 'ATIVO'),
-('Claudia Xavier', '01234567987', NULL, '31532109876', '1991-02-19', 50, 38, 'ATIVO');
+('Maria Silva', '12345678901', 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1985-03-15', 1, 1, 'ATIVO'), -- Prestador (Celular agora NULL)
+('João Santos', '23456789012', NULL, '21976543210', '1990-07-22', 2, 2, 'ATIVO'), -- Cliente (Celular OK)
+('Ana Costa', '34567890123', 'https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1988-11-08', 3, 3, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Pedro Oliveira', '45678901234', NULL, '41999999999', '1992-01-30', 4, 4, 'ATIVO'), -- Cliente (Celular e Endereco preenchidos)
+('Carla Ferreira', '56789012345', 'https://images.pexels.com/photos/774909/pexels-photo-774909.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1987-09-12', 5, 5, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Admin Sistema', '67890123456', NULL, '11999887766', '1980-05-20', 6, 6, 'ATIVO'), -- Admin (Celular OK)
+('Lucas Pereira', '78901234567', 'https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1995-12-03', 7, 7, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Juliana Alves', '89012345678', NULL, '61932109876', '1993-04-18', 8, 8, 'ATIVO'), -- Cliente (Celular OK)
+('Rafael Souza', '90123456789', 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1989-08-25', 9, 9, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Fernanda Lima', '01234567890', NULL, '81910987654', '1991-06-14', 10, 10, 'ATIVO'), -- Cliente (Celular OK)
+('Bruno Rodrigues', '12309876543', 'https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1986-10-07', 11, 11, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Camila Martins', '23410987654', NULL, '21988888888', '1994-02-28', 12, 12, 'ATIVO'), -- Cliente (Celular e Endereco preenchidos)
+('Diego Nascimento', '34521098765', 'https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1988-12-11', 13, 13, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Amanda Ribeiro', '45632109876', NULL, '31854321098', '1990-05-16', 14, 14, 'ATIVO'), -- Cliente (Celular OK)
+('Thiago Cardoso', '56743210987', 'https://images.pexels.com/photos/1755385/pexels-photo-1755385.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1987-09-03', 15, 15, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Patricia Gomes', '67854321098', NULL, '51977777777', '1992-11-22', 16, 16, 'ATIVO'), -- Cliente (Celular e Endereco preenchidos)
+('Rodrigo Barbosa', '78965432109', 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1989-07-09', 17, 17, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Larissa Freitas', '89076543210', NULL, '71810987654', '1991-03-26', 18, 18, 'ATIVO'), -- Cliente (Celular OK)
+('Gustavo Araujo', '90187654321', 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1988-01-13', 19, 19, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Carolina Moreira', '01298765432', NULL, '91966666666', '1993-08-05', 20, 20, 'ATIVO'), -- Cliente (Celular e Endereco preenchidos)
+('Felipe Teixeira', '12987654321', 'https://images.pexels.com/photos/1239288/pexels-photo-1239288.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1985-12-18', 21, 21, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Isabela Cavalcanti', '23098765432', NULL, '21787654321', '1990-04-23', 22, 22, 'ATIVO'), -- Cliente (Celular OK)
+('Leonardo Melo', '34109876543', 'https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1987-10-10', 23, 23, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Natalia Ramos', '45210987654', NULL, '41765432109', '1992-06-27', 24, 24, 'ATIVO'), -- Cliente (Celular OK)
+('Vinicius Machado', '56321098765', 'https://images.pexels.com/photos/1674752/pexels-photo-1674752.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1989-02-14', 25, 25, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Gabriela Castro', '67432109876', NULL, '61743210987', '1991-09-01', 26, 26, 'ATIVO'), -- Cliente (Celular OK)
+('Marcelo Pinto', '78543210987', 'https://images.pexels.com/photos/1043474/pexels-photo-1043474.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1988-05-18', 27, 27, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Priscila Dias', '89654321098', NULL, '81955555555', '1994-11-05', 28, 28, 'ATIVO'), -- Cliente (Celular e Endereco preenchidos)
+('Anderson Silva', '90765432109', 'https://images.pexels.com/photos/1484794/pexels-photo-1484794.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1986-07-22', 29, 29, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Daniela Fernandes', '01876543210', NULL, '11710987654', '1990-03-09', 30, 30, 'ATIVO'), -- Cliente (Celular OK)
+('Ricardo Mendes', '12345098765', 'https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1987-12-26', 31, 31, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Vanessa Vieira', '23456109876', NULL, '31698765432', '1992-08-13', 32, 32, 'ATIVO'), -- Cliente (Celular OK)
+('Fabio Cunha', '34567210987', 'https://images.pexels.com/photos/1043473/pexels-photo-1043473.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1989-04-30', 33, 33, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Monica Torres', '45678321098', NULL, '51676543210', '1991-01-17', 34, 34, 'ATIVO'), -- Cliente (Celular OK)
+('Alex Junior', '56789432109', 'https://images.pexels.com/photos/1183266/pexels-photo-1183266.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1988-10-04', 35, 35, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Renata Campos', '67890543210', NULL, '71944444444', '1993-06-21', 36, 36, 'ATIVO'), -- Cliente (Celular e Endereco preenchidos)
+('Sergio Duarte', '78901654321', 'https://images.pexels.com/photos/1040881/pexels-photo-1040881.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1985-02-08', 37, 37, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Tatiana Lopes', '89012765432', NULL, '81643210987', '1990-11-25', 38, 38, 'ATIVO'), -- Cliente (Celular OK)
+('Henrique Medeiros', '90123876543', 'https://images.pexels.com/photos/2128807/pexels-photo-2128807.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1987-07-12', 39, 39, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Luciana Santana', '01234987654', NULL, '21621098765', '1992-03-29', 40, 40, 'ATIVO'), -- Cliente (Celular OK)
+('Eduardo Correa', '12345678098', 'https://images.pexels.com/photos/1212984/pexels-photo-1212984.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1989-12-16', 41, 41, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Simone Azevedo', '23456789109', NULL, '41609876543', '1991-08-03', 42, 42, 'ATIVO'), -- Cliente (Celular OK)
+('Carlos Nunes', '34567890210', 'https://images.pexels.com/photos/1040882/pexels-photo-1040882.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1988-04-20', 43, 43, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Aline Moura', '45678901321', NULL, '61933333333', '1994-01-07', 44, 44, 'ATIVO'), -- Cliente (Celular e Endereco preenchidos)
+('Junior Batista', '56789012432', 'https://images.pexels.com/photos/1559486/pexels-photo-1559486.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1986-09-24', 45, 45, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Kelly Rocha', '67890123543', NULL, '71576543210', '1990-05-11', 46, 46, 'ATIVO'), -- Cliente (Celular OK)
+('Otavio Reis', '78901234654', 'https://images.pexels.com/photos/1040883/pexels-photo-1040883.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1987-01-28', 47, 47, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Bianca Fonseca', '89012345765', NULL, '11554321098', '1992-10-15', 48, 48, 'ATIVO'), -- Cliente (Celular OK)
+('Mauricio Braga', '90123456876', 'https://images.pexels.com/photos/2182975/pexels-photo-2182975.jpeg?auto=compress&cs=tinysrgb&w=300', NULL, '1989-06-02', 49, 49, 'ATIVO'), -- Prestador (Celular agora NULL)
+('Claudia Xavier', '01234567987', NULL, '31532109876', '1991-02-19', 50, 50, 'ATIVO'); -- Cliente (Celular OK)
 
 -- =====================================================
 -- INSERÇÃO DE INFORMAÇÕES DE CONTATO (50 registros)
+-- GARANTIA: Todos os prestadores terão pelo menos um contato aqui.
 -- =====================================================
 INSERT INTO InformacaoContato (Contato, FKUsuario, FKCategoriaContato) VALUES
-('11987654321', 1, 1), -- WhatsApp Maria
-('@maria.silva.oficial', 1, 2), -- Instagram Maria
-('21976543210', 2, 3), -- Celular João
-('joao.santos.fotografia', 2, 4), -- Facebook João
-('ana.costa.limpeza@gmail.com', 3, 5), -- Email Ana
-('31965432109', 3, 1), -- WhatsApp Ana
-('pedro.oliveira.jardim', 4, 2), -- Instagram Pedro
-('41954321098', 5, 1), -- WhatsApp Carla
-('carla.baba.profissional', 5, 4), -- Facebook Carla
+('11987654321', 1, 1), -- WhatsApp Maria (Prestador)
+('@maria.silva.oficial', 1, 2), -- Instagram Maria (Prestador)
+('21976543210', 2, 3), -- Celular João (Cliente)
+('joao.santos.fotografia', 2, 4), -- Facebook João (Cliente)
+('ana.costa.limpeza@gmail.com', 3, 5), -- Email Ana (Prestador)
+('31965432109', 3, 1), -- WhatsApp Ana (Prestador)
+('pedro.oliveira.jardim', 4, 2), -- Instagram Pedro (Cliente)
+('41954321098', 5, 1), -- WhatsApp Carla (Prestador)
+('carla.baba.profissional', 5, 4), -- Facebook Carla (Prestador)
 ('admin@job4you.com', 6, 5), -- Email Admin
-('51943210987', 7, 3), -- Celular Lucas
-('@lucas.manutencao', 7, 2), -- Instagram Lucas
-('juliana.reforco.escolar@outlook.com', 8, 5), -- Email Juliana
-('71921098765', 9, 1), -- WhatsApp Rafael
-('rafael.cuidador.idoso', 9, 4), -- Facebook Rafael
-('81910987654', 10, 3), -- Celular Fernanda
-('@fernanda.pet.care', 10, 2), -- Instagram Fernanda
-('11876543210', 11, 1), -- WhatsApp Bruno
-('bruno.cozinheiro.gourmet@gmail.com', 11, 5), -- Email Bruno
-('@camila.costura.arte', 12, 2), -- Instagram Camila
-('21865432109', 13, 1), -- WhatsApp Diego
-('diego.fotografo.eventos', 13, 4), -- Facebook Diego
-('amanda.marido.aluguel@hotmail.com', 14, 5), -- Email Amanda
-('31854321098', 14, 3), -- Celular Amanda
-('41843210987', 15, 1), -- WhatsApp Thiago
-('@thiago.esteticista', 15, 2), -- Instagram Thiago
-('patricia.baba.especializada', 16, 4), -- Facebook Patricia
-('61821098765', 17, 1), -- WhatsApp Rodrigo
-('rodrigo.limpeza.residencial@gmail.com', 17, 5), -- Email Rodrigo
-('@larissa.jardinagem', 18, 2), -- Instagram Larissa
-('71810987654', 18, 3), -- Celular Larissa
-('81809876543', 19, 1), -- WhatsApp Gustavo
-('gustavo.mudancas.fretes', 19, 4), -- Facebook Gustavo
-('@carolina.manutencao.geral', 20, 2), -- Instagram Carolina
-('11798765432', 21, 1), -- WhatsApp Felipe
-('felipe.reforco.matematica@outlook.com', 21, 5), -- Email Felipe
-('21787654321', 22, 3), -- Celular Isabela
-('isabela.cuidadora.especialista', 22, 4), -- Facebook Isabela
-('@leonardo.pet.walker', 23, 2), -- Instagram Leonardo
-('31776543210', 23, 1), -- WhatsApp Leonardo
-('natalia.chef.domicilio@gmail.com', 24, 5), -- Email Natalia
-('51754321098', 25, 1), -- WhatsApp Vinicius
-('@vinicius.alfaiate', 25, 2), -- Instagram Vinicius
-('61743210987', 26, 3), -- Celular Gabriela
-('gabriela.fotografa.casamentos', 26, 4), -- Facebook Gabriela
-('71732109876', 27, 1), -- WhatsApp Marcelo
-('marcelo.faz.tudo@hotmail.com', 27, 5), -- Email Marcelo
-('@priscila.beauty.expert', 28, 2), -- Instagram Priscila
-('81721098765', 29, 1), -- WhatsApp Anderson
-('anderson.baba.noturno', 29, 4), -- Facebook Anderson
-('daniela.limpeza.hospitalar@gmail.com', 30, 5); -- Email Daniela
+('51943210987', 7, 3), -- Celular Lucas (Prestador)
+('@lucas.manutencao', 7, 2), -- Instagram Lucas (Prestador)
+('juliana.reforco.escolar@outlook.com', 8, 5), -- Email Juliana (Cliente)
+('71921098765', 9, 1), -- WhatsApp Rafael (Prestador)
+('rafael.cuidador.idoso', 9, 4), -- Facebook Rafael (Prestador)
+('81910987654', 10, 3), -- Celular Fernanda (Cliente)
+('@fernanda.pet.care', 10, 2), -- Instagram Fernanda (Cliente)
+('11876543210', 11, 1), -- WhatsApp Bruno (Prestador)
+('bruno.cozinheiro.gourmet@gmail.com', 11, 5), -- Email Bruno (Prestador)
+('@camila.costura.arte', 12, 2), -- Instagram Camila (Cliente)
+('21865432109', 13, 1), -- WhatsApp Diego (Prestador)
+('diego.fotografo.eventos', 13, 4), -- Facebook Diego (Prestador)
+('amanda.marido.aluguel@hotmail.com', 14, 5), -- Email Amanda (Cliente)
+('31854321098', 14, 3), -- Celular Amanda (Cliente)
+('41843210987', 15, 1), -- WhatsApp Thiago (Prestador)
+('@thiago.esteticista', 15, 2), -- Instagram Thiago (Prestador)
+('patricia.baba.especializada', 16, 4), -- Facebook Patricia (Cliente)
+('61821098765', 17, 1), -- WhatsApp Rodrigo (Prestador)
+('rodrigo.limpeza.residencial@gmail.com', 17, 5), -- Email Rodrigo (Prestador)
+('@larissa.jardinagem', 18, 2), -- Instagram Larissa (Cliente)
+('71810987654', 18, 3), -- Celular Larissa (Cliente)
+('81809876543', 19, 1), -- WhatsApp Gustavo (Prestador)
+('gustavo.mudancas.fretes', 19, 4), -- Facebook Gustavo (Prestador)
+('@carolina.manutencao.geral', 20, 2), -- Instagram Carolina (Cliente)
+('11798765432', 21, 1), -- WhatsApp Felipe (Prestador)
+('felipe.reforco.matematica@outlook.com', 21, 5), -- Email Felipe (Prestador)
+('21787654321', 22, 3), -- Celular Isabela (Cliente)
+('isabela.cuidadora.especialista', 22, 4), -- Facebook Isabela (Cliente)
+('@leonardo.pet.walker', 23, 2), -- Instagram Leonardo (Prestador)
+('31776543210', 23, 1), -- WhatsApp Leonardo (Prestador)
+('natalia.chef.domicilio@gmail.com', 24, 5), -- Email Natalia (Cliente)
+('51754321098', 25, 1), -- WhatsApp Vinicius (Prestador)
+('@vinicius.alfaiate', 25, 2), -- Instagram Vinicius (Prestador)
+('61743210987', 26, 3), -- Celular Gabriela (Cliente)
+('gabriela.fotografa.casamentos', 26, 4), -- Facebook Gabriela (Cliente)
+('71732109876', 27, 1), -- WhatsApp Marcelo (Prestador)
+('marcelo.faz.tudo@hotmail.com', 27, 5), -- Email Marcelo (Prestador)
+('@priscila.beauty.expert', 28, 2), -- Instagram Priscila (Cliente)
+('81721098765', 29, 1), -- WhatsApp Anderson (Prestador)
+('anderson.baba.noturno', 29, 4), -- Facebook Anderson (Prestador)
+('daniela.limpeza.hospitalar@gmail.com', 30, 5); -- Email Daniela (Cliente)
 
 -- =====================================================
 -- INSERÇÃO DE PUBLICAÇÕES DE SERVIÇO (50 registros)
@@ -360,9 +360,3 @@ INSERT INTO AvaliacaoServico (Nota, Comentario, FkPublicacao, FKUsuario) VALUES
 (4, 'Aulas de culinária divertidas! Aprendi técnicas que uso sempre.', 48, 46),
 (3, 'Reforma de roupas ok, mas demorou mais que o combinado. Resultado bom.', 49, 48),
 (5, 'Fotos de produtos incríveis! Vendas online aumentaram muito. Recomendo!', 50, 50);
-
--- =====================================================
--- MENSAGEM DE CONCLUSÃO
--- =====================================================
-SELECT 'Script 05-valores-fantasia.sql executado com sucesso!' as Resultado;
-SELECT 'Inseridos 50 registros em cada tabela com dados fantasiosos.' as Detalhes;

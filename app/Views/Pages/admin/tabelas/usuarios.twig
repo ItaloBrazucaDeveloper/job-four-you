@@ -1,31 +1,15 @@
 {% extends "Layouts/admin-painel.layout.twig" %}
 
+{% import "Macros/paginacao.twig" as Paginacao %}
+
 {% block title %}Lista de Prestadores | Job4You ADM{% endblock %}
 
 {% block painel %}
   <div class="bg-white rounded-lg shadow-md p-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">Lista de Prestadores Cadastrados</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">
+      Lista de Prestadores Cadastrados
+    </h1>
 
-    <!-- Filtros e Busca -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-6 gap-4">
-      <div class="flex items-center space-x-2">
-        <label for="statusFilter" class="text-sm font-medium text-gray-700">Status:</label>
-        <select id="statusFilter" class="border border-gray-300 rounded-md p-2 text-sm">
-          <option value="all">Todos</option>
-          <option value="active">Ativos</option>
-          <option value="inactive">Inativos</option>
-          <option value="pending">Pendentes</option>
-          <option value="rejected">Rejeitados</option>
-        </select>
-      </div>
-      <div class="relative w-full md:w-64">
-        <input type="text" id="searchInput" placeholder="Buscar prestador..."
-          class="w-full border border-gray-300 rounded-md p-2 pl-8 text-sm">
-        <i class="bi bi-search absolute left-2 top-3 text-gray-400"></i>
-      </div>
-    </div>
-
-    <!-- Tabela de Prestadores -->
     <div class="overflow-x-auto">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -57,140 +41,115 @@
           </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
-          {% if prestadores|length > 0 %}
           {% for prestador in prestadores %}
-          <tr>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ prestador.id }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="flex items-center">
-                <div class="flex-shrink-0 h-10 w-10">
-                  <img class="h-10 w-10 rounded-full" src="{{ prestador.foto ?: 'https://via.placeholder.com/40' }}"
-                    alt="">
-                </div>
-                <div class="ml-4">
-                  <div class="text-sm font-medium text-gray-900">
-                    {{ prestador.nome }}
+            <tr>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ prestador.id }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10">
+                    <img
+                      class="h-10 w-10 rounded-full"
+                      src="{{ prestador.foto ?: 'https://via.placeholder.com/40' }}"
+                      alt=""
+                    >
+                  </div>
+                  <div class="ml-4">
+                    <div class="text-sm font-medium text-gray-900">
+                      {{ prestador.nome }}
+                    </div>
                   </div>
                 </div>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ prestador.documento }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ prestador.especialidade }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-              {{ prestador.totalServicos }}
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <div class="flex items-center">
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ prestador.documento }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ prestador.especialidade }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                {{ prestador.totalServicos }}
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
                 <div class="flex items-center">
-                  {% for i in 1..5 %}
-                  {% if i <= prestador.avaliacao %} <i class="bi bi-star-fill text-yellow-400"></i>
-                    {% else %}
-                    <i class="bi bi-star text-yellow-400"></i>
-                    {% endif %}
+                  <div class="flex items-center">
+                    {% for i in 1..5 %}
+                      {% if i <= prestador.avaliacao %}
+                        <i class="bi bi-star-fill text-yellow-400"></i>
+                      {% else %}
+                        <i class="bi bi-star text-yellow-400"></i>
+                      {% endif %}
                     {% endfor %}
+                  </div>
+                  <span class="ml-2 text-sm text-gray-500">({{ prestador.totalAvaliacoes }})</span>
                 </div>
-                <span class="ml-2 text-sm text-gray-500">({{ prestador.totalAvaliacoes }})</span>
-              </div>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap">
-              <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                            {% if prestador.status == 'ATIVO' %}
-                                                bg-green-100 text-green-800
-                                            {% elseif prestador.status == 'INATIVO' %}
-                                                bg-red-100 text-red-800
-                                            {% elseif prestador.status == 'BLOQUEADO' %}
-                                                bg-yellow-100 text-yellow-800
-                                            {% else %}
-                                                bg-gray-100 text-gray-800
-                                            {% endif %}">
-                {{ prestador.status|capitalize }}
-              </span>
-            </td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
-              <button onclick="prestadorModal.open({{ prestador.id }})"
-                class="text-indigo-600 hover:text-indigo-900 mr-3">
-                <i class="bi bi-eye"></i>
-              </button>
-              <button onclick="prestadorModal.edit({{ prestador.id }})"
-                class="text-blue-600 hover:text-blue-900 mr-3">
-                <i class="bi bi-pencil"></i>
-              </button>
-              
-              <!-- Dropdown de ações -->
-              <div class="relative inline-block text-left">
-                <button type="button" class="text-gray-600 hover:text-gray-900 dropdown-toggle">
-                  <i class="bi bi-three-dots-vertical"></i>
-                </button>
-                <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
                   {% if prestador.status == 'ATIVO' %}
-                  <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="inativar"
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    <i class="bi bi-pause-circle mr-2"></i>Inativar
-                  </button>
-                  <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="bloquear"
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    <i class="bi bi-lock mr-2"></i>Bloquear
-                  </button>
+                      bg-green-100 text-green-800
                   {% elseif prestador.status == 'INATIVO' %}
-                  <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="ativar"
-                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    <i class="bi bi-play-circle mr-2"></i>Ativar
+                      bg-red-100 text-red-800
+                  {% elseif prestador.status == 'BLOQUEADO' %}
+                      bg-yellow-100 text-yellow-800
+                  {% else %}
+                      bg-gray-100 text-gray-800
+                  {% endif %}"
+                >
+                  {{ prestador.status|capitalize }}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                <button onclick="prestadorModal.open({{ prestador.id }})"
+                  class="text-indigo-600 hover:text-indigo-900 mr-3">
+                  <i class="bi bi-eye"></i>
+                </button>
+                <button onclick="prestadorModal.edit({{ prestador.id }})"
+                  class="text-blue-600 hover:text-blue-900 mr-3">
+                  <i class="bi bi-pencil"></i>
+                </button>
+                
+                <!-- Dropdown de ações -->
+                <div class="relative inline-block text-left">
+                  <button type="button" class="text-gray-600 hover:text-gray-900 dropdown-toggle">
+                    <i class="bi bi-three-dots-vertical"></i>
                   </button>
-                  {% endif %}
-                  <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="banir"
-                    class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
-                    <i class="bi bi-x-circle mr-2"></i>Banir
-                  </button>
+                  <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                    {% if prestador.status == 'ATIVO' %}
+                    <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="inativar"
+                      class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <i class="bi bi-pause-circle mr-2"></i>Inativar
+                    </button>
+                    <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="bloquear"
+                      class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <i class="bi bi-lock mr-2"></i>Bloquear
+                    </button>
+                    {% elseif prestador.status == 'INATIVO' %}
+                    <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="ativar"
+                      class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <i class="bi bi-play-circle mr-2"></i>Ativar
+                    </button>
+                    {% endif %}
+                    <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="banir"
+                      class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                      <i class="bi bi-x-circle mr-2"></i>Banir
+                    </button>
+                  </div>
                 </div>
-              </div>
-            </td>
-          </tr>
-          {% endfor %}
+              </td>
+            </tr>
           {% else %}
-          <tr>
-            <td colspan="8" class="px-6 py-4 text-center text-gray-500">
-              Nenhum prestador encontrado.
-            </td>
-          </tr>
-          {% endif %}
+            <tr>
+              <td colspan="8" class="px-6 py-4 text-center text-gray-500">
+                Nenhum prestador encontrado.
+              </td>
+            </tr>
+          {% endfor %}
         </tbody>
       </table>
     </div>
 
-    <!-- Paginação -->
-    <div class="flex justify-between items-center mt-6">
-      <div class="text-sm text-gray-700">
-        Mostrando <span>{{ paginacao.inicio }}</span> a <span>{{ paginacao.fim }}</span> de <span>{{ paginacao.total
-          }}</span> prestadores
-      </div>
-      <div class="flex space-x-1">
-        {% if paginacao.pagina_atual > 1 %}
-        <a href="?pagina={{ paginacao.pagina_atual - 1 }}"
-          class="px-3 py-1 border rounded-md text-sm hover:bg-gray-50">
-          Anterior
-        </a>
-        {% else %}
-        <button class="px-3 py-1 border rounded-md text-sm opacity-50 cursor-not-allowed" disabled>
-          Anterior
-        </button>
-        {% endif %}
-
-        {% if paginacao.pagina_atual < paginacao.total_paginas %} <a href="?pagina={{ paginacao.pagina_atual + 1 }}"
-          class="px-3 py-1 border rounded-md text-sm hover:bg-gray-50">
-          Próxima
-          </a>
-          {% else %}
-          <button class="px-3 py-1 border rounded-md text-sm opacity-50 cursor-not-allowed" disabled>
-            Próxima
-          </button>
-          {% endif %}
-      </div>
-    </div>
+    {{ Paginacao.render(paginacao.pagina_atual, paginacao.total_paginas) }}
   </div>
 {% endblock %}

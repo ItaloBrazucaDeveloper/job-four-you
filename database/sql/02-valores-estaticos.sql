@@ -21,10 +21,7 @@ INSERT INTO CategoriaContato (Nome) VALUES
     ('Email'),
     ('Outros');
 
- INSERT INTO NivelAcesso (Grupo) VALUES
-    -- Revisa e gerencia publicações, remove conteúdo impróprio, bane usuários, visualiza denúncias
-    ('ADMINISTRADOR'),
-    -- Cria/gerencia/atualiza suas próprias publicações de serviço
-    ('PRESTADOR'),
-    -- Procura por serviços, entra em contato com prestadores, avalia serviços
-    ('CLIENTE');
+INSERT INTO NivelAcesso (Grupo) VALUES 
+    ('ADMINISTRADOR'), -- Revisa e gerencia publicações, remove conteúdo impróprio, bane usuários, visualiza denúncias
+    ('PRESTADOR'), -- Cria/gerencia/atualiza suas próprias publicações de serviço
+    ('CLIENTE'); -- Procura por serviços, entra em contato com prestadores, avalia serviços

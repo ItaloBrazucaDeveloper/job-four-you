@@ -1,0 +1,27 @@
+{# Notificações Recentes #}
+<div class="bg-white/80 rounded-lg shadow-md p-6 border-t-4 border-blue-400">
+  <div class="flex items-center justify-between mb-4">
+    <h3 class="text-lg font-bold text-gray-800">
+      <i class="bi bi-bell-fill text-blue-500 mr-2"></i>
+      Notificações Recentes
+    </h3>
+    <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+      {{ notificacoes|length }} novas
+    </span>
+  </div>
+  <ul class="space-y-3">
+    {% for notificacao in notificacoes %}
+    <li class="flex items-start">
+      <div class="bg-blue-100 p-1 rounded-full mr-3 mt-1">
+        <i class="bi bi-person-plus text-blue-600 text-sm"></i>
+      </div>
+      <div>
+        <p class="text-sm">{{ notificacao.mensagem }}</p>
+        <p class="text-xs text-gray-500">{{ notificacao.data }}</p>
+      </div>
+    </li>
+    {% else %}
+      <li class="text-gray-500 text-sm">Nenhuma notificação recente.</li>
+    {% endfor %}
+  </ul>
+</div> 

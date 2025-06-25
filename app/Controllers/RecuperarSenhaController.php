@@ -12,6 +12,8 @@ use KissPhp\Enums\FlashMessageType;
 use App\Middlewares\VerificaSeUsuarioNaoLogado;
 use App\Services\RecuperarSenha\RecuperarSenhaService;
 
+use function App\Utils\bp;
+
 #[Controller('/recuperar-senha', [VerificaSeUsuarioNaoLogado::class])]
 class RecuperarSenhaController extends WebController {
   public function __construct(private RecuperarSenhaService $service) { }
@@ -21,13 +23,21 @@ class RecuperarSenhaController extends WebController {
     Request $request,  
     #[RouteParam] string $etapa
   ) {
+    $descricao = match ($etapa) {
+      'email' => 'Para recuperar sua senha, digite seu e-mail abaixo e enviaremos um código de verificação para você.',
+      'codigo' => 'Para recuperar sua senha, digite seu e-mail abaixo e enviaremos um código de verificação para você.',
+      'senha' => 'Para recuperar sua senha, digite seu e-mail abaixo e enviaremos um código de verificação para você.',
+      default => 'Para recuperar sua senha, digite seu e-mail abaixo e enviaremos um código de verificação para você.',
+    };
+
     $this->render('Pages/autenticacao/recuperar-senha.twig', [
       'etapa' => $etapa,
-      'flash_message' => $request->session->getFlashMessage()
+      'flash_message' => $request->session->getFlashMessage(),
+      'descricao' => $descricao
     ]);
   }
 
-  #[Post]
+  #[Post('/email')]
   public function enviarEmailParaRecuperacao(#[Body] string $email, Request $request) {
     $emailHigienizado = trim($email);
     $foiEnviado = $this->service->enviarCodigoDeVerificacao($emailHigienizado);
@@ -74,7 +84,7 @@ class RecuperarSenhaController extends WebController {
       return $this->redirectTo('/recuperar-senha/codigo');
     }
 
-    $emailInserido = $request->session->get(SessionKeys::EMAIL_RECUPERAR_SENHA); 
+    $emailInserido = $request->session->get(SessionKeys::EMAIL_RECUPERAR_SENHA);
     $senhaFoiAtualizada = $this->service->redefinirSenha($emailInserido, $primeiraSenha);
 
     if (!$senhaFoiAtualizada) {
