@@ -69,19 +69,23 @@
                 <tr>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.id }}</td>
                   <td class="px-6 py-4 whitespace-nowrap">{{ servico.nome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.prestador_nome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.categoria_nome }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.prestadorNome }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.categoriaNome }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">R$ {{ servico.valor|number_format(2,
                     ',', '.') }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.data_cadastro }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ servico.dataCadastro }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button onclick="servicoModal.open({{ servico.id }})"
                       class="text-indigo-600 hover:text-indigo-900 mr-3">
                       <i class="bi bi-eye"></i>
                     </button>
-                    <button onclick="approvalModal.open('servico', {{ servico.id }})"
-                      class="text-green-600 hover:text-green-900">
+                    <button data-action="aprovar-servico" data-servico-id="{{ servico.id }}"
+                      class="text-green-600 hover:text-green-900 mr-3">
                       <i class="bi bi-check-circle"></i>
+                    </button>
+                    <button data-action="rejeitar-servico" data-servico-id="{{ servico.id }}"
+                      class="text-red-600 hover:text-red-900">
+                      <i class="bi bi-x-circle"></i>
                     </button>
                   </td>
                 </tr>
@@ -129,21 +133,29 @@
                 <tr>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.id }}</td>
                   <td class="px-6 py-4 whitespace-nowrap">{{ prestador.nome }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.cpf }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.especialidade }}</td>
-                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.data_cadastro }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.prestadorNome }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.categoriaNome }}</td>
+                  <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ prestador.dataCadastro }}</td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                    <a href="{{ prestador.link_documentos }}" target="_blank" class="text-blue-600 hover:underline">Ver
+                    {% if prestador.linkDocumentos %}
+                    <a href="{{ prestador.linkDocumentos }}" target="_blank" class="text-blue-600 hover:underline">Ver
                       Documentos</a>
+                    {% else %}
+                    <span class="text-gray-400">Não disponível</span>
+                    {% endif %}
                   </td>
                   <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                     <button onclick="prestadorModal.open({{ prestador.id }})"
                       class="text-indigo-600 hover:text-indigo-900 mr-3">
                       <i class="bi bi-eye"></i>
                     </button>
-                    <button onclick="approvalModal.open('prestador', {{ prestador.id }})"
-                      class="text-green-600 hover:text-green-900">
+                    <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="ativar"
+                      class="text-green-600 hover:text-green-900 mr-3">
                       <i class="bi bi-check-circle"></i>
+                    </button>
+                    <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="rejeitar"
+                      class="text-red-600 hover:text-red-900">
+                      <i class="bi bi-x-circle"></i>
                     </button>
                   </td>
                 </tr>
@@ -160,4 +172,6 @@
       </div>
     </main>
   </div>
+
+  <script src="/assets/js/admin/admin-painel.js"></script>
 {% endblock %}

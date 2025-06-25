@@ -99,7 +99,7 @@
                   {{ prestador.especialidade }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {{ prestador.total_servicos }}
+                  {{ prestador.totalServicos }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <div class="flex items-center">
@@ -111,16 +111,16 @@
                         {% endif %}
                         {% endfor %}
                     </div>
-                    <span class="ml-2 text-sm text-gray-500">({{ prestador.total_avaliacoes }})</span>
+                    <span class="ml-2 text-sm text-gray-500">({{ prestador.totalAvaliacoes }})</span>
                   </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                   <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full 
-                                                {% if prestador.status == 'ativo' %}
+                                                {% if prestador.status == 'ATIVO' %}
                                                     bg-green-100 text-green-800
-                                                {% elseif prestador.status == 'inativo' %}
+                                                {% elseif prestador.status == 'INATIVO' %}
                                                     bg-red-100 text-red-800
-                                                {% elseif prestador.status == 'pendente' %}
+                                                {% elseif prestador.status == 'BLOQUEADO' %}
                                                     bg-yellow-100 text-yellow-800
                                                 {% else %}
                                                     bg-gray-100 text-gray-800
@@ -137,11 +137,34 @@
                     class="text-blue-600 hover:text-blue-900 mr-3">
                     <i class="bi bi-pencil"></i>
                   </button>
-                  {% if prestador.status == 'pendente' %}
-                  <button onclick="approvalModal.open({{ prestador.id }})" class="text-green-600 hover:text-green-900">
-                    <i class="bi bi-check-circle"></i>
-                  </button>
-                  {% endif %}
+                  
+                  <!-- Dropdown de ações -->
+                  <div class="relative inline-block text-left">
+                    <button type="button" class="text-gray-600 hover:text-gray-900 dropdown-toggle">
+                      <i class="bi bi-three-dots-vertical"></i>
+                    </button>
+                    <div class="dropdown-menu hidden absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                      {% if prestador.status == 'ATIVO' %}
+                      <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="inativar"
+                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <i class="bi bi-pause-circle mr-2"></i>Inativar
+                      </button>
+                      <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="bloquear"
+                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <i class="bi bi-lock mr-2"></i>Bloquear
+                      </button>
+                      {% elseif prestador.status == 'INATIVO' %}
+                      <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="ativar"
+                        class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                        <i class="bi bi-play-circle mr-2"></i>Ativar
+                      </button>
+                      {% endif %}
+                      <button data-action="alterar-status-usuario" data-usuario-id="{{ prestador.id }}" data-acao="banir"
+                        class="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                        <i class="bi bi-x-circle mr-2"></i>Banir
+                      </button>
+                    </div>
+                  </div>
                 </td>
               </tr>
               {% endfor %}
@@ -188,4 +211,6 @@
       </div>
     </main>
   </div>
+
+  <script src="/assets/js/admin/admin-painel.js"></script>
 {% endblock %}
