@@ -27,8 +27,8 @@ class ServicosController extends WebController {
     // Criar DTO de filtros
     $filtros = new FiltrosServicoDTO(
       categoria: $queryStrings['categoria'] ?? null,
-      estado: (array)($queryStrings['estado'] ?? []),
-      valor: (array)($queryStrings['valor'] ?? []),
+      estado: is_array($queryStrings['estado'] ?? null) ? $queryStrings['estado'] : [],
+      valor: is_array($queryStrings['valor'] ?? null) ? $queryStrings['valor'] : [],
       prestador: $queryStrings['prestador'] ?? null
     );
 

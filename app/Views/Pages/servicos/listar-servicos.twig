@@ -18,8 +18,27 @@
 				  <form method="get" class="inline filtro-ativo">
 					{# Mantém todos os parâmetros exceto o que será removido #}
 					{% for key, value in getAllQueryParams() %}
-					  {% if key != filtro.param or value != filtro.param_valor %}
-						<input type="hidden" name="{{ key }}" value="{{ value }}">
+					  {% if key != filtro.param %}
+					    {% if value is iterable %}
+					      {% for item in value %}
+					        <input type="hidden" name="{{ key }}[]" value="{{ item }}">
+					      {% endfor %}
+					    {% else %}
+					      <input type="hidden" name="{{ key }}" value="{{ value }}">
+					    {% endif %}
+					  {% else %}
+					    {# Para o parâmetro que será removido, inclui todos os valores exceto o específico #}
+					    {% if value is iterable %}
+					      {% for item in value %}
+					        {% if item != filtro.param_valor %}
+					          <input type="hidden" name="{{ key }}[]" value="{{ item }}">
+					        {% endif %}
+					      {% endfor %}
+					    {% else %}
+					      {% if value != filtro.param_valor %}
+					        <input type="hidden" name="{{ key }}" value="{{ value }}">
+					      {% endif %}
+					    {% endif %}
 					  {% endif %}
 					{% endfor %}
 					<button type="submit" class="bg-gray-200 rounded-full px-3 py-1 text-sm flex items-center gap-1 hover:bg-gray-300 transition-colors">
