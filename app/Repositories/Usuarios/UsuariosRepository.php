@@ -180,7 +180,29 @@ class UsuariosRepository extends Repository {
         }
         $this->database()->flush();
         // Adiciona novos contatos
-        foreach ($dados->contatos as $contato) {
+        $contatosArray = [];
+        if ($dados->contatos instanceof \App\DTOs\ContatosDTO) {
+          $map = [
+            'contato_email' => 'Email',
+            'contato_celular' => 'Celular',
+            'contato_facebook' => 'Facebook',
+            'contato_instagram' => 'Instagram',
+            'contato_whatsapp' => 'WhatsApp',
+            'contato_outro' => 'Outro',
+          ];
+          foreach ($map as $prop => $tipo) {
+            $valor = $dados->contatos->$prop;
+            if (!empty($valor)) {
+              $contatosArray[] = [
+                'tipo' => $tipo,
+                'valor' => $valor
+              ];
+            }
+          }
+        } elseif (is_array($dados->contatos)) {
+          $contatosArray = $dados->contatos;
+        }
+        foreach ($contatosArray as $contato) {
           if (!empty($contato['valor'])) {
             $categoria = $this->database()->getRepository(\App\Entities\Categorias\CategoriaContato::class)
               ->findOneBy(['nome' => $contato['tipo']]);

@@ -20,7 +20,7 @@
 
 		<input
       {% if required %}required{% endif %}
-      {% if disable or variant == 'disabled' %}disabled{% endif %}
+      {% if disable %}disabled{% endif %}
       placeholder="{{ placeholder }}"
       id="{{ name }}"
       name="{{ name }}"

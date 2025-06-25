@@ -45,10 +45,55 @@ class UsuariosController extends WebController {
   }
 
   #[Post('/atualizar', [VerificaSeUsuarioLogado::class])]
-  public function atualizarUsuario(Request $request, #[Body] UsuarioAtualizarDTO $dados) {
+  public function atualizarUsuario(Request $request) {
     $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
-    
-    if (!$this->service->atualizarUsuario($usuarioLogado->id, $dados)) {
+    // Obter dados do formulário manualmente
+    $dadosForm = $_POST;
+
+    // Montar EnderecoDTO se houver dados de endereço
+    $endereco = null;
+    if (!empty($dadosForm['cep']) && !empty($dadosForm['rua']) && !empty($dadosForm['bairro']) && !empty($dadosForm['cidade']) && !empty($dadosForm['estado'])) {
+      $endereco = new \App\DTOs\EnderecoDTO(
+        $dadosForm['cep'],
+        $dadosForm['rua'],
+        $dadosForm['bairro'],
+        $dadosForm['cidade'],
+        $dadosForm['estado']
+      );
+    }
+
+    // Montar ContatosDTO se houver algum contato preenchido
+    $contatos = null;
+    if (
+      !empty($dadosForm['contato_email']) ||
+      !empty($dadosForm['contato_celular']) ||
+      !empty($dadosForm['contato_facebook']) ||
+      !empty($dadosForm['contato_instagram']) ||
+      !empty($dadosForm['contato_whatsapp']) ||
+      !empty($dadosForm['contato_outro'])
+    ) {
+      $contatos = new \App\DTOs\ContatosDTO(
+        $dadosForm['contato_email'] ?? null,
+        $dadosForm['contato_celular'] ?? null,
+        $dadosForm['contato_facebook'] ?? null,
+        $dadosForm['contato_instagram'] ?? null,
+        $dadosForm['contato_whatsapp'] ?? null,
+        $dadosForm['contato_outro'] ?? null
+      );
+    }
+
+    // Montar DTO principal
+    $dto = new UsuarioAtualizarDTO(
+      $dadosForm['nome'] ?? null,
+      $dadosForm['email'] ?? null,
+      $dadosForm['telefone'] ?? null,
+      $dadosForm['foto'] ?? null,
+      $dadosForm['data_nascimento'] ?? null,
+      $endereco,
+      $contatos
+    );
+
+    if (!$this->service->atualizarUsuario($usuarioLogado->id, $dto)) {
       $request->session->setFlashMessage(FlashMessageType::Error, 'Não foi possível atualizar seus dados. Tente novamente.');
       return $this->redirectTo('/usuarios/meu-perfil');
     }
