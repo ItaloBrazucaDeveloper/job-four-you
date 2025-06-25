@@ -1,22 +1,3 @@
-// Upload de foto de perfil
-document.querySelector('.relative button').addEventListener('click', function () {
-  const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = 'image/*';
-  input.click();
-
-  input.onchange = function (e) {
-    if (e.target.files && e.target.files[0]) {
-      const reader = new FileReader();
-      reader.onload = function (event) {
-        document.querySelector('.profile-image').src = event.target.result;
-        // Aqui você pode adicionar o código para enviar a imagem ao servidor
-      };
-      reader.readAsDataURL(e.target.files[0]);
-    }
-  };
-});
-
 // Alternar entre abas
 const links = document.querySelectorAll('[href="#perfil"], [href="#servico"]');
 links.forEach(link => {

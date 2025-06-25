@@ -48,7 +48,7 @@ class UsuariosController extends WebController {
   public function atualizarUsuario(Request $request) {
     $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     // Obter dados do formulário manualmente
-    $dadosForm = $_POST;
+    $dadosForm = $request->getAllBody();
 
     // Montar EnderecoDTO se houver dados de endereço
     $endereco = null;
@@ -82,12 +82,28 @@ class UsuariosController extends WebController {
       );
     }
 
+    // Upload da foto
+    $fotoFile = $request->getFile('foto');
+    $nomeFoto = null;
+    if ($fotoFile && $fotoFile->getError() === UPLOAD_ERR_OK) {
+      $ext = pathinfo($fotoFile->getName(), PATHINFO_EXTENSION);
+      $nomeFoto = uniqid('foto_', true) . '.' . $ext;
+      $caminhoDestino = __DIR__ . '/../../public/uploads/fotos/' . $nomeFoto;
+      $fotoFile->move($caminhoDestino);
+      $caminhoFotoRelativo = '/uploads/fotos/' . $nomeFoto;
+    } else {
+      $caminhoFotoRelativo = $dadosForm['foto'] ?? null;
+    }
+
+    // Juntar nome e sobrenome
+    $nomeCompleto = trim(($dadosForm['nome'] ?? '') . ' ' . ($dadosForm['sobrenome'] ?? ''));
+
     // Montar DTO principal
     $dto = new UsuarioAtualizarDTO(
-      $dadosForm['nome'] ?? null,
+      $nomeCompleto !== '' ? $nomeCompleto : null,
       $dadosForm['email'] ?? null,
       $dadosForm['telefone'] ?? null,
-      $dadosForm['foto'] ?? null,
+      $caminhoFotoRelativo,
       $dadosForm['data_nascimento'] ?? null,
       $endereco,
       $contatos
