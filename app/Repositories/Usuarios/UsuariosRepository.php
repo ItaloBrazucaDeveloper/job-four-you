@@ -140,20 +140,61 @@ class UsuariosRepository extends Repository {
       }
 
       // Atualizar dados do usuário
-      $usuario->nome = $dados->nome;
-      $usuario->celular = $dados->telefone;
-      
-      if ($dados->foto) {
+      if ($dados->nome !== null) {
+        $usuario->nome = $dados->nome;
+      }
+      if ($dados->telefone !== null) {
+        $usuario->celular = $dados->telefone;
+      }
+      if ($dados->foto !== null) {
         $usuario->foto = $dados->foto;
       }
-      
-      if ($dados->dataNascimento) {
+      if ($dados->dataNascimento !== null) {
         $usuario->dataNascimento = new \DateTime($dados->dataNascimento);
       }
-
       // Atualizar email na credencial
-      $usuario->credencial->email = $dados->email;
-      
+      if ($dados->email !== null) {
+        $usuario->credencial->email = $dados->email;
+      }
+
+      // Atualizar endereço
+      if ($dados->endereco !== null) {
+        $endereco = $usuario->endereco;
+        if (!$endereco) {
+          $endereco = new \App\Entities\Endereco();
+        }
+        $endereco->cep = $dados->endereco->cep;
+        $endereco->rua = $dados->endereco->rua;
+        $endereco->bairro = $dados->endereco->bairro;
+        $endereco->cidade = $dados->endereco->cidade;
+        $endereco->estado = $dados->endereco->estado;
+        $this->enderecoRepository->cadastrar($endereco); // cadastra ou atualiza
+        $usuario->endereco = $endereco;
+      }
+
+      // Atualizar contatos (remove todos e adiciona os novos)
+      if ($dados->contatos !== null) {
+        // Remove contatos antigos
+        foreach ($usuario->informacoesContato as $contatoAntigo) {
+          $this->database()->remove($contatoAntigo);
+        }
+        $this->database()->flush();
+        // Adiciona novos contatos
+        foreach ($dados->contatos as $contato) {
+          if (!empty($contato['valor'])) {
+            $categoria = $this->database()->getRepository(\App\Entities\Categorias\CategoriaContato::class)
+              ->findOneBy(['nome' => $contato['tipo']]);
+            if ($categoria) {
+              $novaInfo = new \App\Entities\Servico\InformacaoContato();
+              $novaInfo->contato = $contato['valor'];
+              $novaInfo->usuario = $usuario;
+              $novaInfo->categoria = $categoria;
+              $this->database()->persist($novaInfo);
+            }
+          }
+        }
+      }
+
       $usuario->ultimaAtualizacao = new \DateTime();
 
       $this->database()->persist($usuario);

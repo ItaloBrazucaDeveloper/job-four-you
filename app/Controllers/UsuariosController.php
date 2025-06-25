@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\DTOs\Usuario\UsuarioAtualizarDTO;
 use KissPhp\Enums\FlashMessageType;
 use KissPhp\Protocols\Http\Request;
 use KissPhp\Abstractions\WebController;
@@ -44,7 +45,7 @@ class UsuariosController extends WebController {
   }
 
   #[Post('/atualizar', [VerificaSeUsuarioLogado::class])]
-  public function atualizarUsuario(Request $request, #[Body] \App\DTOs\Usuario\UsuarioAtualizarDTO $dados) {
+  public function atualizarUsuario(Request $request, #[Body] UsuarioAtualizarDTO $dados) {
     $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     
     if (!$this->service->atualizarUsuario($usuarioLogado->id, $dados)) {
@@ -52,7 +53,6 @@ class UsuariosController extends WebController {
       return $this->redirectTo('/usuarios/meu-perfil');
     }
     
-    // Atualizar a sessão do usuário
     $usuarioAtualizado = $this->service->obterUsuarioPeloId($usuarioLogado->id);
     $request->session->set(SessionKeys::USUARIO_AUTENTICADO, $usuarioAtualizado);
     

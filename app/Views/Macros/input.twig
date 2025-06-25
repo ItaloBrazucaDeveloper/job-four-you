@@ -8,7 +8,8 @@
   class = '',
   errorMessage = null,
   defaultValue = '',
-  disable = false
+  disable = false,
+  variant = 'enabled'
 ) %}
 	<div class="mt-1 relative rounded-md shadow-sm">
 		{% if icon %}
@@ -19,13 +20,21 @@
 
 		<input
       {% if required %}required{% endif %}
-      {% if disable %}disabled{% endif %}
+      {% if disable or variant == 'disabled' %}disabled{% endif %}
       placeholder="{{ placeholder }}"
       id="{{ name }}"
       name="{{ name }}"
       type="{{ type }}"
       {% if autocomplete %} autocomplete="{{ autocomplete }}" {% endif %}
-      class="bg-white disabled:bg-gray-100 py-2 {% if icon %}pl-10{% endif %} block w-full border {% if errorMessage %}border-red-300{% else %}border-gray-300{% endif %} rounded-md focus:ring-gray-500 focus:border-gray-500 {% if disable %}bg-gray-50 cursor-not-allowed{% endif %} {{ class }}"
+      class="py-2 {% if icon %}pl-10{% endif %} block w-full border rounded-md focus:ring-gray-500 focus:border-gray-500 {{
+        (
+          variant == 'enabled' ? 'bg-white border-gray-300 focus:ring-2 focus:ring-gray-500' :
+          variant == 'default' ? 'bg-white border-gray-300' :
+          variant == 'disabled' ? 'bg-gray-100 border-gray-300 cursor-not-allowed text-gray-400' :
+          variant == 'error' ? 'bg-white border-red-300 focus:border-red-500 focus:ring-red-500' :
+          ''
+        )
+      }} {{ class }}"
       value="{{ defaultValue }}"
     >
 		{% if errorMessage %}

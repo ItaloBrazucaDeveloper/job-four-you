@@ -10,9 +10,8 @@
       {{ input.render(
         name: 'nome',
         type: 'text',
-        required: true,
         icon: 'bi bi-person',
-        defaultValue: usuario.nome
+        defaultValue: usuario.nome|split(' ')|first
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -20,9 +19,8 @@
       {{ input.render(
         name: 'sobrenome',
         type: 'text',
-        required: true,
         icon: 'bi bi-person',
-        defaultValue: usuario.sobrenome
+        defaultValue: usuario.nome|split(' ')|last
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -30,7 +28,6 @@
       {{ input.render(
         name: 'cpf',
         type: 'text',
-        required: true,
         icon: 'bi bi-card-text',
         defaultValue: usuario.cpf,
         disable: true
@@ -41,7 +38,6 @@
       {{ input.render(
         name: 'data_nascimento',
         type: 'date',
-        required: true,
         icon: 'bi bi-calendar',
         defaultValue: usuario.dataNascimento
       ) }}
@@ -51,7 +47,6 @@
       {{ input.render(
         name: 'email',
         type: 'email',
-        required: true,
         icon: 'bi bi-envelope',
         defaultValue: usuario.email
       ) }}
@@ -61,7 +56,6 @@
       {{ input.render(
         name: 'telefone',
         type: 'tel',
-        required: true,
         icon: 'bi bi-telephone',
         defaultValue: usuario.celular
       ) }}
@@ -93,7 +87,6 @@
       {{ input.render(
         name: 'cep',
         type: 'text',
-        required: true,
         icon: 'bi bi-mailbox',
         defaultValue: usuario.endereco.cep
       ) }}
@@ -101,12 +94,11 @@
     <div class="col-span-2 md:col-span-1">
       {{ label.render(for: 'estado', text: 'Estado') }}
       {{ input.render(
-        required: true,
         name: 'estado',
         icon: 'bi bi-map',
         placeholder: 'Estado',
         defaultValue: usuario.endereco.estado,
-        disable: true
+        variant: 'disabled'
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -114,10 +106,9 @@
       {{ input.render(
         name: 'cidade',
         type: 'text',
-        required: true,
         icon: 'bi bi-building',
         defaultValue: usuario.endereco.cidade,
-        disable: true
+        variant: 'disabled'
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -128,7 +119,7 @@
         required: true,
         icon: 'bi bi-pin-map',
         defaultValue: usuario.endereco.bairro,
-        disable: true
+        variant: 'disabled'
       ) }}
     </div>
     <div class="col-span-2">
@@ -139,7 +130,7 @@
         required: true,
         icon: 'bi bi-signpost',
         defaultValue: usuario.endereco.rua,
-        disable: true
+        variant: 'disabled'
       ) }}
     </div>
     {% if erros_prestador is defined and 'endereco' in erros_prestador %}
@@ -151,64 +142,66 @@
   </div>
 </fieldset>
 
-<fieldset class="col-span-2 mb-4">
-  <legend class="font-semibold text-lg mb-2">
-    Contatos
-  </legend>
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-    <div class="col-span-2 md:col-span-1">
-      {{ label.render(for: 'contato_email', text: 'Email') }}
-      {{ input.render(
-        name: 'contato_email',
-        type: 'email',
-        icon: 'bi bi-envelope',
-        defaultValue: usuario.contato_email
-      ) }}
+{% if usuario.grupo == 'PRESTADOR' %}
+  <fieldset class="col-span-2 mb-4">
+    <legend class="font-semibold text-lg mb-2">
+      Contatos
+    </legend>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="col-span-2 md:col-span-1">
+        {{ label.render(for: 'contato_email', text: 'Email') }}
+        {{ input.render(
+          name: 'contato_email',
+          type: 'email',
+          icon: 'bi bi-envelope',
+          defaultValue: usuario.contato_email
+        ) }}
+      </div>
+      <div class="col-span-2 md:col-span-1">
+        {{ label.render(for: 'contato_celular', text: 'Celular') }}
+        {{ input.render(
+          name: 'contato_celular',
+          type: 'tel',
+          icon: 'bi bi-telephone',
+          defaultValue: usuario.contato_celular
+        ) }}
+      </div>
+      <div class="col-span-2 md:col-span-1">
+        {{ label.render(for: 'contato_facebook', text: 'Facebook') }}
+        {{ input.render(
+          name: 'contato_facebook',
+          type: 'text',
+          icon: 'bi bi-facebook',
+          defaultValue: usuario.contato_facebook
+        ) }}
+      </div>
+      <div class="col-span-2 md:col-span-1">
+        {{ label.render(for: 'contato_instagram', text: 'Instagram') }}
+        {{ input.render(
+          name: 'contato_instagram',
+          type: 'text',
+          icon: 'bi bi-instagram',
+          defaultValue: usuario.contato_instagram
+        ) }}
+      </div>
+      <div class="col-span-2 md:col-span-1">
+        {{ label.render(for: 'contato_whatsapp', text: 'WhatsApp') }}
+        {{ input.render(
+          name: 'contato_whatsapp',
+          type: 'text',
+          icon: 'bi bi-whatsapp',
+          defaultValue: usuario.contato_whatsapp
+        ) }}
+      </div>
+      <div class="col-span-2 md:col-span-1">
+        {{ label.render(for: 'contato_outro', text: 'Outro contato') }}
+        {{ input.render(
+          name: 'contato_outro',
+          type: 'text',
+          icon: 'bi bi-link-45deg',
+          defaultValue: usuario.contato_outro
+        ) }}
+      </div>
     </div>
-    <div class="col-span-2 md:col-span-1">
-      {{ label.render(for: 'contato_celular', text: 'Celular') }}
-      {{ input.render(
-        name: 'contato_celular',
-        type: 'tel',
-        icon: 'bi bi-telephone',
-        defaultValue: usuario.contato_celular
-      ) }}
-    </div>
-    <div class="col-span-2 md:col-span-1">
-      {{ label.render(for: 'contato_facebook', text: 'Facebook') }}
-      {{ input.render(
-        name: 'contato_facebook',
-        type: 'text',
-        icon: 'bi bi-facebook',
-        defaultValue: usuario.contato_facebook
-      ) }}
-    </div>
-    <div class="col-span-2 md:col-span-1">
-      {{ label.render(for: 'contato_instagram', text: 'Instagram') }}
-      {{ input.render(
-        name: 'contato_instagram',
-        type: 'text',
-        icon: 'bi bi-instagram',
-        defaultValue: usuario.contato_instagram
-      ) }}
-    </div>
-    <div class="col-span-2 md:col-span-1">
-      {{ label.render(for: 'contato_whatsapp', text: 'WhatsApp') }}
-      {{ input.render(
-        name: 'contato_whatsapp',
-        type: 'text',
-        icon: 'bi bi-whatsapp',
-        defaultValue: usuario.contato_whatsapp
-      ) }}
-    </div>
-    <div class="col-span-2 md:col-span-1">
-      {{ label.render(for: 'contato_outro', text: 'Outro contato') }}
-      {{ input.render(
-        name: 'contato_outro',
-        type: 'text',
-        icon: 'bi bi-link-45deg',
-        defaultValue: usuario.contato_outro
-      ) }}
-    </div>
-  </div>
-</fieldset>
+  </fieldset>
+{% endif %}
