@@ -31,12 +31,12 @@
           <div class="bg-purple-50 p-4 rounded-lg">
             <div class="flex items-center justify-center">
               <i class="fas fa-check-circle text-2xl text-purple-500"></i>
-              
-              {% if servico.status == 'ATIVO' %}
+
+              {% if servico.statusPublicacao.value == 'ATIVO' %}
                 <span class="ml-2 font-bold">Ativo</span>
-              {% elseif servico.status == 'EM_ANALISE' %}
+              {% elseif servico.statusPublicacao.value == 'EM_ANALISE' %}
                 <span class="ml-2 font-bold">Em análise</span>
-              {% elseif servico.status == 'INATIVO' %}
+              {% elseif servico.statusPublicacao.value == 'INATIVO' %}
                 <span class="ml-2 font-bold">Inativo</span>
               {% else %}
                 <span class="ml-2 font-bold">Em análise</span>
@@ -60,7 +60,7 @@
               <span>Arquivar serviço</span>
             </a>
           </div>
-          {% if servico.status == 'ATIVO' %}
+          {% if servico.statusPublicacao.value == 'ATIVO' %}
             <div class="flex items-center gap-4">
               <button type="button" class="bg-yellow-100 text-yellow-800 px-3 py-2 rounded-full text-sm outline outline-yellow-300">
                 Gerar link para avaliação

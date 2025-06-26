@@ -7,6 +7,8 @@ use App\Factories\Usuarios\UsuarioMeuPerfilDTOFactory;
 use App\Repositories\Credenciais\CredencialRepository;
 use App\DTOs\Usuario\{ UsuarioCadastroDTO, UsuarioMeuPerfilDTO, UsuarioAtualizarDTO };
 
+use function App\Utils\bp;
+
 class UsuariosService {
   public function __construct(
     private UsuariosRepository $usuarioRepository,
