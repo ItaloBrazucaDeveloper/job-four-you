@@ -1,12 +1,12 @@
 <?php
 namespace App\Services\Avaliacao;
 
-use Nowakowskir\JWT\JWT;
-use Nowakowskir\JWT\{ TokenDecoded, TokenEncoded };
-
 use App\Utils\TokenJwt;
 use App\DTOs\Avaliacao\AvaliacaoCadastroDTO;
 use App\Repositories\Avaliacao\AvaliacaoRepository;
+use App\Entities\Servico\AvaliacaoServico;
+use App\Entities\Servico\PublicacaoServico;
+use App\Entities\Usuario;
 
 class AvaliacaoService {
   private int $tempoDeExpiracaoEmSegundos = 1800;
@@ -36,7 +36,26 @@ class AvaliacaoService {
     return $jaExpirou;
   }
 
-  public function cadastrar(int $idDoUsuario, AvaliacaoCadastroDTO $dto): bool {
-    return false;
+  public function cadastrar(int $idDoUsuario, int $idPublicacao, AvaliacaoCadastroDTO $dto): bool {
+    try {
+      // Buscar usuário e publicação
+      $dados = $this->repository->buscarUsuarioEPublicacao($idDoUsuario, $idPublicacao);
+      $usuario = $dados['usuario'];
+      $publicacao = $dados['publicacao'];
+      if (!$usuario || !$publicacao) return false;
+
+      // Criar avaliação
+      $avaliacao = new AvaliacaoServico();
+      $avaliacao->nota = $dto->nota;
+      $avaliacao->comentario = $dto->descricao;
+      $avaliacao->usuario = $usuario;
+      $avaliacao->publicacao = $publicacao;
+      $avaliacao->dataCriacao = new \DateTime();
+
+      return $this->repository->cadastrar($avaliacao);
+    } catch (\Throwable $th) {
+      error_log("[Error] AvaliacaoService::cadastrar: {$th->getMessage()}");
+      return false;
+    }
   }
 }
