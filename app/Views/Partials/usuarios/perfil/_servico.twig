@@ -62,7 +62,7 @@
           </div>
           {% if servico.statusPublicacao.value == 'ATIVO' %}
             <div class="flex items-center gap-4">
-              <button type="button" class="bg-yellow-100 text-yellow-800 px-3 py-2 rounded-full text-sm outline outline-yellow-300">
+              <button type="button" class="bg-yellow-100 text-yellow-800 px-3 py-2 rounded-full text-sm outline outline-yellow-300" id="btn-gerar-link-avaliacao" data-servico-id="{{ servico.id }}">
                 Gerar link para avaliação
               </button>
               <a

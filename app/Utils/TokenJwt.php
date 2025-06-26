@@ -8,14 +8,21 @@ use Nowakowskir\JWT\TokenEncoded;
 
 class TokenJwt {
   private static string $algoritimoDeCodificacao = 'HS256';
-  private static string $secretKey = (string) Env::get('APP_SECRET_KEY');
+  private static ?string $secretKey = null;
+
+  private static function getSecretKey(): string {
+    if (self::$secretKey === null) {
+      self::$secretKey = (string) Env::get('APP_SECRET_KEY');
+    }
+    return self::$secretKey;
+  }
 
   public static function criarToken(array $payload) {
     $tokenEmJwt = new TokenDecoded($payload);
 
     $token = JWT::encode(
       $tokenEmJwt,
-      self::$secretKey,
+      self::getSecretKey(),
       self::$algoritimoDeCodificacao
     );
     return $token->toString();
@@ -31,7 +38,7 @@ class TokenJwt {
     $tokenEmJwt = new TokenEncoded($tokenEmString);
     $eLegitmo = JWT::validate(
       $tokenEmJwt,
-      self::$secretKey,
+      self::getSecretKey(),
       self::$algoritimoDeCodificacao
     );
     return $eLegitmo;

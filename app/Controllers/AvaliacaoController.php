@@ -6,7 +6,7 @@ use KissPhp\Protocols\Http\Request;
 use KissPhp\Abstractions\WebController;
 use KissPhp\Attributes\Http\Controller;
 use KissPhp\Attributes\Http\Methods\{ Get, Post };
-use KissPhp\Attributes\Http\Request\{ Body, RouteParam };
+use KissPhp\Attributes\Http\Request\{ Body, QueryString, RouteParam };
 
 use App\Utils\SessionKeys;
 use App\DTOs\Avaliacao\AvaliacaoCadastroDTO;
@@ -22,14 +22,14 @@ use App\Middlewares\{
 class AvaliacaoController extends WebController {
   public function __construct(private AvaliacaoService $service) { }
 
-  #[Get('/:token:{alphanumeric}?', [VerificaSeTokenAvaliacaoValido::class])]
-  public function exibirPaginaDeAvaliacao(#[RouteParam] string $token, Request $request) {
+  #[Get(middlewares: [VerificaSeTokenAvaliacaoValido::class])]
+  public function exibirPaginaDeAvaliacao(#[QueryString] string $token) {
     $this->render('Pages/servicos/avaliacao.twig', [
 
     ]);
   }
 
-  #[Post('/:token:{alphanumeric}?', [VerificaSeTokenAvaliacaoValido::class])]
+  #[Post(middlewares: [VerificaSeTokenAvaliacaoValido::class])]
   public function avaliarUsuario(#[Body] AvaliacaoCadastroDTO $avaliacao, Request $request) {
     $usuarioLogado = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     $foiCadastrado = $this->service->cadastrar($usuarioLogado->id, $avaliacao);
@@ -46,6 +46,6 @@ class AvaliacaoController extends WebController {
   #[Get('/gerar-url/:id:{numeric}', [VerificaSePertenceGrupoPrestador::class])]
   public function gerarUrlParaAvaliacao(#[RouteParam] int $id) {
     $token = $this->service->criarToken($id);
-    return json_encode(['url' => "/avaliacao/{$token}"]);
+    return json_encode(['url' => "/avaliacao?token={$token}"]);
   }
 }

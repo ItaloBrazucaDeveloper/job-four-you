@@ -9,7 +9,7 @@ use App\Utils\TokenJwt;
 
 class VerificaSeTokenAvaliacaoValido extends WebMiddleware {
   public function handle(Request $request, \Closure $next): ?Request {
-    $token = $request->getRouteParam('token');
+    $token = $request->getQueryString('token');
   
     if (!TokenJwt::verificarSeELegitimo($token)) {
       $request->session->setFlashMessage(
