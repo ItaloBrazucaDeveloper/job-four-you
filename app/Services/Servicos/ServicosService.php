@@ -203,18 +203,8 @@ class ServicosService {
     return $faixas[$codigo] ?? $codigo;
   }
 
-  public function cadastrar(ServicoCadastroDTO $servico, UploadedFile $foto): bool {
+  public function cadastrar(ServicoCadastroDTO $servico): bool {
     try {
-      if ($foto && $foto->getError() === UPLOAD_ERR_OK) {
-        $nomeEncriptografado = hash('sha256', $foto->getName()) . '.' . $foto->getExtension();
-        $caminhoDestino = Paths::PATH_TO_UPLOAD_FILE . $nomeEncriptografado;
-        $foiMovido = $foto->move($caminhoDestino);
-      }
-
-      if (!$foiMovido) {
-        throw new \Exception("Erro ao mover o arquivo para o destino.");
-      }
-      $servico->foto = $foiMovido ? $nomeEncriptografado : null;
       return $this->repository->cadastrar($servico);
     } catch (\Exception $e) {
       error_log($e->getMessage());

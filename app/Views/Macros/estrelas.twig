@@ -14,7 +14,11 @@
     {% for i in 1..estrelasCheias %}
       <i class="bi bi-star-fill text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
     {% endfor %}
-  {% else %}
+  {% elseif estrelasCheias == 0 %}
+    {% for i in 1..5 %}
+      <i class="bi bi-star text-yellow-400 {{ 'text-' ~ tamanho }}"></i>
+    {% endfor %}
+  {% else%}
     {# Estrelas cheias #}
     {% for i in 1..estrelasCheias %}
     <i class="bi bi-star-fill text-yellow-400 {{ 'text-' ~ tamanho }}"></i>

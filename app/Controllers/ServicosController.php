@@ -68,7 +68,14 @@ class ServicosController extends WebController {
     $categorias = $this->service->buscarCategorias();
     $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
     $usuarioCompleto = $this->usuariosService->obterUsuarioPeloId($usuario->id);
-    $contatos = $usuarioCompleto->informacoesContato ?? [];
+    $contatos = [
+      'contato_email' => $usuarioCompleto->contato_email,
+      'contato_celular' => $usuarioCompleto->contato_celular,
+      'contato_facebook' => $usuarioCompleto->contato_facebook,
+      'contato_instagram' => $usuarioCompleto->contato_instagram,
+      'contato_whatsapp' => $usuarioCompleto->contato_whatsapp,
+      'contato_outro' => $usuarioCompleto->contato_outro,
+    ];
     $this->render('Pages/servicos/cadastro.twig', [
       'categorias' => $categorias,
       'contatos' => $contatos,
@@ -80,15 +87,14 @@ class ServicosController extends WebController {
     Request $request,
     #[Body] ServicoCadastroDTO $servico,
   ) {
-    $foto = $request->getFile('foto');
-    $foiCadastrado = $this->service->cadastrar($servico, $foto);
+    $foiCadastrado = $this->service->cadastrar($servico);
 
     if ($foiCadastrado) {
       $request->session->setFlashMessage(FlashMessageType::Success, "Serviço cadastrado com sucesso!");
-      return $this->redirectTo('/servicos');
+      return $this->redirectTo('/meus-servicos');
     }
     $request->session->setFlashMessage(FlashMessageType::Error, "Erro ao cadastrar serviço. Verifique os dados e tente novamente.");
-    return $this->redirectTo('/servicos/cadastro');
+    return $this->redirectTo('/postar-servico');
   }
 
   #[Post('/desativar-servico', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoPrestador::class])]
