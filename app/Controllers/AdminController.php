@@ -9,6 +9,7 @@ use KissPhp\Attributes\Http\Methods\{ Get, Post };
 
 use App\Services\Admin\AdminService;
 use App\Middlewares\{ VerificaSeUsuarioLogado, VerificaSePertenceGrupoAdmin };
+use KissPhp\Attributes\Http\Request\RouteParam;
 
 #[Controller('/painel', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoAdmin::class])]
 class AdminController extends WebController {
@@ -111,16 +112,13 @@ class AdminController extends WebController {
     }
   }
 
-  #[Post('/aprovar-servico')]
-  public function aprovarServico(#[Body] array $dados) {
+  #[Post('/aprovar-servico/:id:{numeric}')]
+  public function aprovarServico(#[RouteParam] int $id) {
     try {
-      $servicoId = (int) ($dados['servico_id'] ?? 0);
-      
-      if ($servicoId <= 0) {
+      if ($id <= 0) {
         return json_encode(['success' => false, 'message' => 'ID do serviço inválido']);
       }
-      
-      $sucesso = $this->adminService->aprovarServico($servicoId);
+      $sucesso = $this->adminService->aprovarServico($id);
       
       if ($sucesso) {
         return json_encode(['success' => true, 'message' => 'Serviço aprovado com sucesso']);

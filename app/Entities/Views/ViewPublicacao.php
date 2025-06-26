@@ -47,4 +47,7 @@ class ViewPublicacao extends Entity {
 
   #[ORM\Column(type: "decimal", precision: 3, scale: 2, name: "MediaAvaliacoes")]
   public float $mediaAvaliacoes;
+
+  #[ORM\Column(type: "string", length: 20, name: "StatusPublicacao")]
+  public string $statusPublicacao;
 } 

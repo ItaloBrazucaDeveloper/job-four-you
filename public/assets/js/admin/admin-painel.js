@@ -89,14 +89,9 @@ class AdminPainel {
 
   async aprovarServico(servicoId) {
     try {
-      const response = await fetch('/painel/aprovar-servico', {
+      const response = await fetch(`/painel/aprovar-servico/${servicoId}`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ servico_id: servicoId })
       });
-
       const result = await response.json();
       
       if (result.success) {

@@ -25,13 +25,15 @@ SELECT
     cs.Nome AS Categoria,
     e.Cidade,
     e.Estado,
-    COALESCE(AVG(av.Nota), 0) AS MediaAvaliacoes
+    COALESCE(AVG(av.Nota), 0) AS MediaAvaliacoes,
+    ps.StatusPublicacao
 FROM PublicacaoServico p
     INNER JOIN Usuario u ON u.ID = p.FKUsuario 
     INNER JOIN CategoriaServico cs ON cs.ID = p.FKCategoria
     LEFT JOIN Endereco e ON e.ID = u.FKEndereco
     LEFT JOIN AvaliacaoServico av ON av.FkPublicacao = p.ID
-WHERE p.StatusPublicacao = 'ATIVO' AND u.StatusUsuario = 'ATIVO'
+    LEFT JOIN PublicacaoServico ps ON ps.ID = p.ID
+WHERE u.StatusUsuario = 'ATIVO'
 GROUP BY 
     p.ID,
     u.Nome,
@@ -44,7 +46,8 @@ GROUP BY
     p.UltimaAtualizacao,
     cs.Nome,
     e.Cidade,
-    e.Estado;
+    e.Estado,
+    ps.StatusPublicacao;
 
 CREATE OR REPLACE VIEW ViewAvaliacaoServico AS
 SELECT

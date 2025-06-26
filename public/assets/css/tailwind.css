@@ -30,6 +30,7 @@
     --color-yellow-800: oklch(47.6% 0.114 61.907);
     --color-green-50: oklch(98.2% 0.018 155.826);
     --color-green-100: oklch(96.2% 0.044 156.743);
+    --color-green-300: oklch(87.1% 0.15 154.449);
     --color-green-400: oklch(79.2% 0.209 151.711);
     --color-green-500: oklch(72.3% 0.219 149.579);
     --color-green-600: oklch(62.7% 0.194 149.214);
@@ -366,6 +367,9 @@
       max-width: 96rem;
     }
   }
+  .m-0 {
+    margin: calc(var(--spacing) * 0);
+  }
   .m-2 {
     margin: calc(var(--spacing) * 2);
   }
@@ -428,6 +432,12 @@
   }
   .mr-4 {
     margin-right: calc(var(--spacing) * 4);
+  }
+  .mr-6 {
+    margin-right: calc(var(--spacing) * 6);
+  }
+  .mr-8 {
+    margin-right: calc(var(--spacing) * 8);
   }
   .-mb-px {
     margin-bottom: -1px;
@@ -813,6 +823,13 @@
       --tw-space-x-reverse: 0;
       margin-inline-start: calc(calc(var(--spacing) * 3) * var(--tw-space-x-reverse));
       margin-inline-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-x-reverse)));
+    }
+  }
+  .space-x-4 {
+    :where(& > :not(:last-child)) {
+      --tw-space-x-reverse: 0;
+      margin-inline-start: calc(calc(var(--spacing) * 4) * var(--tw-space-x-reverse));
+      margin-inline-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-x-reverse)));
     }
   }
   .space-x-8 {
@@ -1555,17 +1572,32 @@
     outline-style: var(--tw-outline-style);
     outline-width: 0px;
   }
+  .outline-gray-300 {
+    outline-color: var(--color-gray-300);
+  }
+  .outline-gray-400 {
+    outline-color: var(--color-gray-400);
+  }
+  .outline-gray-500 {
+    outline-color: var(--color-gray-500);
+  }
   .outline-gray-600 {
     outline-color: var(--color-gray-600);
   }
   .outline-gray-800 {
     outline-color: var(--color-gray-800);
   }
+  .outline-green-300 {
+    outline-color: var(--color-green-300);
+  }
   .outline-red-600 {
     outline-color: var(--color-red-600);
   }
   .outline-rose-600 {
     outline-color: var(--color-rose-600);
+  }
+  .outline-yellow-300 {
+    outline-color: var(--color-yellow-300);
   }
   .outline-zinc-700 {
     outline-color: var(--color-zinc-700);

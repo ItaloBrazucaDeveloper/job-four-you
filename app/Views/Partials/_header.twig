@@ -31,6 +31,15 @@
 					Login
 				</a>
 			{% else %}
+
+				{% if session('usuario_autenticado').grupo == 'ADMINISTRADOR' %}
+					<a
+						class="{{ url starts with '/usuarios/meu-perfil' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
+						href="/painel"
+					>
+						Painel administrativo
+					</a>
+				{% endif %}
 				<a
 					class="{{ url starts with '/usuarios/meu-perfil' ? 'text-gray-200 font-medium underline decoration-gray-200 underline-offset-8' : 'text-gray-300 hover:text-gray-100 hover:underline hover:underline-offset-8' }} transition-colors"
 					href="/usuarios/meu-perfil"

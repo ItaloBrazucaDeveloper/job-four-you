@@ -84,10 +84,7 @@ class ServicosRepository extends Repository {
       if ($filtros && $filtros->temFiltros()) {
         $this->aplicarFiltros($query, $filtros);
       }
-
-      $query->setFirstResult($offset)
-        ->setMaxResults($itemsPorPagina);
-
+      $query->setFirstResult($offset)->setMaxResults($itemsPorPagina);
       $publicacoes = $query->getQuery()->getResult();
 
       return array_map(function($publicacao) {

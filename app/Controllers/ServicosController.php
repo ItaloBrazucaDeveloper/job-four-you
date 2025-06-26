@@ -91,7 +91,7 @@ class ServicosController extends WebController {
 
     if ($foiCadastrado) {
       $request->session->setFlashMessage(FlashMessageType::Success, "Serviço cadastrado com sucesso!");
-      return $this->redirectTo('/meus-servicos');
+      return $this->redirectTo('/usuarios/meus-servicos');
     }
     $request->session->setFlashMessage(FlashMessageType::Error, "Erro ao cadastrar serviço. Verifique os dados e tente novamente.");
     return $this->redirectTo('/postar-servico');

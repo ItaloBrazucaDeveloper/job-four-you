@@ -7,19 +7,7 @@
         <div class="flex justify-between items-start">
           <div>
             <h2 class="text-xl font-bold">{{ servico.titulo }}</h2>
-            <p class="text-gray-600 mt-2">{{ servico.descricao }}</p>
-          </div>
-          <div>
-            <button type="button" class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm">
-              Gerar link para avaliação
-            </button>
-            <a
-              title="Mais detalhes"
-              href="/mais-detalhes?id={{ servico.id }}"
-              class="bg-gray-100 px-3 py-1 rounded-full text-sm"
-            >
-              <i class="bi bi-box-arrow-up-right size-5"></i>
-            </a>
+            <p class="text-gray-600 mt-2">{{ servico.sobre }}</p>
           </div>
         </div>
         
@@ -43,24 +31,49 @@
           <div class="bg-purple-50 p-4 rounded-lg">
             <div class="flex items-center justify-center">
               <i class="fas fa-check-circle text-2xl text-purple-500"></i>
-              <span class="ml-2 font-bold">Ativo</span>
+              
+              {% if servico.status == 'ATIVO' %}
+                <span class="ml-2 font-bold">Ativo</span>
+              {% elseif servico.status == 'EM_ANALISE' %}
+                <span class="ml-2 font-bold">Em análise</span>
+              {% elseif servico.status == 'INATIVO' %}
+                <span class="ml-2 font-bold">Inativo</span>
+              {% else %}
+                <span class="ml-2 font-bold">Em análise</span>
+              {% endif %}
             </div>
             <p class="text-center text-sm text-gray-600 mt-2">Status do Serviço</p>
           </div>
         </div>
 
-        <div class="mt-8 flex justify-end gap-4">
-          <button class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
-            <i class="fas fa-edit mr-2"></i>
-            <span>Editar serviço</span>
-          </button>
-          <a
-            href="/dastivar-servico/{{ servico.id }}"
-            class="px-6 py-2 bg-red-500 hover:bg-red-600 text-gray-200 rounded-md"
-          >
-            <i class="fas fa-times mr-2"></i>
-            <span>Arquivar serviço</span>
-          </a>
+        <div class="mt-8 flex justify-between gap-4">
+          <div class="mr-6 space-x-4">
+            <button class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50">
+              <i class="fas fa-edit mr-2"></i>
+              <span>Editar serviço</span>
+            </button>
+            <a
+              href="/dastivar-servico/{{ servico.idPublicacao }}"
+              class="px-6 py-2 bg-red-500 hover:bg-red-600 text-gray-100 rounded-md"
+            >
+              <i class="fas fa-times mr-2"></i>
+              <span>Arquivar serviço</span>
+            </a>
+          </div>
+          {% if servico.status == 'ATIVO' %}
+            <div class="flex items-center gap-4">
+              <button type="button" class="bg-yellow-100 text-yellow-800 px-3 py-2 rounded-full text-sm outline outline-yellow-300">
+                Gerar link para avaliação
+              </button>
+              <a
+                title="Mais detalhes"
+                href="/mais-detalhes?id={{ servico.id }}"
+                class="flex items-center px-3 py-2 bg-gray-100 rounded-md outline outline-gray-300"
+              >
+                <i class="bi bi-box-arrow-up-right text-sm"></i>
+              </a>
+            </div>
+          {% endif %}
         </div>
       </div>
       {% else %}

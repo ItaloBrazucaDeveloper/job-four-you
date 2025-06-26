@@ -13,6 +13,8 @@ use App\Services\Usuarios\UsuariosService;
 use App\DTOs\Usuario\{ UsuarioCadastroDTO, UsuarioAtualizarDTO };
 use App\Middlewares\{ VerificaSeUsuarioLogado, VerificaSeUsuarioNaoLogado };
 
+use function App\Utils\bp;
+
 #[Controller('/usuarios')]
 class UsuariosController extends WebController {
   public function __construct(private UsuariosService $service) { }

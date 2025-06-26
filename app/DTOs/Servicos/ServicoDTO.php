@@ -17,4 +17,5 @@ class ServicoDTO {
   public readonly string $estado;
   public readonly float $mediaAvaliacoes;
   public ?bool $favoritado;
-} 
+  public readonly string $statusPublicacao;
+}
