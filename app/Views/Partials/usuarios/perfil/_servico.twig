@@ -1,7 +1,7 @@
-{% import "estrelas.twig" as estrelas %}
+{% import "Macros/estrelas.twig" as estrelas %}
 
-<div id="servico" class="p-6 md:p-8 hidden">
-  {% if servico %}
+<div id="servico" class="p-6 md:p-8">
+  {% if servicos is defined and servicos|length > 0 %}
     <div class="space-y-6">
       <!-- Resumo do Serviço -->
       <div class="bg-white border border-gray-200 rounded-lg p-6 shadow-sm">
@@ -91,9 +91,12 @@
     <div class="text-center py-8">
       <i class="fas fa-briefcase text-4xl text-gray-300 mb-4"></i>
       <p class="text-gray-500 mb-4">Você ainda não cadastrou nenhum serviço.</p>
-      <a href="/servicos/cadastrar" 
-         class="inline-block px-6 py-2 bg-primary-500 hover:bg-primary-600 text-white rounded-md">
-        <i class="fas fa-plus mr-2"></i> Cadastrar Serviço
+      <a
+        href="/postar-servico"
+        class="inline-block px-6 py-2 bg-yellow-500 hover:bg-yellow-600 text-white rounded-md"
+      >
+        <i class="fas fa-plus mr-2"></i>
+        <span>Cadastrar Serviço</span>
       </a>
     </div>
   {% endif %}

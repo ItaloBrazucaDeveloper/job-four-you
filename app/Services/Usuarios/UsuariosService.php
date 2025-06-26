@@ -41,7 +41,7 @@ class UsuariosService {
     return $this->usuarioRepository->obterServicosFavoritos($id) ?? [];
   }
 
-  public function obterServicosPostados(int $id): ?PublicacaoServico {
+  public function obterServicosPostados(int $id): array {
     return $this->usuarioRepository->obterServicosPostados($id);
   }
 

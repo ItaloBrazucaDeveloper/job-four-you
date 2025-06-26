@@ -84,10 +84,9 @@ class UsuariosRepository extends Repository {
     }
   }
 
-  public function obterServicosPostados(int $id): ?PublicacaoServico {
-    return $this->database()->find(PublicacaoServico::class, [
-      'usuario' => $id
-    ]);
+  public function obterServicosPostados(int $id): array {
+    return $this->database()->getRepository(PublicacaoServico::class)
+        ->findBy(['usuario' => $id]);
   }
 
   public function tornarClienteEmPrestador(int $id): bool {

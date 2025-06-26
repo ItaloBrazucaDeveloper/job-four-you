@@ -1,7 +1,6 @@
 <?php
 namespace App\Controllers;
 
-use App\DTOs\Usuario\UsuarioAtualizarDTO;
 use KissPhp\Enums\FlashMessageType;
 use KissPhp\Protocols\Http\Request;
 use KissPhp\Abstractions\WebController;
@@ -10,8 +9,8 @@ use KissPhp\Attributes\Http\Request\Body;
 use KissPhp\Attributes\Http\Methods\{ Get, Post };
 
 use App\Utils\SessionKeys;
-use App\DTOs\Usuario\UsuarioCadastroDTO;
 use App\Services\Usuarios\UsuariosService;
+use App\DTOs\Usuario\{ UsuarioCadastroDTO, UsuarioAtualizarDTO };
 use App\Middlewares\{ VerificaSeUsuarioLogado, VerificaSeUsuarioNaoLogado };
 
 #[Controller('/usuarios')]
