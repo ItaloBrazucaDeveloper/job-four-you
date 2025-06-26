@@ -11,7 +11,8 @@
         name: 'nome',
         type: 'text',
         icon: 'bi bi-person',
-        defaultValue: usuario.nome|split(' ')|first
+        defaultValue: usuario.nome|split(' ')|first,
+        required: false
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -20,7 +21,8 @@
         name: 'sobrenome',
         type: 'text',
         icon: 'bi bi-person',
-        defaultValue: usuario.nome|split(' ')|last
+        defaultValue: usuario.nome|split(' ')|last,
+        required: false
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -31,7 +33,8 @@
         icon: 'bi bi-card-text',
         defaultValue: usuario.cpf,
         disable: true,
-        variant: 'disabled'
+        variant: 'disabled',
+        required: false
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -40,7 +43,8 @@
         name: 'data_nascimento',
         type: 'date',
         icon: 'bi bi-calendar',
-        defaultValue: usuario.dataNascimento
+        defaultValue: usuario.dataNascimento,
+        required: false
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -49,7 +53,8 @@
         name: 'email',
         type: 'email',
         icon: 'bi bi-envelope',
-        defaultValue: usuario.email
+        defaultValue: usuario.email,
+        required: false
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -58,7 +63,8 @@
         name: 'telefone',
         type: 'tel',
         icon: 'bi bi-telephone',
-        defaultValue: usuario.celular
+        defaultValue: usuario.celular,
+        required: false
       ) }}
     </div>
     <div class="col-span-2">
@@ -68,7 +74,8 @@
         type: 'file',
         accept: 'image/*',
         icon: 'bi bi-camera',
-        defaultValue: usuario.foto
+        defaultValue: usuario.foto,
+        required: false
       ) }}
       {% if erros_prestador is defined and 'foto' in erros_prestador %}
         <div class="mt-1 text-sm text-red-600 bg-red-50 border border-red-200 rounded px-3 py-2">
@@ -89,7 +96,8 @@
         name: 'cep',
         type: 'text',
         icon: 'bi bi-mailbox',
-        defaultValue: usuario.endereco.cep
+        defaultValue: usuario.endereco.cep,
+        required: false
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -99,7 +107,8 @@
         icon: 'bi bi-map',
         placeholder: 'Estado',
         defaultValue: usuario.endereco.estado,
-        variant: 'disabled'
+        variant: 'disabled',
+        required: false
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -109,7 +118,8 @@
         type: 'text',
         icon: 'bi bi-building',
         defaultValue: usuario.endereco.cidade,
-        variant: 'disabled'
+        variant: 'disabled',
+        required: false
       ) }}
     </div>
     <div class="col-span-2 md:col-span-1">
@@ -117,10 +127,10 @@
       {{ input.render(
         name: 'bairro',
         type: 'text',
-        required: true,
         icon: 'bi bi-pin-map',
         defaultValue: usuario.endereco.bairro,
-        variant: 'disabled'
+        variant: 'disabled',
+        required: false
       ) }}
     </div>
     <div class="col-span-2">
@@ -128,10 +138,10 @@
       {{ input.render(
         name: 'rua',
         type: 'text',
-        required: true,
         icon: 'bi bi-signpost',
         defaultValue: usuario.endereco.rua,
-        variant: 'disabled'
+        variant: 'disabled',
+        required: false
       ) }}
     </div>
     {% if erros_prestador is defined and 'endereco' in erros_prestador %}
@@ -155,7 +165,8 @@
           name: 'contato_email',
           type: 'email',
           icon: 'bi bi-envelope',
-          defaultValue: usuario.contato_email
+          defaultValue: usuario.contato_email,
+          required: false
         ) }}
       </div>
       <div class="col-span-2 md:col-span-1">
@@ -164,7 +175,8 @@
           name: 'contato_celular',
           type: 'tel',
           icon: 'bi bi-telephone',
-          defaultValue: usuario.contato_celular
+          defaultValue: usuario.contato_celular,
+          required: false
         ) }}
       </div>
       <div class="col-span-2 md:col-span-1">
@@ -173,7 +185,8 @@
           name: 'contato_facebook',
           type: 'text',
           icon: 'bi bi-facebook',
-          defaultValue: usuario.contato_facebook
+          defaultValue: usuario.contato_facebook,
+          required: false
         ) }}
       </div>
       <div class="col-span-2 md:col-span-1">
@@ -182,7 +195,8 @@
           name: 'contato_instagram',
           type: 'text',
           icon: 'bi bi-instagram',
-          defaultValue: usuario.contato_instagram
+          defaultValue: usuario.contato_instagram,
+          required: false
         ) }}
       </div>
       <div class="col-span-2 md:col-span-1">
@@ -191,7 +205,8 @@
           name: 'contato_whatsapp',
           type: 'text',
           icon: 'bi bi-whatsapp',
-          defaultValue: usuario.contato_whatsapp
+          defaultValue: usuario.contato_whatsapp,
+          required: false
         ) }}
       </div>
       <div class="col-span-2 md:col-span-1">
@@ -200,7 +215,8 @@
           name: 'contato_outro',
           type: 'text',
           icon: 'bi bi-link-45deg',
-          defaultValue: usuario.contato_outro
+          defaultValue: usuario.contato_outro,
+          required: false
         ) }}
       </div>
     </div>

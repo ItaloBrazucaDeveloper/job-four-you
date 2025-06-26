@@ -36,9 +36,7 @@
 
 				{% if usuario is defined %}
 					<section id="perfil" class="p-6 md:p-8">
-						{% set formAction = usuario.grupo == 'PRESTADOR' ? '/prestadores/atualizar' : '/usuarios/atualizar' %}
-
-						<form action="{{ formAction }}" method="POST" class="space-y-6" enctype="multipart/form-data">
+						<form action="/usuarios/atualizar" method="POST" class="space-y-6" enctype="multipart/form-data">
 							<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 								{% include "Partials/usuarios/perfil/_atualizar-dados.twig" %}
 							</div>

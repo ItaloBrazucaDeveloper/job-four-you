@@ -9,13 +9,14 @@ use KissPhp\Attributes\Http\Methods\{ Delete, Get, Post };
 use KissPhp\Attributes\Http\Request\{ Body, QueryString, RouteParam };
 
 use App\Utils\SessionKeys;
-use App\DTOs\Servicos\{ ServicoCadastroDTO, FiltrosServicoDTO };
 use App\Services\Servicos\ServicosService;
+use App\Services\Usuarios\UsuariosService;
+use App\DTOs\Servicos\{ ServicoCadastroDTO, FiltrosServicoDTO };
 use App\Middlewares\{ VerificaSePertenceGrupoPrestador, VerificaSeUsuarioLogado };
 
 #[Controller('index')]
 class ServicosController extends WebController {
-  public function __construct(private ServicosService $service) { }
+  public function __construct(private ServicosService $service, private UsuariosService $usuariosService) { }
   
   #[Get]
   public function exibirPaginaDeServicos(Request $request) {
@@ -63,10 +64,14 @@ class ServicosController extends WebController {
   }
 
   #[Get('/postar-servico', [VerificaSeUsuarioLogado::class, VerificaSePertenceGrupoPrestador::class])]
-  public function exibirPaginaCadastrarServico() {    
+  public function exibirPaginaCadastrarServico(Request $request) {
     $categorias = $this->service->buscarCategorias();
+    $usuario = $request->session->get(SessionKeys::USUARIO_AUTENTICADO);
+    $usuarioCompleto = $this->usuariosService->obterUsuarioPeloId($usuario->id);
+    $contatos = $usuarioCompleto->informacoesContato ?? [];
     $this->render('Pages/servicos/cadastro.twig', [
       'categorias' => $categorias,
+      'contatos' => $contatos,
     ]);
   }
 

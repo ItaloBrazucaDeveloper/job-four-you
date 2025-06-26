@@ -7,84 +7,136 @@
 {% import "Macros/textarea.twig" as Textarea %}
 
 {% block main %}
-  <div class="mx-auto my-8 max-w-2xl px-4 md:px-8">
-    <div class="bg-white/80 shadow rounded-lg overflow-hidden">
-      <div class="p-8 sm:p-10">
-        <header class="text-center mb-8">
-          <h2 class="text-3xl font-bold text-gray-900">
-            Cadastro de Serviço
-          </h2>
-          <p class="mt-2 text-gray-600">
-            Preencha os dados do serviço que deseja oferecer
-          </p>
-        </header>
+  <div class="mx-auto my-8 bg-white/80 w-3xl shadow rounded-lg  p-8 sm:p-10">
+    <header class="text-center mb-8">
+      <h2 class="text-3xl font-bold text-gray-900">
+        Cadastro de Serviço
+      </h2>
+      <p class="mt-2 text-gray-600">
+        Preencha os dados do serviço que deseja oferecer
+      </p>
+    </header>
 
-        <form method="post" enctype="multipart/form-data" class="space-y-6">
-          <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
-            Dados do Serviço
-          </h4>
+    <form method="post" enctype="multipart/form-data" class="space-y-6">
+      <h4 class="text-lg font-medium text-gray-900 mb-4 flex items-center">
+        Dados do Serviço
+      </h4>
 
-          <input type="hidden" name="usuario" value="{{ session('usuario_autenticado').id }}">
+      <input type="hidden" name="usuario" value="{{ session('usuario_autenticado').id }}">
 
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div class="col-span-2 md:col-span-1">
-              {{ Label.render(name: 'categoria', text: 'Categoria') }}
-              {{ Select.render(
-                name: 'categoria',
-                options: categorias,
-                placeholder: 'Selecione',
-                required: true,
-                icon: 'bi bi-grid'
-              ) }}
-            </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="col-span-2 md:col-span-1">
+          {{ Label.render(name: 'categoria', text: 'Categoria') }}
+          {{ Select.render(
+            name: 'categoria',
+            options: categorias,
+            placeholder: 'Selecione',
+            required: true,
+            icon: 'bi bi-grid'
+          ) }}
+        </div>
 
-            <div class="col-span-2 md:col-span-1">
-              {{ Label.render(for: 'preco', text: 'Preço (R$)') }}
-              {{ Input.render(
-                name: 'preco',
-                type: 'number',
-                placeholder: 'Ex: 99.90',
-                required: true,
-                icon: 'bi bi-currency-dollar'
-              ) }}
-            </div>
+        <div class="col-span-2 md:col-span-1">
+          {{ Label.render(for: 'preco', text: 'Preço (R$)') }}
+          {{ Input.render(
+            name: 'preco',
+            type: 'number',
+            placeholder: 'Ex: 99.90',
+            required: true,
+            icon: 'bi bi-currency-dollar'
+          ) }}
+        </div>
 
-            <div class="col-span-2">
-              {{ Label.render(for: 'titulo', text: 'Título do Serviço') }}
-              {{ Input.render(
-                name: 'titulo',
-                type: 'text',
-                placeholder: 'Ex: Encanador Residencial',
-                required: true,
-                icon: 'bi bi-card-heading'
-              ) }}
-            </div>
+        <div class="col-span-2">
+          {{ Label.render(for: 'titulo', text: 'Título do Serviço') }}
+          {{ Input.render(
+            name: 'titulo',
+            type: 'text',
+            placeholder: 'Ex: Encanador Residencial',
+            required: true,
+            icon: 'bi bi-card-heading'
+          ) }}
+        </div>
 
-            <div class="col-span-2">
-              {{ Label.render(for: 'foto', text: 'Foto do Serviço (Opcional)') }}
-              {{ Input.render(
-                name: 'foto',
-                type: 'file',
-                required: false,
-                icon: 'bi bi-image'
-              ) }}
-            </div>
-
-            <div class="col-span-2">
-              {{ Label.render(name: 'descricao', text: 'Descrição') }}
-              {{ Textarea.render(
-                name: 'descricao',
-                text: '',
-                placeholder: 'Descreva detalhadamente seu serviço...',
-                required: true,
-                icon: 'bi bi-text-paragraph'
-              ) }}
-            </div>
-          </div>
-
-          {{ Button.render(type: 'submit', text: 'Cadastrar Serviço') }}
-        </form>
+        <div class="col-span-2">
+          {{ Label.render(name: 'descricao', text: 'Descrição') }}
+          {{ Textarea.render(
+            name: 'descricao',
+            text: '',
+            placeholder: 'Descreva detalhadamente seu serviço...',
+            required: true,
+            icon: 'bi bi-text-paragraph'
+          ) }}
+        </div>
       </div>
-    </div>
+
+      <fieldset class="col-span-2 mb-4">
+        <legend class="font-semibold text-lg mb-2">Formas de Contato</legend>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div class="col-span-2 md:col-span-1">
+            {{ Label.render(for: 'contato_email', text: 'Email') }}
+            {{ Input.render(
+              name: 'contato_email',
+              type: 'email',
+              icon: 'bi bi-envelope',
+              placeholder: 'Seu email para contato',
+              required: false
+            ) }}
+          </div>
+          <div class="col-span-2 md:col-span-1">
+            {{ Label.render(for: 'contato_celular', text: 'Celular') }}
+            {{ Input.render(
+              name: 'contato_celular',
+              type: 'tel',
+              icon: 'bi bi-telephone',
+              placeholder: 'Seu celular para contato',
+              required: false
+            ) }}
+          </div>
+          <div class="col-span-2 md:col-span-1">
+            {{ Label.render(for: 'contato_facebook', text: 'Facebook') }}
+            {{ Input.render(
+              name: 'contato_facebook',
+              type: 'text',
+              icon: 'bi bi-facebook',
+              placeholder: 'Seu Facebook para contato',
+              required: false
+            ) }}
+          </div>
+          <div class="col-span-2 md:col-span-1">
+            {{ Label.render(for: 'contato_instagram', text: 'Instagram') }}
+            {{ Input.render(
+              name: 'contato_instagram',
+              type: 'text',
+              icon: 'bi bi-instagram',
+              placeholder: 'Seu Instagram para contato',
+              required: false
+            ) }}
+          </div>
+          <div class="col-span-2 md:col-span-1">
+            {{ Label.render(for: 'contato_whatsapp', text: 'WhatsApp') }}
+            {{ Input.render(
+              name: 'contato_whatsapp',
+              type: 'text',
+              icon: 'bi bi-whatsapp',
+              placeholder: 'Seu WhatsApp para contato',
+              required: false
+            ) }}
+          </div>
+          <div class="col-span-2 md:col-span-1">
+            {{ Label.render(for: 'contato_outro', text: 'Outro contato') }}
+            {{ Input.render(
+              name: 'contato_outro',
+              type: 'text',
+              icon: 'bi bi-link-45deg',
+              placeholder: 'Outro meio de contato',
+              required: false
+            ) }}
+          </div>
+        </div>
+      </fieldset>
+
+      {{ Button.render(type: 'submit', text: 'Cadastrar Serviço', class: 'mt-4') }}
+    </form>
   </div>
 {% endblock %}
