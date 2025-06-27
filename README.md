@@ -1,7 +1,7 @@
 <div align="center">
   <h1> - Job4You - </h1>
 
-  ![Foto da página inicial](preview.png)
+  ![Foto da página inicial](preview.jpeg)
 
   [![PHP Version](https://img.shields.io/badge/PHP-%38.4-blue.svg?style=for-the-badge&color=purple)](https://www.php.net/)
   [![TailwindCSS Version](https://img.shields.io/badge/TailwindCSS-%5E4.0-38BDF8.svg?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -51,9 +51,20 @@ Siga o passo a passo de como instalar o projeto na sua máquina.
 
 4. **Acesse o projeto pelo navegador no link: http://localhost:3000/** (substitua o número 3000 pelo número de porta que você escolheu)
 
+## ⚒️ Ferramentas utilizadas
+- 🐘 [PHP](https://www.php.net/) (Linguagem de programação)
+- 🐬 [MySQL](https://www.mysql.com/) (Banco de dados)
+- 🐳 [Docker](https://www.docker.com/) (Ferramenta de containerização)
+- ⚙️ [Docker Compose](https://docs.docker.com/compose/) (Ferramenta de gerenciamento de containers)
+- 😘 [Kiss-Php](https://github.com/ItaloBrazucaDeveloper/kiss-php) (Framework PHP)
+- 🌬️ [TailwindCSS](https://tailwindcss.com/) (Framework CSS)
+- ✉️ [Resend](https://resend.com/home) (API de email)
+- 🔐 [JWT](https://github.com/nowakowskir/php-jwt) (Autenticação)
+- 🌱 [Dotenv](https://github.com/vlucas/phpdotenv) (Gerenciamento de variáveis)
+
 ## 🧠 Mentes por trás do projeto
-- [☕ Yan](https://github.com/YanGabrielton)
-- [🎨 Allana](https://github.com/leitielly)
-- [✍️ Aline](https://github.com/alineop120)
-- [🏅 Giovanna](https://github.com/giihzinha0L70)
-- [🎲 Ítalo](https://github.com/ItaloBrazucaDeveloper)
+- [☕ Yan](https://github.com/YanGabrielton) (Desenvolvedor back-end)
+- [🎨 Allana](https://github.com/leitielly) (Desenvolvedora front-end)
+- [✍️ Aline](https://github.com/alineop120) (Analista de sistemas)
+- [🏅 Giovanna](https://github.com/giihzinha0L70) (Analista de sistemas)
+- [🎲 Ítalo](https://github.com/ItaloBrazucaDeveloper) (Desenvolvedor full-stack | DBA)

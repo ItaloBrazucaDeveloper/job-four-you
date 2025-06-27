@@ -11,7 +11,7 @@
 	
 		<main class="m-3 flex-1">
 			{# Exibe alerta se houver mensagem flash #}
-			{% if flash_message is defined %}
+			{% if flash_message.message is defined and flash_message.message is not empty %}
 				{{ Alert.render(
 					type: flash_message.type|lower|default('info'),
 					message: flash_message.message|default(''),
