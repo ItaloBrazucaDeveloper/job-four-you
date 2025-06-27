@@ -3,7 +3,6 @@
 @import "tailwindcss";
 @import "./limpar-estilos.css";
 
-
 * {
   font-family: "Reddit Sans", sans-serif;
 }

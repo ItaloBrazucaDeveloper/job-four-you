@@ -12,7 +12,7 @@ FROM node:20-alpine as node-build
 
 WORKDIR /build
 COPY package.json ./
-RUN npm install
+RUN npm install --production
 
 # --------> final stage : Monta o projeto com as builds dos estágios anteriores
 FROM php:8.4-alpine as final

@@ -3,11 +3,11 @@
 
   ![Foto da página inicial](preview.png)
 
-  [![PHP Version](https://img.shields.io/badge/PHP-%38.4-blue.svg?style=for-the-badge&color=007BFF)](https://www.php.net/)
-  [![Bootstrap Version](https://img.shields.io/badge/Bootstrap-%35.0-blueviolet.svg?style=for-the-badge&color=6F42C1)](https://getbootstrap.com/)
+  [![PHP Version](https://img.shields.io/badge/PHP-%38.4-blue.svg?style=for-the-badge&color=purple)](https://www.php.net/)
+  [![TailwindCSS Version](https://img.shields.io/badge/TailwindCSS-%5E4.0-38BDF8.svg?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+  [![Made in Brazil](https://img.shields.io/badge/Made%20in-Brazil-009933.svg?style=for-the-badge&color=28A745)](https://github.com/ItaloBrazucaDeveloper/job-four-you)
   [![MySQL Version](https://img.shields.io/badge/MySQL-%38.4-blue.svg?style=for-the-badge)](https://www.mysql.com/)
-  [![Made in Brazil](https://img.shields.io/badge/Made%20in-Brazil-009933.svg?style=for-the-badge&color=28A745)](https://github.com/YanGabrielton/Etb-Tcc)
-  [![Project Status](https://img.shields.io/badge/Status-Development-yellow.svg?style=for-the-badge&color=ffba00)](https://github.com/YanGabrielton/Etb-Tcc)
+  [![Kiss-Php Version](https://img.shields.io/badge/%20%F0%9F%98%98kiss--php-0.1.0-yellow.svg?style=for-the-badge&logo=kissphp&logoColor=white)](https://github.com/ItaloBrazucaDeveloper/kiss-php)
 </div>
 
 ## 💡 Sobre o projeto
@@ -47,10 +47,9 @@ Siga o passo a passo de como instalar o projeto na sua máquina.
   ```bash
     $ docker compose up --build
   ```
+  > **Observação:** Use a flag `--build`, apenas quando for a primeira vez executando o projeto. A flag `--build` faz a contrução das imagens dos arquivos _Dockerfile_. Uma vez já construídos, omita a flag `--build` e use:`docker compose up`.
 
-4. **Acesse o projeto pelo navegador em: http://localhost:5173/**
-
-> **Observação:** Use a flag `--build`, apenas quando for a primeira vez executando o projeto. A flag `--build` faz a contrução das imagens dos arquivos _Dockerfile_. Uma vez já construídos, omita a flag `--build` e use:`docker compose up`.
+4. **Acesse o projeto pelo navegador no link: http://localhost:3000/** (substitua o número 3000 pelo número de porta que você escolheu)
 
 ## 🧠 Mentes por trás do projeto
 - [☕ Yan](https://github.com/YanGabrielton)
