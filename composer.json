@@ -16,7 +16,9 @@
   "authors": [
     { "name": "Aline" },
     { "name": "Giovanna" },
-    { "name": "Italo" }
+    { "name": "Italo" },
+    { "name": "Yan" },
+    { "name": "Allana" }
   ],
   "repositories": {
     "kiss-php": {
