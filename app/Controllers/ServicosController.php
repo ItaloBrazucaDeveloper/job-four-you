@@ -36,6 +36,7 @@ class ServicosController extends WebController {
     $categorias = $this->service->buscarCategorias();
     $dadosPaginacao = $this->service->buscarServicosComPaginacao($pagina, $usuario?->id, $filtros);
     $filtrosAtivos = $this->service->processarFiltrosAtivos($filtros);
+    $flashMessage = $request->session->getFlashMessage();
 
     $this->render('Pages/servicos/listar-servicos.twig', array_merge($queryStrings, [
       'categorias' => $categorias,
@@ -46,7 +47,8 @@ class ServicosController extends WebController {
       'prestador' => $filtros->prestador,
       'paginaAtual' => $pagina,
       'totalPaginas' => $dadosPaginacao['totalPaginas'],
-      'filtros_ativos' => $filtrosAtivos
+      'filtros_ativos' => $filtrosAtivos,
+      'flash_message' => $flashMessage
     ]));
   }
 

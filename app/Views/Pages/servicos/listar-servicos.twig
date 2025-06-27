@@ -1,6 +1,7 @@
 {% extends "Layouts/main.layout.twig" %}
 
 {% import "Macros/paginacao.twig" as Paginacao %}
+{% import "Macros/alert.twig" as Alert %}
 
 {% block title %}Serviços | Job4You{% endblock %}
 
@@ -9,6 +10,15 @@
 		{% include "Partials/servicos/_filtros.twig" %}
 	
 		<main class="m-3 flex-1">
+			{# Exibe alerta se houver mensagem flash #}
+			{% if flash_message is defined %}
+				{{ Alert.render(
+					type: flash_message.type|lower|default('info'),
+					message: flash_message.message|default(''),
+					class: 'mb-4 absolute z-10 top-0 right-0 m-2'
+				) }}
+			{% endif %}
+
 			{% include "Partials/servicos/_busca.twig" %}
 
 			{% if filtros_ativos|length > 0 %}
